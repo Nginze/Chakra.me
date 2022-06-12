@@ -1,0 +1,17 @@
+#other
+{
+    margin-top: 6rem;
+}
+#other .p-btn, #other .s-btn    
+{
+    margin-top: 1.25rem;
+}
+.follow-btn
+{
+  font-size: 1.3rem;
+  font-weight: 350;
+  color: #2e69ff;  
+  align-self: center;
+  margin-left: 2rem;
+  cursor: pointer;
+}

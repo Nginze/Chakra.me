@@ -1,0 +1,91 @@
+.sidebar
+{
+    margin-left: 2.3rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    position: fixed;
+    top: 6rem;
+    left: 3rem;
+}
+
+.profile-section-img
+{
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    margin-right: 1rem;
+    
+}
+
+.profile-section
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 21vw;
+}
+
+.profile-elements
+{
+    display: flex;
+    align-items: center;
+    
+}
+
+.settings
+{
+    border: none;
+    background: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.suggested-section
+{
+    margin-top: 1rem;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.suggested-section p 
+{
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.271);
+    margin-bottom: 1rem;
+}
+
+.suggested-section button
+{
+    padding: 0.5rem 0.5rem;
+    border: none;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+.space-profile-container
+{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   width: 21vw;
+}
+.space-img
+{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-right: 1rem;
+}
+
+.join
+{
+    border: none;
+    background: none;
+    color: rgba(98, 170, 251, 0.848);
+    
+}
+
