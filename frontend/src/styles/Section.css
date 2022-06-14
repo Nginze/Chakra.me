@@ -1,0 +1,43 @@
+#section
+{
+
+}
+
+.s_header
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.7rem;
+    color: #bbbcbc;
+    margin-bottom: 1rem;
+}
+
+.s_header button{
+    border: none;
+    background-color: none;
+    color: #90a9ee;
+}
+
+.s_profile
+{
+    display: flex;
+    align-items:center;
+    margin-bottom: 0.7rem;
+    font-size: 0.9rem;
+}
+
+.s_profile div
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
+}
+
+.s_profile div span{
+    font-size: 0.9rem;
+}

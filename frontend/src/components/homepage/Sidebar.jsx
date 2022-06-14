@@ -36,39 +36,39 @@ const Sidebar = () => {
                       <rect x="166" y="23" rx="3" ry="3" width="173" height="11" />
                     </ContentLoader>}
         <div className='suggested-section'>
-          <p>Suggestions for you</p>
-          <button onClick={() => setCOpen(true)}><span class="iconify" data-icon="ic:baseline-plus"> </span>Create Space </button>
+          <p>Top Spaces</p>
+          <button style={{backgroundColor:'#2e69ff', color: 'white', borderRadius: '4px', fontWeight: 'bold'}} onClick={() => setCOpen(true)}><span class="iconify" data-icon="ic:baseline-plus"> </span>Create Space </button>
           <div className='space-profile-container'>
             <div className='profile-elements'>
-              <img className='space-img' src='https://img.icons8.com/bubbles/100/000000/broken-computer.png'/>
-              <span className='space-name'>Computer Science</span>
+              <img className='space-img' src='https://avatarfiles.alphacoders.com/313/313232.jpg'/>
+              <span style={{marginBottom: 0, fontSize: '0.9rem', fontWeight: 600}} className='space-name'>Computer Science</span>
             </div>
            
-            <button className='join'>Join</button>
+           
           </div>
           <div className='space-profile-container'>
             <div className='profile-elements'>
-              <img className='space-img' src='https://img.icons8.com/bubbles/100/000000/broken-computer.png'/>
-              <span className='space-name'>Computer Science</span>
+              <img className='space-img' src='https://cdn.dribbble.com/users/1551609/screenshots/6681276/snakedev-dribbble_4x.png'/>
+              <span style={{marginBottom: 0, fontSize: '0.9rem', fontWeight: 600}} className='space-name'>Web Development</span>
             </div>
            
-            <button className='join'>Join</button>
+           
           </div>
           <div className='space-profile-container'>
             <div className='profile-elements'>
-              <img className='space-img' src='https://img.icons8.com/bubbles/100/000000/broken-computer.png'/>
-              <span className='space-name'>Computer Science</span>
+              <img className='space-img' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3ywPmaC9PBWrPfaOzZuL6baNRCOQfOQJk7w&usqp=CAU'/>
+              <span style={{marginBottom: 0, fontSize: '0.9rem', fontWeight: 600}} className='space-name'>Gaming</span>
             </div>
            
-            <button className='join'>Join</button>
+           
           </div>
           <div className='space-profile-container'>
             <div className='profile-elements'>
-              <img className='space-img' src='https://img.icons8.com/bubbles/100/000000/broken-computer.png'/>
-              <span className='space-name'>Computer Science</span>
+              <img className='space-img' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6gTnjSSaadPQ8-Nk6lg0-mgmkJsNf_N2CkQ&usqp=CAU'/>
+              <span style={{marginBottom: 0, fontSize: '0.9rem', fontWeight: 600}} className='space-name'>React Js</span>
             </div>
            
-            <button className='join'>Join</button>
+           
           </div>
         </div>
         <Pcreate show={cOpen} toggle = {setCOpen} post ={false}/>

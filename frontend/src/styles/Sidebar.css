@@ -1,6 +1,6 @@
 .sidebar
 {
-    margin-left: 2.3rem;
+    margin-left: 8rem;
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
@@ -13,8 +13,8 @@
 .profile-section-img
 {
     border-radius: 50%;
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
     margin-right: 1rem;
     
 }
@@ -24,7 +24,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 21vw;
+    width: 15vw;
 }
 
 .profile-elements
@@ -65,20 +65,23 @@
     align-items: center;
     margin-bottom: 1rem;
     cursor: pointer;
+    
 }
 .space-profile-container
 {
    display: flex;
    align-items: center;
    justify-content: space-between;
+   margin-bottom: 0.7rem;
    width: 21vw;
 }
 .space-img
 {
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    border-radius: 5px;
+    width: 2.3rem;
+    height: 2.3rem;
     margin-right: 1rem;
+    object-fit: cover;
 }
 
 .join
@@ -87,5 +90,11 @@
     background: none;
     color: rgba(98, 170, 251, 0.848);
     
+}
+
+.profile-elements
+{
+    display: flex;
+    align-items: center;
 }
 
