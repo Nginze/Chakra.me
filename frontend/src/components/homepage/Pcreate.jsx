@@ -16,7 +16,7 @@ const PCreate = ({show, toggle , post}) => {
   const [fileInput, setFileInput] = useState('')
   const [previewSource, setPreviewSource] = useState(null)
   const [message, setMessage] = useState('')
-  const {user}  = useContext(userContext)
+  const {data:user}  = useContext(userContext)
   const queryClient = useQueryClient()
   const [loading, setLoading] = useState(false)
 

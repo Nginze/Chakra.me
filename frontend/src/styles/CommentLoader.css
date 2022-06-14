@@ -10,7 +10,9 @@
 
 #reply-loader #comment-loader
 {
-    width: 50%;
+    width: 100%;
+    margin-top: -2rem;
+    
 }
 .lds-ellipsis {
     display: inline-block;

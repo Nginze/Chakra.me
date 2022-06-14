@@ -37,7 +37,7 @@ const Nav = () => {
                        !searchTerm ?  users && users
                           .map((_user) => {
                           return(
-                            <Link onClick={queryClient.refetchQueries(['other'])} style={{textDecoration:'none', color: 'black'}} to = {user._id == _user._id ? '/profile' :`/profiles/${_user.userName}/${_user._id}`}>
+                            <Link onClick={queryClient.refetchQueries(['other'])} style={{textDecoration:'none', color: 'black'}} to = {user?._id == _user._id ? '/profile' :`/profiles/${_user.userName}/${_user._id}`}>
                               <div  className='post-info'>
                                     <img className='post-profile-img' src={_user.imgUrl}/>
                                     <div className='post-profile-info'>

@@ -16,6 +16,7 @@ const createComment = (req, res) => {
         userName: req.body.userName,
         parentId: req.body.parentId,
         postId: req.body.postId,
+        replier: req.body.replier
     })
     newComment.save()
     .then(res.status(200).json({success: true}))

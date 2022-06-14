@@ -4,13 +4,12 @@ import { userContext } from '../../contexts/UserContext'
 import ClipLoader from "react-spinners/ClipLoader";
 
 
-const ReplyForm = ({parent, toggle, disableForm}) => {
+const ReplyForm = ({reply, parent, toggle, disableForm}) => {
 
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
   const {data:user} = useContext(userContext)
   const createReply = () => {
-    
     setLoading(true)
     axios({
       method:'post',
@@ -22,6 +21,7 @@ const ReplyForm = ({parent, toggle, disableForm}) => {
           userImg: user.imgUrl,
           userName: user.userName,
           parentId: parent._id,
+          replier: reply?.userName
   
       }
     }).then((response) => {

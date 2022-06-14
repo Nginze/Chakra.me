@@ -34,6 +34,10 @@ const CommentSchema = new Schema({
         type: String,
         required: true
     },
+    replier: {
+        type: String,
+        
+    },
     timeStamp: {
         type: Date,
         default: Date.now
