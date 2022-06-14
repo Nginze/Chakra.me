@@ -9,6 +9,7 @@ const authRoutes = require('./Routes/authRoutes')
 const postRoutes = require('./Routes/postRoutes')
 const commentRoutes = require('./Routes/commentRoutes')
 const userRoutes = require('./Routes/userRoutes')
+const notificationRoutes = require('./Routes/notificationRoutes')
 require('dotenv').config()
 require('./config/db.js')
 
@@ -36,6 +37,7 @@ app.use("/auth", authRoutes)
 app.use("/comment", commentRoutes)
 app.use("/post", postRoutes)
 app.use("/user", userRoutes)
+app.use("/notification", notificationRoutes)
 
 
 app.get('/', (req, res) => {

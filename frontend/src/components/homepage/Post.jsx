@@ -45,9 +45,22 @@ const Post = ({post}) => {
           postId: post._id,
           userId: user._id
       }
-     })
+     }).then(createNotfication(`liked your post`))
   }
 
+  const createNotfication = (message) => {
+    axios({
+      method:'post',
+      url: `http://localhost:5000/notification`,
+      withCredentials: true,
+      data:{
+          postId: post._id,
+          userId: post.userId,
+          causerId: user._id,
+          message: message
+      }
+     })
+  }
 
   return (
     post && <>
