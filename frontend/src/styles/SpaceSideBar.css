@@ -1,0 +1,33 @@
+#space-side-bar
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#m-section, #d-section
+{
+    width: 20vw;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+    margin-bottom: 1.5rem;
+}
+
+.m-container, .d-container
+{
+    padding: 1rem
+}
+
+.m-header, .d-header
+{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 0.5px solid rgba(64, 64, 64, 0.158);
+}
+
+.m-header button
+{
+    border: none;
+    background: none;
+
+}

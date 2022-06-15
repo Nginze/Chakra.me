@@ -27,6 +27,10 @@ const PostSchema = new Schema({
     upvotes: [
        Schema.Types.ObjectId
     ],
+
+    communityId: {
+        type: Schema.Types.ObjectId
+    },
     timeStamp: {
         type: Date,
         default: Date.now

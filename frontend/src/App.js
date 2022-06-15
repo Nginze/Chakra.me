@@ -11,6 +11,7 @@ import Callback from './pages/Callback';
 import UserProvider from './contexts/UserContext';
 import PostProvider from './contexts/PostContext';
 import UsersProvider from './contexts/UsersContext';
+import Spaces from './pages/Spaces';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path ='/profile' element = {<Profile/>}/>
           <Route path = '/profiles/:username/:id' element = {<Other/>}/>
           <Route path='/auth/callback' element = {<Callback/>} />
+          <Route path = '/spaces' element = {<Spaces/>} />
         </Routes>
         </UsersProvider>
       </UserProvider>
