@@ -8,6 +8,20 @@ const CommentForm = ({user, post, toggle}) => {
 
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
+
+  const createNotfication = (message) => {
+    axios({
+      method:'post',
+      url: `http://localhost:5000/notification`,
+      withCredentials: true,
+      data:{
+          postId: post._id,
+          userId: post.userId,
+          causerId: user._id,
+          message: message
+      }
+     })
+  }
   const createComment = () => {
 
     setLoading(true)
@@ -26,6 +40,7 @@ const CommentForm = ({user, post, toggle}) => {
     }).then((response) => {
       toggle()
       setLoading(false)
+      createNotfication('commented on your post')
     })
   }
   return (

@@ -10,35 +10,33 @@ const getPosts = (req, res) => {
         })
 }
 
-const createPost = (req, res) => {
+const createPost = async (req, res) => {
 
   
     if(req.body.imgbase64)
     {
-        cloudinary.uploader.upload(req.body.imgbase64)
-        .then((result) => {
-           console.log(result)
-            if(result.width < 520)
-            {
-                result.secure_url = `http://res.cloudinary.com/chakra-me/image/upload/w_1000,h_400,c_pad,b_auto/v${result.version}/${result.public_id}.${result.format}`
-            }
-            else{
-                result.secure_url = `http://res.cloudinary.com/chakra-me/image/upload/w_520,c_fill/v${result.version}/${result.public_id}.${result.format}`
-            }
-            const newPost = new Post({
-                message: req.body.message, 
-                userId: req.body.userId,
-                userImg: req.body.userImg,
-                imgUrl: result.secure_url,
-                userName: req.body.userName
+        
+        const result = await cloudinary.uploader.upload(req.body.imgbase64)
+        
+        if(result.width < 520)
+        {
+            result.secure_url = `http://res.cloudinary.com/chakra-me/image/upload/w_1000,h_400,c_pad,b_auto/v${result.version}/${result.public_id}.${result.format}`
+        }
+        else{
+            result.secure_url = `http://res.cloudinary.com/chakra-me/image/upload/w_520,c_fill/v${result.version}/${result.public_id}.${result.format}`
+        }
+        const newPost = new Post({
+            message: req.body.message, 
+            userId: req.body.userId,
+            userImg: req.body.userImg,
+            imgUrl: result.secure_url,
+            userName: req.body.userName
+        })
+        newPost.save()
+            .then((post) => {
+                User.updateOne({_id: post.userId}, {$addToSet: {posts: post._id}}).then(() => console.log('added post to user'))
             })
-            newPost.save()
-                .then((post) => {
-                    User.updateOne({_id: post.userId}, {$addToSet: {posts: post._id}}).then(() => console.log('added post to user'))
-                })
-                .then(res.status(200).json({sucess: true}))
-
-        } )
+            .then(res.status(200).json({sucess: true}))
     }
     else{
 

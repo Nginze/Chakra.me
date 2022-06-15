@@ -70,6 +70,55 @@ const Sidebar = () => {
            
            
           </div>
+          <div className='space-profile-container'>
+            <div className='profile-elements'>
+              <img className='space-img' src='https://cdn.dribbble.com/users/1551609/screenshots/6681276/snakedev-dribbble_4x.png'/>
+              <span style={{marginBottom: 0, fontSize: '0.9rem', fontWeight: 600}} className='space-name'>Web Development</span>
+            </div>
+           
+           
+          </div>
+          <div className='space-profile-container'>
+            <div className='profile-elements'>
+              <img className='space-img' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3ywPmaC9PBWrPfaOzZuL6baNRCOQfOQJk7w&usqp=CAU'/>
+              <span style={{marginBottom: 0, fontSize: '0.9rem', fontWeight: 600}} className='space-name'>Gaming</span>
+            </div>
+           
+           
+          </div>
+          <div className='space-profile-container'>
+            <div className='profile-elements'>
+              <img className='space-img' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6gTnjSSaadPQ8-Nk6lg0-mgmkJsNf_N2CkQ&usqp=CAU'/>
+              <span style={{marginBottom: 0, fontSize: '0.9rem', fontWeight: 600}} className='space-name'>React Js</span>
+            </div>
+           
+           
+          </div>
+          <div className='space-profile-container'>
+            <div className='profile-elements'>
+              <img className='space-img' src='https://cdn.dribbble.com/users/1551609/screenshots/6681276/snakedev-dribbble_4x.png'/>
+              <span style={{marginBottom: 0, fontSize: '0.9rem', fontWeight: 600}} className='space-name'>Web Development</span>
+            </div>
+           
+           
+          </div>
+          <div className='space-profile-container'>
+            <div className='profile-elements'>
+              <img className='space-img' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3ywPmaC9PBWrPfaOzZuL6baNRCOQfOQJk7w&usqp=CAU'/>
+              <span style={{marginBottom: 0, fontSize: '0.9rem', fontWeight: 600}} className='space-name'>Gaming</span>
+            </div>
+           
+           
+          </div>
+          <div className='space-profile-container'>
+            <div className='profile-elements'>
+              <img className='space-img' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6gTnjSSaadPQ8-Nk6lg0-mgmkJsNf_N2CkQ&usqp=CAU'/>
+              <span style={{marginBottom: 0, fontSize: '0.9rem', fontWeight: 600}} className='space-name'>React Js</span>
+            </div>
+           
+           
+          </div>
+          
         </div>
         <Pcreate show={cOpen} toggle = {setCOpen} post ={false}/>
     </div>
