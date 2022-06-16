@@ -24,7 +24,7 @@ function App() {
           <Route path ='/profile' element = {<Profile/>}/>
           <Route path = '/profiles/:username/:id' element = {<Other/>}/>
           <Route path='/auth/callback' element = {<Callback/>} />
-          <Route path = '/spaces' element = {<Spaces/>} />
+          <Route path = '/spaces/:id' element = {<Spaces/>} />
         </Routes>
         </UsersProvider>
       </UserProvider>

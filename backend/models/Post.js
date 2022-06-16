@@ -29,7 +29,8 @@ const PostSchema = new Schema({
     ],
 
     communityId: {
-        type: Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
+        default: null
     },
     timeStamp: {
         type: Date,

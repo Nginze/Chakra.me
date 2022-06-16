@@ -2,11 +2,13 @@ import React from 'react'
 import '../../styles/Feed.css'
 import Post from './Post'
 import ContentLoader from "react-content-loader"
+import Sorter from './Sorter'
 
-const Feed = ({isLoading, posts}) => {
+const Feed = ({isLoading, posts, refetch, setType, type}) => {
   return (
     <div className='feed-container'>
-        {!isLoading ? posts.map((post) => <Post post = {post}/>)
+        <Sorter refetch = {refetch} setType= {setType} type = {type} />
+        {!isLoading ? posts?.map((post) => <Post post = {post}/>)
         :[1,2,3,4,5].map((n) => 
         <ContentLoader 
         speed={2}

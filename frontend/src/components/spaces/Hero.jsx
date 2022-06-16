@@ -1,21 +1,81 @@
-import React from 'react'
+import axios from 'axios'
+import {React, useContext, useState, useEffect} from 'react'
+import { userContext } from '../../contexts/UserContext'
+import {find as _find} from 'lodash'
 import '../../styles/Hero.css'
+import { useQueryClient } from 'react-query'
 
-const Hero = () => {
+
+const Hero = ({community}) => {
+    const queryClient = useQueryClient()
+    const {data:user} = useContext(userContext)
+    const [joined, setJoined] = useState(community && user && _find(community.members, (member) => {return member._id == user._id}))
+    const [show, setShow] = useState(false)
+
+    const validate = async () => {
+        const res = await axios({
+            method: 'get',
+            url: `http://localhost:5000/community/${community._id}/validate?user=${user._id}`,
+            withCredentials: true,
+        })
+
+        setJoined(res.data.isMember)
+
+
+    }
+    const joinCommunity = async () => {
+        
+        await axios({
+            method:'put',
+            url: `http://localhost:5000/community/${community?._id}/join`,
+            withCredentials: true,
+            data:{
+                userId: user?._id
+            }
+        })
+    }
+
+    const leaveCommunity = async () => {
+        await axios({
+            method:'post',
+            url: `http://localhost:5000/community/${community?._id}/leave`,
+            withCredentials: true,
+            data:{
+                userId: user?._id
+            }
+        }).then(queryClient.refetchQueries("community"))
+
+        
+    }
+
+    useEffect(() => {
+        community && user && validate()
+    }, [community]);
+
+
   return (
-    <div  style={{background: 'linear-gradient(189deg, rgba(255,248,248,1) 0%, rgba(116,116,116,1) 100%)'}} id = 'hero'>
-        <div className='unblured-img' style={{backgroundImage : 'url(https://avatarfiles.alphacoders.com/313/313232.jpg)' , backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
-            <img src='https://avatarfiles.alphacoders.com/313/313232.jpg'/>
+    <div  style={{background: `url(${community?.communityBanner})`, backgroundSize: 'cover'}} id = 'hero'>
+        <div className='unblured-img' style={{backgroundImage : `url(${'https://res.cloudinary.com/chakra-me/image/upload/v1655306195/default_wallpaper_bcuctp.webp'})` , backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
+            <img style={{background: 'white'}} src={community?.communityIcon}/>
         </div>
         <div className='h_container'>
             <div className='h_desc'>
-                <h3 style={{fontSize: '1.8rem'}}>Computer Science</h3>
-                <p>We love technology and memes here</p>
-                <div style={{color: '#b8bdc2',}}><span> 10 Members</span><span  style={{marginRight: '0.4rem', marginLeft: '0.4rem'}}>•</span><span style={{display: 'flex', alignItems: 'center'}}><span style={{marginRight: '0.3rem'}} class="iconify" data-icon="bi:graph-up-arrow" ></span> 9 posts in the last week</span></div>
+                <h3 style={{fontSize: '1.8rem'}}>{community?.communityName}</h3>
+                <p>{community?.communityDesc}</p>
+                <div style={{color: '#b8bdc2',}}><span> {community?.members.length} Members</span><span  style={{marginRight: '0.4rem', marginLeft: '0.4rem'}}>•</span><span style={{display: 'flex', alignItems: 'center'}}><span style={{marginRight: '0.3rem'}} class="iconify" data-icon="bi:graph-up-arrow" ></span> 9 posts in the last week</span></div>
             </div>
             <div className='h_cta'>
-                <button className='h_settings'><span class="iconify" data-icon="cil:options" data-width="30" data-rotate="90deg"></span></button>
-                <button style={{display: 'flex', alignItems: 'center', justifyContent: 'space-around'}} className = 'h_follow'> <span style={{marginRight: '0.4rem'}}  class="iconify" data-icon="tabler:layout-grid-add" data-width="20"></span><span>Follow Space</span></button>
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}} id = 'post-sorter'>
+                     <button onClick={() => setShow(!show)} className='h_settings'><span class="iconify" data-icon="cil:options" data-width="30" data-rotate="90deg"></span></button>
+                     <div style={{display: `${show? 'flex': 'none'}`, width: '140px', alignItems: 'center'}} id = 'leave'className='options' >
+                        <button onClick={leaveCommunity}>Leave Space<i style={{marginLeft: '0.5rem'}} class="fa-solid fa-arrow-right-from-bracket"></i></button>
+                    </div>
+                </div>
+                {!joined && <button onClick={joinCommunity} style={{display: 'flex', alignItems: 'center', justifyContent: 'space-around'}} className = 'h_follow'> <span style={{marginRight: '0.4rem'}}  class="iconify" data-icon="tabler:layout-grid-add" data-width="20"></span><span>Follow Space</span></button>}
+                {joined && <div>
+                                <button style={{display: 'flex', alignItems: 'center', justifyContent: 'space-around'}} className='h_followed'>Subscribed <i style={{marginLeft: '0.4rem' , color: 'white', fontSize: '1.3rem'}} class="fa-solid fa-circle-check"></i>
+                                </button>
+                           </div>}
             </div>
         </div>
     </div>

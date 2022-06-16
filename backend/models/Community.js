@@ -19,10 +19,12 @@ const CommunitySchema = new Schema({
     },
     admins: [{
         type: Schema.Types.ObjectId,
-        required: true
+        required: true,
+        ref: 'Users'
     }],
     members : [{
         type: Schema.Types.ObjectId,
+        ref: 'Users'
     }],
     timeStamp: {
         type: Date,

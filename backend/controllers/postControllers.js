@@ -2,12 +2,25 @@ const Post = require('../models/Post')
 const User = require('../models/User')
 const cloudinary = require('../Utils/cloudinary')
 
-const getPosts = (req, res) => {
+const getPosts = async (req, res) => {
 
-    Post.find().sort({timeStamp: -1})
+  
+    if(req.query.sort == 'recent')
+    {
+        Post.find().sort({timeStamp: -1})
         .then((posts) => {
             res.status(200).json(posts)
         })
+    }
+
+    if(req.query.sort == 'top')
+    {
+        Post.find()
+        .then((posts) => {
+            res.status(200).json(posts.slice(0, 5))
+        })
+    }
+    
 }
 
 const createPost = async (req, res) => {
@@ -15,7 +28,6 @@ const createPost = async (req, res) => {
   
     if(req.body.imgbase64)
     {
-        
         const result = await cloudinary.uploader.upload(req.body.imgbase64)
         
         if(result.width < 520)
@@ -30,7 +42,8 @@ const createPost = async (req, res) => {
             userId: req.body.userId,
             userImg: req.body.userImg,
             imgUrl: result.secure_url,
-            userName: req.body.userName
+            userName: req.body.userName,
+            communityId: req.body.communityId
         })
         newPost.save()
             .then((post) => {
@@ -44,7 +57,8 @@ const createPost = async (req, res) => {
             message: req.body.message, 
             userId: req.body.userId,
             userImg: req.body.userImg,
-            userName: req.body.userName
+            userName: req.body.userName,
+            communityId: req.body.communityId
         })
         newPost.save()
             .then((post) => {

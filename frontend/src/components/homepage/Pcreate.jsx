@@ -8,7 +8,8 @@ import '../../styles/Pcreate.css'
 import { userContext } from '../../contexts/UserContext';
 import { postContext } from '../../contexts/PostContext';
 import ClipLoader from "react-spinners/ClipLoader";
-import { useQueryClient } from 'react-query';
+import { useQueryClient,  useQuery } from 'react-query';
+import { useParams } from 'react-router-dom';
 
 
 const PCreate = ({show, toggle , post}) => {
@@ -17,8 +18,14 @@ const PCreate = ({show, toggle , post}) => {
   const [previewSource, setPreviewSource] = useState(null)
   const [message, setMessage] = useState('')
   const {data:user}  = useContext(userContext)
+  const [spaceName, setSpaceName] = useState(`${user?.userName}'s space`)
+  const [spaceDesc, setSpaceDesc] = useState('')  
   const queryClient = useQueryClient()
   const [loading, setLoading] = useState(false)
+
+  
+
+  
 
   const handleFileInput = (e) => {
 
@@ -38,9 +45,10 @@ const PCreate = ({show, toggle , post}) => {
           userId: user._id,
           userImg: user.imgUrl,
           userName: user.userName,
+          communityId: community?._id,
           imgbase64: previewSource
       }
-    }).then((response) => {setLoading(false); toggle(false); queryClient.refetchQueries(["posts"])})
+    }).then((response) => {setLoading(false); toggle(false); queryClient.invalidateQueries("communityPosts");queryClient.invalidateQueries("posts")})
     
       
 
@@ -55,6 +63,32 @@ const PCreate = ({show, toggle , post}) => {
         setPreviewSource(reader.result)
       }
   }
+
+  const createSpace = async() => {
+
+      await axios({
+        method:'post',
+        url: 'http://localhost:5000/community',
+        withCredentials: true,
+        data:{
+            communityName: spaceName,
+            communityDesc: spaceDesc,
+            userId: user?._id,
+
+        }
+      })
+  }
+
+
+
+  const getCommunity = async () => {
+    const community = await axios({method: 'get',url: `http://localhost:5000/community/62a9ff02240373680cb6ba04`,withCredentials: true})
+    return community.data
+  }
+
+  const {isLoading: c_loading, data: community} = useQuery('community', getCommunity, {
+    enabled: false
+  })
   return (
     show && <>
       <div className='modal-background'></div>
@@ -70,7 +104,11 @@ const PCreate = ({show, toggle , post}) => {
         </div>
         <div className='modal-content'>
                 {postActive ? <div className='post-content'>
-                    {user && <img className='prf' src= {user.imgUrl}/>}
+                    <div style={{display: 'flex', alignItems: 'center'}}>
+                    {user && <img className='prf' src= {user.imgUrl}/>}<span style={{marginLeft: '0.5rem', fontSize: '0.9rem'}}>to <span style={{fontWeight: '700'}}>{window.location.href.includes('spaces')?community?.communityName : 'Main Feed'}</span></span>
+
+                    </div>
+                    
                     <textarea value = {message} onChange={(e) => setMessage(e.target.value)} placeholder='Say something...' className='wrapper-class'/>
                   
                 </div> : <div className='space-content'>
@@ -81,12 +119,12 @@ const PCreate = ({show, toggle , post}) => {
                             <div className='space-name'>
                               <label>Name</label>
                               <span>This can be changed in Space settings</span>
-                              <input/>
+                              <input value={spaceName} onChange = {(e) => {setSpaceName(e.target.value)}}/>
                             </div>
                             <div className='space-description'>
                               <label>Brief description</label>
                               <span>Include a few keywords to show people what to expect if they join</span>
-                              <input/>
+                              <input value={spaceDesc} onChange = {(e) => {setSpaceDesc(e.target.value)}}/>
                             </div>
                             
                         
@@ -107,7 +145,7 @@ const PCreate = ({show, toggle , post}) => {
                                         </div>
                                        </> : <div className='modal-cta'>
                                                 <button className='cancel-btn'>Cancel</button>
-                                                <button className='post-btn'>Create</button>
+                                                <button onClick={createSpace} className='post-btn'>Create</button>
                                              </div>}
         </div>
         

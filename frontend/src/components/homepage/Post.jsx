@@ -10,11 +10,11 @@ import CommentLoader from '../comment-section/CommentLoader';
 
 
 const Post = ({post}) => {
-  const [likes, setLikes] = useState(post.upvotes.length);
+  const [likes, setLikes] = useState(post?.upvotes?.length);
   const [showComments , setShowComments] = useState(false)
   const [loading, setLoading] = useState(false)
   const {data:user} = useContext(userContext)
-  const [liked, setLiked] = useState( user ? post.upvotes.includes(user._id): false);
+  const [liked, setLiked] = useState( user ? post?.upvotes?.includes(user._id): false);
   const [comments, setComments] = useState(null)
 
   const getComments = () => {

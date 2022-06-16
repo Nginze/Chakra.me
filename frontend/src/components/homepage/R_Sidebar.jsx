@@ -15,7 +15,6 @@ const R_Sidebar = () => {
 
   const getSuggestions = async () => {
     const suggestions = await axios({method: 'get',url: `http://localhost:5000/suggestion`,withCredentials: true})  
-    console.log(suggestions)
     return suggestions.data
   }
 

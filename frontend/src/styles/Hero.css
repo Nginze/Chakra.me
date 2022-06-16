@@ -1,13 +1,26 @@
 #hero
 {
-    height: 55vh;
+    height: 65vh;
     color: white;
+    position: relative
+    
    
     
 }   
 
+#hero::before
+{
+    background-color: red;
+    height: 64vh;
+    width: 100vw;
+    left: 0;
+    position: absolute;
+    z-index: 100;
+}
+
 .unblured-img
 {
+    backdrop-filter: blur(8px);
     width: 70vw;
     height: 60%;
     margin: auto;
@@ -21,7 +34,7 @@
     width: 120px;
     height: 120px;
     position: absolute;
-    top: 160px;
+    top: 180px;
     left: 15px;
     border-radius: 35px;
 }
@@ -58,6 +71,18 @@
     color: white;
     font-weight: 700;
     background-color: #2e69ff;
+    cursor: pointer;
+}
+
+.h_followed
+{
+    cursor: pointer;
+    padding: 1rem 2rem;
+    border: 2px solid #ffffff;
+    border-radius: 25px;
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    background-color: rgba(255, 255, 255, 0.248);
 }
 
 .h_settings
@@ -66,4 +91,16 @@
     background: none;
     border: none;
     color: white;
+    
 }
+
+#leave
+{
+    right: 10px;
+    margin-top: 0.8rem; 
+}
+
+#leave button{
+    margin-bottom: 0;
+}
+
