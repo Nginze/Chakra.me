@@ -24,7 +24,7 @@ const Hero = ({community}) => {
 
     }
     const joinCommunity = async () => {
-        
+     
         await axios({
             method:'put',
             url: `http://localhost:5000/community/${community?._id}/join`,
@@ -32,7 +32,8 @@ const Hero = ({community}) => {
             data:{
                 userId: user?._id
             }
-        })
+        }).then(() => {queryClient.invalidateQueries("community");validate()})
+
     }
 
     const leaveCommunity = async () => {
@@ -43,8 +44,8 @@ const Hero = ({community}) => {
             data:{
                 userId: user?._id
             }
-        }).then(queryClient.refetchQueries("community"))
-
+        }).then(() => {queryClient.invalidateQueries("community");validate()})
+        
         
     }
 
@@ -55,8 +56,13 @@ const Hero = ({community}) => {
 
   return (
     <div  style={{background: `url(${community?.communityBanner})`, backgroundSize: 'cover'}} id = 'hero'>
-        <div className='unblured-img' style={{backgroundImage : `url(${'https://res.cloudinary.com/chakra-me/image/upload/v1655306195/default_wallpaper_bcuctp.webp'})` , backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
-            <img style={{background: 'white'}} src={community?.communityIcon}/>
+        <div className='unblured-img ' style={{backgroundImage : `url(${'https://res.cloudinary.com/chakra-me/image/upload/v1655306195/default_wallpaper_bcuctp.webp'})` , backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
+           <div className='container'>
+                 <img style={{background: 'white'}} src={community?.communityIcon}/>
+                <div class="overlay">
+                    <div class="text"><i class="fa-solid fa-pen-to-square"></i></div>
+                </div>
+           </div>
         </div>
         <div className='h_container'>
             <div className='h_desc'>
@@ -67,8 +73,9 @@ const Hero = ({community}) => {
             <div className='h_cta'>
                 <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}} id = 'post-sorter'>
                      <button onClick={() => setShow(!show)} className='h_settings'><span class="iconify" data-icon="cil:options" data-width="30" data-rotate="90deg"></span></button>
-                     <div style={{display: `${show? 'flex': 'none'}`, width: '140px', alignItems: 'center'}} id = 'leave'className='options' >
+                     <div style={{display: `${show? 'flex': 'none'}`, width: '140px', alignItems: 'flex-start'}} id = 'leave'className='options animate__animated animate__zoomIn animate__faster' >
                         <button onClick={leaveCommunity}>Leave Space<i style={{marginLeft: '0.5rem'}} class="fa-solid fa-arrow-right-from-bracket"></i></button>
+                        <button style = {{ marginTop: '0.7rem'}} onClick={leaveCommunity}>Edit Banner<i style={{marginLeft: '0.5rem'}} class="fa-solid fa-pen-to-square"></i></button>
                     </div>
                 </div>
                 {!joined && <button onClick={joinCommunity} style={{display: 'flex', alignItems: 'center', justifyContent: 'space-around'}} className = 'h_follow'> <span style={{marginRight: '0.4rem'}}  class="iconify" data-icon="tabler:layout-grid-add" data-width="20"></span><span>Follow Space</span></button>}

@@ -11,7 +11,7 @@ const Sorter = ({setType, refetch, type}) => {
     <div id='post-sorter' style={{display: 'flex'}}>
        {type == 'top' ? <button onClick={() => setShow(!show)}>Top <i class="fa-solid fa-arrow-trend-up"></i></button>
        : <button onClick={() => setShow(!show)}>Recent <i class="fa-solid fa-arrow-rotate-right"></i></button>}
-       <div style={{display: `${show? 'flex': 'none'}`}} className='options'>
+       <div style={{display: `${show? 'flex': 'none'}`}} className='options animate__animated animate__zoomIn animate__faster'>
             <button onClick={  () => {setType('top'); refetch()}}>Top {type == 'top' && <i class="fa-solid fa-check"></i>}</button>
             <button onClick={ () => { setType('recent');refetch()}}>Recent {type == 'recent' && <i class="fa-solid fa-check"></i>}</button>
        </div>

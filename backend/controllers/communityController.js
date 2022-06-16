@@ -50,16 +50,19 @@ const getCommunityById = async(req, res) => {
 
 
 const joinCommunityById = async (req, res) => {
-
+    
     await Community.updateOne(
         {_id: req.params.id}, 
         {$addToSet: {members: req.body.userId}}
     )
-    
+    res.json(null)
+ 
 }
 
 const removeMember = async (req, res) => {
+    console.log('leaving')
     await Community.updateOne({_id: req.params.id}, { $pull: { members: req.body.userId } })
+    res.json(null)
 }
 
 const validateMember = async (req, res) => {
