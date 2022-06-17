@@ -1,6 +1,6 @@
 const {Router} = require('express')
 const router = Router()
-const {createCommunity, getAllCommunities, getCommunityPosts, getTopCommunities, getCommunityById, joinCommunityById, validateMember, removeMember} = require('../controllers/communityController')
+const {createCommunity, getAllCommunities, getCommunityPosts, getTopCommunities, getCommunityById, joinCommunityById, validateMember, removeMember, updateCommunityById, changeBanner} = require('../controllers/communityController')
 
 router.get('/', getAllCommunities)
 router.get('/post/:id', getCommunityPosts)
@@ -10,6 +10,6 @@ router.get('/:id/validate', validateMember)
 router.post('/', createCommunity)
 router.post('/:id/leave', removeMember)
 router.put('/:id/join', joinCommunityById)
-
-
+router.put('/:id/update', updateCommunityById)
+router.put('/:id/changebanner', changeBanner)
 module.exports = router

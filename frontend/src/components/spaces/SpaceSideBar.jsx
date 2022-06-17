@@ -1,7 +1,11 @@
-import React from 'react'
+import {React, useContext, useState} from 'react'
+import { userContext } from '../../contexts/UserContext'
 import '../../styles/SpaceSideBar.css'
+import AdminEdit from './AdminEdit'
 
-const SpaceSideBar = ({admins, members}) => {
+const SpaceSideBar = ({admins, members, isAdmin, community}) => {
+    const [show, setShow] = useState(false)
+    
   return (
     <div id='space-side-bar'>
         <div id='m-section'>
@@ -39,12 +43,13 @@ const SpaceSideBar = ({admins, members}) => {
         </div>
         <div id = 'd-section'>
             <div className='d-header'>
-                <span style={{fontWeight: '500'}}>Details</span>
+                <span style={{fontWeight: '500'}}>Details {isAdmin && <i onClick={() => setShow(!show)} style = {{marginLeft: '0.4rem', cursor: 'pointer'}}class="fa-solid fa-pen"></i>}</span>
             </div>
-            <div className='d-container'>
-                We love CS and Memes
+            <div style={{textAlign: 'left'}} className='d-container'>
+                    {community?.communityGuidelines}
             </div>
         </div>
+        <AdminEdit community = {community} show={show} toggle = {setShow}/>
     </div>
   )
 }

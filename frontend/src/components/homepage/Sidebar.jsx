@@ -1,15 +1,25 @@
+import axios from 'axios'
 import {React, useState, useContext} from 'react'
 import ContentLoader from 'react-content-loader'
+import { useQuery } from 'react-query'
 import { Link } from 'react-router-dom'
 import { userContext } from '../../contexts/UserContext'
 import '../../styles/Sidebar.css'
 import Pcreate from './Pcreate'
 
 
+
 const Sidebar = () => {
 
   const {data:user} = useContext(userContext)
   const [cOpen, setCOpen] = useState(false)
+  
+  const getTopCommunities  = async () => {
+    const topCommunities = await axios({method: 'get',url: 'http://localhost:5000/community/top',withCredentials: true})
+    return topCommunities.data
+  }
+
+  const {data: t_communities, isLoading} = useQuery('topCommunities', getTopCommunities)
   return (
     <div className='sidebar'>
         {user ? <div className='profile-section'>
@@ -38,87 +48,23 @@ const Sidebar = () => {
         <div className='suggested-section'>
           <p>Top Spaces</p>
           <button style={{backgroundColor:'#2e69ff', color: 'white', borderRadius: '4px', fontWeight: 'bold'}} onClick={() => setCOpen(true)}><span class="iconify" data-icon="ic:baseline-plus"> </span>Create Space </button>
-          <div className='space-profile-container'>
-            <div className='profile-elements'>
-              <img className='space-img' src='https://avatarfiles.alphacoders.com/313/313232.jpg'/>
-              <span style={{marginBottom: 0, fontSize: '0.9rem', fontWeight: 600}} className='space-name'>Computer Science</span>
-            </div>
-           
-           
-          </div>
-          <div className='space-profile-container'>
-            <div className='profile-elements'>
-              <img className='space-img' src='https://cdn.dribbble.com/users/1551609/screenshots/6681276/snakedev-dribbble_4x.png'/>
-              <span style={{marginBottom: 0, fontSize: '0.9rem', fontWeight: 600}} className='space-name'>Web Development</span>
-            </div>
-           
-           
-          </div>
-          <div className='space-profile-container'>
-            <div className='profile-elements'>
-              <img className='space-img' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3ywPmaC9PBWrPfaOzZuL6baNRCOQfOQJk7w&usqp=CAU'/>
-              <span style={{marginBottom: 0, fontSize: '0.9rem', fontWeight: 600}} className='space-name'>Gaming</span>
-            </div>
-           
-           
-          </div>
-          <div className='space-profile-container'>
-            <div className='profile-elements'>
-              <img className='space-img' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6gTnjSSaadPQ8-Nk6lg0-mgmkJsNf_N2CkQ&usqp=CAU'/>
-              <span style={{marginBottom: 0, fontSize: '0.9rem', fontWeight: 600}} className='space-name'>React Js</span>
-            </div>
-           
-           
-          </div>
-          <div className='space-profile-container'>
-            <div className='profile-elements'>
-              <img className='space-img' src='https://cdn.dribbble.com/users/1551609/screenshots/6681276/snakedev-dribbble_4x.png'/>
-              <span style={{marginBottom: 0, fontSize: '0.9rem', fontWeight: 600}} className='space-name'>Web Development</span>
-            </div>
-           
-           
-          </div>
-          <div className='space-profile-container'>
-            <div className='profile-elements'>
-              <img className='space-img' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3ywPmaC9PBWrPfaOzZuL6baNRCOQfOQJk7w&usqp=CAU'/>
-              <span style={{marginBottom: 0, fontSize: '0.9rem', fontWeight: 600}} className='space-name'>Gaming</span>
-            </div>
-           
-           
-          </div>
-          <div className='space-profile-container'>
-            <div className='profile-elements'>
-              <img className='space-img' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6gTnjSSaadPQ8-Nk6lg0-mgmkJsNf_N2CkQ&usqp=CAU'/>
-              <span style={{marginBottom: 0, fontSize: '0.9rem', fontWeight: 600}} className='space-name'>React Js</span>
-            </div>
-           
-           
-          </div>
-          <div className='space-profile-container'>
-            <div className='profile-elements'>
-              <img className='space-img' src='https://cdn.dribbble.com/users/1551609/screenshots/6681276/snakedev-dribbble_4x.png'/>
-              <span style={{marginBottom: 0, fontSize: '0.9rem', fontWeight: 600}} className='space-name'>Web Development</span>
-            </div>
-           
-           
-          </div>
-          <div className='space-profile-container'>
-            <div className='profile-elements'>
-              <img className='space-img' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3ywPmaC9PBWrPfaOzZuL6baNRCOQfOQJk7w&usqp=CAU'/>
-              <span style={{marginBottom: 0, fontSize: '0.9rem', fontWeight: 600}} className='space-name'>Gaming</span>
-            </div>
-           
-           
-          </div>
-          <div className='space-profile-container'>
-            <div className='profile-elements'>
-              <img className='space-img' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6gTnjSSaadPQ8-Nk6lg0-mgmkJsNf_N2CkQ&usqp=CAU'/>
-              <span style={{marginBottom: 0, fontSize: '0.9rem', fontWeight: 600}} className='space-name'>React Js</span>
-            </div>
-           
-           
-          </div>
-          
+          {isLoading && <div class="loadingio-spinner-spinner-2gw7yb8gxej"><div class="ldio-h3evnyucb7">
+            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+            </div></div>}
+          {t_communities?.map((community) => {
+            return (
+
+             <Link style={{textDecoration: 'none', color: 'black'}}  to = {`/spaces/${community._id}`}>
+                   <div className='space-profile-container'>
+                      <div className='profile-elements'>
+                        <img style={{background: 'white'}} className='space-img' src={community.communityIcon}/>
+                        <span style={{marginBottom: 0, fontSize: '0.9rem', fontWeight: 600}} className='space-name'>{community.communityName}</span>
+                      </div>
+                    </div>
+             </Link>
+
+            )
+          })}
         </div>
         <Pcreate show={cOpen} toggle = {setCOpen} post ={false}/>
     </div>

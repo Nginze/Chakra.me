@@ -9,7 +9,7 @@ import { userContext } from '../../contexts/UserContext';
 import { postContext } from '../../contexts/PostContext';
 import ClipLoader from "react-spinners/ClipLoader";
 import { useQueryClient,  useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 const PCreate = ({show, toggle , post}) => {
@@ -22,7 +22,7 @@ const PCreate = ({show, toggle , post}) => {
   const [spaceDesc, setSpaceDesc] = useState('')  
   const queryClient = useQueryClient()
   const [loading, setLoading] = useState(false)
-
+  const navigate = useNavigate()
   
 
   
@@ -66,7 +66,7 @@ const PCreate = ({show, toggle , post}) => {
 
   const createSpace = async() => {
 
-      await axios({
+      const {data} = await axios({
         method:'post',
         url: 'http://localhost:5000/community',
         withCredentials: true,
@@ -77,6 +77,7 @@ const PCreate = ({show, toggle , post}) => {
 
         }
       })
+      navigate(`/spaces/${data._id}`)
   }
 
 
@@ -141,7 +142,7 @@ const PCreate = ({show, toggle , post}) => {
                                         </div>
                                         <div className='img-upload-cta'>
                                           <label for = 'img-up' className='img-upload-btn'><span  class="iconify" data-icon="ph:image-thin"></span> <input type= 'file' value={fileInput} onChange ={handleFileInput} id='img-up'/></label> 
-                                          { previewSource &&<> <img style = {{width :'60px', height: "40px", marginLeft:'1rem'}}src={previewSource}/> <span></span></>}
+                                          { previewSource &&<> <img style = {{width :'60px', height: "40px", marginLeft:'1rem', objectFit:'cover'}}src={previewSource}/> <span></span></>}
                                         </div>
                                        </> : <div className='modal-cta'>
                                                 <button className='cancel-btn'>Cancel</button>

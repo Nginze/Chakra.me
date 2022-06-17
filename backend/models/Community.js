@@ -17,6 +17,12 @@ const CommunitySchema = new Schema({
     communityBanner: {
         type: String,
     },
+    communityBannerBlurred: {
+        type: String
+    },
+    communityGuidelines: {
+        type: String
+    },
     admins: [{
         type: Schema.Types.ObjectId,
         required: true,
