@@ -6,6 +6,8 @@ import moment from 'moment';
 import axios from 'axios'
 import { userContext } from '../../contexts/UserContext';
 import CommentLoader from '../comment-section/CommentLoader';
+import PInfo from './profile/PInfo';
+import Profile_Card from './Profile_Card';
 
 
 
@@ -65,13 +67,14 @@ const Post = ({post}) => {
   return (
     post && <>
     <div className='post-container'>
-        <div className='post-info'>
+        <div style={{cursor: 'pointer'}} className='post-info'>
               <img className='post-profile-img' src={post.userImg}/>
               <div className='post-profile-info'>
                 <span className='profile-author'>{post.userName}</span>
                 <span className='seperator'>·</span>
                 <span className='profile-time'>{moment(post.timeStamp).fromNow()}</span>
               </div>
+             <Profile_Card userId={post.userId}/>
         </div>
         <div className='post-content-text'>{post.message}</div>
         <img className='post-content-img' src={post.imgUrl}/>

@@ -1,6 +1,8 @@
 #post-sorter
 {
     position: relative;
+    z-index: 100000000000000000000000000000000000;
+    --animate-duration: 0.3s;
 }
 #post-sorter button
 {
