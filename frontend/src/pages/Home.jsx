@@ -6,15 +6,16 @@ import Pcreate from '../components/homepage/Pcreate'
 import R_Sidebar from '../components/homepage/R_Sidebar'
 import Sidebar from '../components/homepage/Sidebar'
 import Sorter from '../components/homepage/Sorter'
+import StoryModal from '../components/homepage/StoryModal'
 import { postContext } from '../contexts/PostContext'
 import '../styles/Home.css'
 
 const Home = () => {
   const [type, setType] = useState('recent')
+  const [show, setShow ] = useState(false)
 
   const getPosts = async (type, pageParam) => {
     const posts =  await axios({method: 'get',url: `http://localhost:5000/post/?sort=${type}&page=${pageParam}`,withCredentials: true})
-   
     return posts
   }
 
@@ -36,11 +37,17 @@ const Home = () => {
 
 
   return (
-    <main className='home'>
-        <Sidebar/>
-        <Feed posts = {data?.pages} isLoading = {isLoading} refetch = {refetch} setType = {setType} type = {type} hasNextPage = {hasNextPage} fetchNextPage = {fetchNextPage}/>
-        <R_Sidebar/>
-    </main>
+    <>
+      <StoryModal show={show} toggle = {setShow}/>
+      <main className='home'>
+          <Sidebar/>
+          <Feed toggle = {setShow} posts = {data?.pages} isLoading = {isLoading} refetch = {refetch} setType = {setType} type = {type} hasNextPage = {hasNextPage} fetchNextPage = {fetchNextPage}/>
+          <R_Sidebar/>
+          
+
+
+      </main>
+    </>
   )
 }
 

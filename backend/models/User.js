@@ -26,7 +26,11 @@ var UserSchema = new Schema({
         {type: Schema.Types.ObjectId, ref: 'Users'}
     ],
 
-    posts: [{type: Schema.Types.ObjectId, ref: 'Posts'}]
+    posts: [{type: Schema.Types.ObjectId, ref: 'Posts'}],
+
+    storyInbox: [{type: Schema.Types.ObjectId, ref: 'Stories'}]
+
+
 
 })
   

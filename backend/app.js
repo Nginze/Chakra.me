@@ -12,6 +12,7 @@ const userRoutes = require('./Routes/userRoutes')
 const notificationRoutes = require('./Routes/notificationRoutes')
 const suggestionsRoutes = require('./Routes/suggestionRoutes')
 const communityRoutes = require('./Routes/communityRoutes')
+const storyRoutes = require('./Routes/storyRoutes')
 require('dotenv').config()
 require('./config/db.js')
 
@@ -41,7 +42,7 @@ app.use("/user", userRoutes)
 app.use("/notification", notificationRoutes)
 app.use("/suggestion", suggestionsRoutes)
 app.use("/community", communityRoutes)
-
+app.use("/story", storyRoutes)
 app.get('/', (req, res) => {
 
   res.send(`<p> Welcome to Anonymous</p>` )

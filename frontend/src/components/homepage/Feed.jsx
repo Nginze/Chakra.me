@@ -4,11 +4,13 @@ import Post from './Post'
 import ContentLoader from "react-content-loader"
 import Sorter from './Sorter'
 import InfiniteScroll from "react-infinite-scroller";
+import Story from './Story'
 
 
-const Feed = ({isLoading, posts, refetch, setType, type,hasNextPage, fetchNextPage}) => {
+const Feed = ({isLoading, posts, refetch, setType, type,hasNextPage, fetchNextPage, toggle}) => {
   return (
     <div className='feed-container'>
+        <Story toggle={toggle}/>
         {posts && <Sorter refetch = {refetch} setType= {setType} type = {type} />}
         {!isLoading ? 
         <InfiniteScroll style={{width: '100%'}}  hasMore={hasNextPage} useWindow = {false} loadMore={fetchNextPage} loader = {<div class="loadingio-spinner-spinner-2gw7yb8gxej" ><div class="ldio-h3evnyucb7">
