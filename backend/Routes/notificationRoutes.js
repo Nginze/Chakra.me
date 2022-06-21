@@ -5,5 +5,4 @@ const {getNotificationsById, createNotification}  = require('../controllers/noti
 router.get('/:id', getNotificationsById)
 router.post('/', createNotification)
 
-
 module.exports = router

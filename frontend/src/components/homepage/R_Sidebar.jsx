@@ -30,9 +30,9 @@ const R_Sidebar = () => {
 
  
   return (
-    <div style={{width: '100%', marginLeft: '3rem'}}>
-        <Section title={'Activity'} isActivity = {true} activities = {activity} isLoading= {a_loading}/>
-        <Section title={'Suggested People'} isActivity = {false} suggestions = {suggestions} isLoading = {s_loading}/>
+    <div style={{width: '100%', flex: '1',marginLeft: '3rem'}}>
+        <Section title={'Activity'} type = {'activity'} data = {activity} isLoading= {a_loading}/>
+        <Section title={'Suggested People'} type = {'suggestions'} data = {suggestions} isLoading = {s_loading}/>
     </div>
   )
 }

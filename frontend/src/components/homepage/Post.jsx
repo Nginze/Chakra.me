@@ -69,12 +69,16 @@ const Post = ({post}) => {
     <div className='post-container'>
         <div style={{cursor: 'pointer'}} className='post-info'>
               <img className='post-profile-img' src={post.userImg}/>
-              <div className='post-profile-info'>
-                <span className='profile-author'>{post.userName}</span>
-                <span className='seperator'>·</span>
-                <span className='profile-time'>{moment(post.timeStamp).fromNow()}</span>
+              <div className='post-profile-info-container'>
+                <div className='post-profile-info'>
+                  <span className='profile-author'>{post.userName}</span>
+                  <span className='profile-time'>{moment(post.timeStamp).fromNow().replace(' days', 'd').replace(' minutes', 'm')}</span>
+                </div>
+                <div>
+                   <i class="fa-solid fa-ellipsis"></i>
+                </div>
               </div>
-             <Profile_Card userId={post.userId}/>
+             {/* <Profile_Card userId={post.userId}/> */}
         </div>
         <div className='post-content-text'>{post.message}</div>
         <img className='post-content-img' src={post.imgUrl}/>

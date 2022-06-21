@@ -15,8 +15,6 @@ const communityRoutes = require('./Routes/communityRoutes')
 require('dotenv').config()
 require('./config/db.js')
 
-
-
 app.use(session({
 
     secret: 'secret',
@@ -26,6 +24,7 @@ app.use(session({
     cookie: {maxAge: 180 * 60 * 1000}
   
 }))
+
 app.use(cors({
   origin:'http://localhost:3000',
   credentials: true

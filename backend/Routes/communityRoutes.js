@@ -12,4 +12,5 @@ router.post('/:id/leave', removeMember)
 router.put('/:id/join', joinCommunityById)
 router.put('/:id/update', updateCommunityById)
 router.put('/:id/changebanner', changeBanner)
+
 module.exports = router

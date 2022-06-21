@@ -34,16 +34,19 @@ const getAllCommunities = async(req, res) => {
 
 const getCommunityPosts = async(req, res) => {
   
+    console.log('hitting')
     if(req.query.sort == 'top')
     {
-        const posts = await Post.find({communityId: req.params.id})
-        res.status(200).json(posts)
+        const posts = await Post.find({communityId: req.params.id}).skip(req.query.page * 10).limit(10)
+        console.log(posts)
+        res.status(200).json({posts, cursor: parseInt(req.query.page) + 1})
     }
 
     if(req.query.sort == 'recent')
     {
-        const posts = await Post.find({communityId: req.params.id})
-        res.status(200).json(posts)
+        const posts = await Post.find({communityId: req.params.id}).skip(req.query.page * 10).limit(10)
+        console.log(posts)
+        res.status(200).json({posts, cursor: parseInt(req.query.page) + 1})
     }
   
 }

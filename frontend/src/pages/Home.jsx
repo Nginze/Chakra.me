@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {React, useState, useEffect, useContext} from 'react'
-import { useQuery } from 'react-query'
+import { useQuery, useInfiniteQuery} from 'react-query'
 import Feed from '../components/homepage/Feed'
 import Pcreate from '../components/homepage/Pcreate'
 import R_Sidebar from '../components/homepage/R_Sidebar'
@@ -11,17 +11,33 @@ import '../styles/Home.css'
 
 const Home = () => {
   const [type, setType] = useState('recent')
-  const getPosts = async (type) => {
-    const posts =  await axios({method: 'get',url: `http://localhost:5000/post/?sort=${type}`,withCredentials: true})
+
+  const getPosts = async (type, pageParam) => {
+    const posts =  await axios({method: 'get',url: `http://localhost:5000/post/?sort=${type}&page=${pageParam}`,withCredentials: true})
+   
     return posts
   }
-  const {isLoading, data, refetch} = useQuery(['posts', type], () =>{return getPosts(type)}, {
-      keepPreviousData: true
+
+  const {data,
+        isLoading,
+        isError,
+        hasNextPage,
+        refetch,
+        fetchNextPage
+        } = useInfiniteQuery(['posts', type], ({pageParam = 1}) =>{return getPosts(type, pageParam)}, {
+            keepPreviousData: true,
+            getNextPageParam: (lastPage) => {
+    
+              console.log(lastPage.data.posts.length >= 10)
+              if (lastPage.data.posts.length >= 10) return lastPage?.data.cursor;
+              return undefined;
+            },
   })
+
 
   return (
     <main className='home'>
-        <Feed posts = {data?.data} isLoading = {isLoading} refetch = {refetch} setType = {setType} type = {type}/>
+        <Feed posts = {data?.pages} isLoading = {isLoading} refetch = {refetch} setType = {setType} type = {type} hasNextPage = {hasNextPage} fetchNextPage = {fetchNextPage}/>
         <Sidebar/>
         <R_Sidebar/>
     </main>

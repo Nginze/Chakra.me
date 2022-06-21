@@ -3,12 +3,24 @@ import '../../styles/Feed.css'
 import Post from './Post'
 import ContentLoader from "react-content-loader"
 import Sorter from './Sorter'
+import InfiniteScroll from "react-infinite-scroller";
 
-const Feed = ({isLoading, posts, refetch, setType, type}) => {
+
+const Feed = ({isLoading, posts, refetch, setType, type,hasNextPage, fetchNextPage}) => {
   return (
     <div className='feed-container'>
-        <Sorter refetch = {refetch} setType= {setType} type = {type} />
-        {!isLoading ? posts?.map((post) => <Post post = {post}/>)
+        {posts && <Sorter refetch = {refetch} setType= {setType} type = {type} />}
+        {!isLoading ? 
+        <InfiniteScroll style={{width: '100%'}}  hasMore={hasNextPage} loadMore={fetchNextPage} loader = {<div class="loadingio-spinner-spinner-2gw7yb8gxej"><div class="ldio-h3evnyucb7">
+        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+        </div></div>}>
+            {posts.map((page) =>
+              page.data.posts.map((post) => <Post post = {post}/>)
+            )}
+            {!hasNextPage && <p style={{paddingBottom: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center'}}> <i style={{color: '#b3b4b4', marginRight: '0.5rem'}} class="fa-solid fa-flag"></i> There are no more posts to show right now</p>}
+        </InfiniteScroll>
+
+        
         :[1,2,3,4,5].map((n) => 
         <ContentLoader 
         speed={2}
@@ -16,7 +28,7 @@ const Feed = ({isLoading, posts, refetch, setType, type}) => {
         height={300}
         style = {{
           backgroundColor: 'white',
-          boxShadow:' rgba(0, 0, 0, 0.1) 0px 1px 2px 0px',
+          boxShadogw:' rgba(0, 0, 0, 0.1) 0px 1px 2px 0px',
           marginBottom: "1rem",
           padding: '2rem'
         }}

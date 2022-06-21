@@ -9,11 +9,13 @@
     top: 6rem;
     left: 3rem;
     z-index: 0;
+    width: 250px;
+
 }
 
 .profile-section-img
 {
-    border-radius: 50%;
+    border-radius: 12px;
     width: 50px;
     height: 50px;
     margin-right: 1rem;
@@ -22,17 +24,43 @@
 
 .profile-section
 {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 15vw;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 15px;
+    margin-bottom: 1.5rem;
 }
 
+.profile-section-content
+{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.profile-section-name
+{
+    font-weight: 700;
+}
+
+.profile-section-at
+{
+    font-weight: 250;
+    font-size: 0.85rem;
+}
 .profile-elements
 {
     display: flex;
     align-items: center;
     
+}
+
+.profile-elements img
+{
+    width: 2.5rem;
+    height: 2.5rem;
 }
 
 .settings
@@ -45,10 +73,15 @@
 
 .suggested-section
 {
-    margin-top: 1rem;
     display: flex;
     align-items: flex-start;
     flex-direction: column;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 15px;
+    margin-bottom: 1.5rem;
+    width: 100%;
+ 
 }
 
 .suggested-section p 

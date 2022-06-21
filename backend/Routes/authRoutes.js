@@ -8,7 +8,6 @@ require('../Services/GoogleAuth')
 router.get('/google', passport.authenticate('google', {scope: ['profile']}))
 
 router.get('/google/callback', passport.authenticate('google', {
-
     successRedirect: process.env.CLIENT_URI,
     failureRedirect: '/failure'
 }))

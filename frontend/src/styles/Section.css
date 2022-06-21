@@ -1,6 +1,14 @@
+:root
+{
+  --section-btn: #b3b9c7;
+}
+
 #section
 {
-
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 14px;
+  margin-bottom: 1.5rem;
 }
 
 .s_header
@@ -9,15 +17,31 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.7rem;
-    color: #bbbcbc;
+    font-size: 0.6rem;
+    color: #292929;
     margin-bottom: 1rem;
+}
+.s_container
+{
+  display: flex;
+  flex-direction: column;
+
+}
+.s_container .opt-heading
+{
+  font-size: 0.9rem;
+  margin-bottom: 0.9rem;
+  font-weight: 600;
+  color: #292929;
+  text-align: left;
 }
 
 .s_header button{
     border: none;
-    background-color: none;
-    color: #90a9ee;
+    background-color: transparent;
+    font-weight: 600;
+    color: var(--section-btn);
+    cursor: pointer;
 }
 
 .s_profile
@@ -39,7 +63,20 @@
 }
 
 .s_profile div span{
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+}
+.story-mentions-container 
+{
+  display: flex;
+  flex-direction: column;
+}
+.story-mentions-container span 
+{
+  font-size: 0.9rem;
+  margin-bottom: 0.9rem;
+  font-weight: 600;
+  color: #292929;
+  text-align: left;
 }
 
 

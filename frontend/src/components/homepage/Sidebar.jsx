@@ -25,7 +25,10 @@ const Sidebar = () => {
         {user ? <div className='profile-section'>
           <div className='profile-elements'>
             <img className='profile-section-img' src={user.imgUrl}/>
-            <span className='profile-section-name'>{user.userName}</span>
+            <div className='profile-section-content'>
+                <span className='profile-section-name'>{user.userName}</span>
+                <span className='profile-section-at'>@{user.userName.toLowerCase()}</span>
+            </div>
           </div>
           <Link to = "/profile"><button className='settings'> <span class="iconify" data-icon="mdi:cog-outline"></span> </button></Link>
         </div> :  <ContentLoader 

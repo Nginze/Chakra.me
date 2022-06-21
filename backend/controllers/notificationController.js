@@ -3,7 +3,7 @@ const Notification = require('../models/Notification')
 
 const getNotificationsById = (req, res) => {
  
-    Notification.find({userId: req.params.id}).populate([ 'causerId']).sort({'date': -1}).limit(5)
+    Notification.find({userId: req.params.id}).populate([ 'causerId']).sort({timeStamp: -1}).limit(5)
         .then((notifications) => {
             res.status(200).json(notifications)
         })

@@ -3,21 +3,25 @@ const User = require('../models/User')
 const cloudinary = require('../Utils/cloudinary')
 
 const getPosts = async (req, res) => {
+    
+    console.log(req.query)
 
-  
     if(req.query.sort == 'recent')
     {
-        Post.find().sort({timeStamp: -1})
+
+        Post.find().skip(req.query.page * 10).limit(10).sort({timeStamp: -1})
         .then((posts) => {
-            res.status(200).json(posts)
+           
+            res.status(200).json({posts, cursor: parseInt(req.query.page) + 1})
         })
     }
 
     if(req.query.sort == 'top')
     {
-        Post.find()
+        Post.find().skip(req.query.page * 10).limit(10)
         .then((posts) => {
-            res.status(200).json(posts.slice(0, 5))
+         
+            res.status(200).json({posts:posts.slice(0, 5), cursor: req.query.page + 1})
         })
     }
     
