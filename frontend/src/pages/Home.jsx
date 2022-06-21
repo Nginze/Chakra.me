@@ -37,8 +37,8 @@ const Home = () => {
 
   return (
     <main className='home'>
-        <Feed posts = {data?.pages} isLoading = {isLoading} refetch = {refetch} setType = {setType} type = {type} hasNextPage = {hasNextPage} fetchNextPage = {fetchNextPage}/>
         <Sidebar/>
+        <Feed posts = {data?.pages} isLoading = {isLoading} refetch = {refetch} setType = {setType} type = {type} hasNextPage = {hasNextPage} fetchNextPage = {fetchNextPage}/>
         <R_Sidebar/>
     </main>
   )

@@ -11,7 +11,7 @@ const Feed = ({isLoading, posts, refetch, setType, type,hasNextPage, fetchNextPa
     <div className='feed-container'>
         {posts && <Sorter refetch = {refetch} setType= {setType} type = {type} />}
         {!isLoading ? 
-        <InfiniteScroll style={{width: '100%'}}  hasMore={hasNextPage} loadMore={fetchNextPage} loader = {<div class="loadingio-spinner-spinner-2gw7yb8gxej"><div class="ldio-h3evnyucb7">
+        <InfiniteScroll style={{width: '100%'}}  hasMore={hasNextPage} useWindow = {false} loadMore={fetchNextPage} loader = {<div class="loadingio-spinner-spinner-2gw7yb8gxej" ><div class="ldio-h3evnyucb7">
         <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
         </div></div>}>
             {posts.map((page) =>

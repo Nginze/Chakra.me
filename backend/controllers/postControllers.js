@@ -4,7 +4,6 @@ const cloudinary = require('../Utils/cloudinary')
 
 const getPosts = async (req, res) => {
     
-    console.log(req.query)
 
     if(req.query.sort == 'recent')
     {
