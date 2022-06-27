@@ -1,15 +1,13 @@
 .feed-container
 {
-   
-    min-width: 400px;
-    max-width: 590px;
     margin: auto;   
+    width: 35vw;
     overflow-y: auto;
     height: 100%;
     padding-bottom: 6rem;
- 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
 }
 
-::-webkit-scrollbar {
-    display: none;
-}

@@ -30,7 +30,7 @@ const R_Sidebar = () => {
 
  
   return (
-    <div style={{width: '100%', position:'sticky'}}>
+    <div style={{width: '100%', overflowY: 'scroll'}}>
         <Section title={'Activity'} type = {'activity'} data = {activity} isLoading= {a_loading}/>
         <Section title={'Suggested People'} type = {'suggestions'} data = {suggestions} isLoading = {s_loading}/>
     </div>

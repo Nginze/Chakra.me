@@ -67,23 +67,23 @@ const Post = ({post}) => {
   return (
     post && <>
     <div className='post-container'>
-        <div style={{cursor: 'pointer'}} className='post-info'>
-              <img className='post-profile-img' src={post.userImg}/>
-              <div className='post-profile-info-container'>
-                <div className='post-profile-info'>
-                  <span className='profile-author'>{post.userName}</span>
-                  <span className='profile-time'>{moment(post.timeStamp).fromNow().replace(' days', 'd').replace(' minutes', 'm')}</span>
-                </div>
-                <div>
-                   <i class="fa-solid fa-ellipsis"></i>
-                </div>
-              </div>
-             {/* <Profile_Card userId={post.userId}/> */}
-        </div>
-        <div className='post-content-text'>{post.message}</div>
-        <img className='post-content-img' src={post.imgUrl}/>
-
-        <div className='post-engagement'>
+        <div className='post-container-inner'>
+            <div style={{cursor: 'pointer'}} className='post-info'>
+                  <img className='post-profile-img' src={post.userImg}/>
+                  <div className='post-profile-info-container'>
+                    <div className='post-profile-info'>
+                      <span className='profile-author'>{post.userName}</span>
+                      <span className='profile-time'>{moment(post.timeStamp).fromNow().replace(' days', 'd').replace(' minutes', 'm')}</span>
+                    </div>
+                    <div>
+                      <i class="fa-solid fa-ellipsis"></i>
+                    </div>
+                  </div>
+                {/* <Profile_Card userId={post.userId}/> */}
+            </div>
+            <div className='post-content-text'>{post.message}</div>
+            <img className='post-content-img' src={post.imgUrl}/>
+            <div className='post-engagement'>
           <div className='interactions'>
             <div className='voting'>
                { !liked ? <button onClick={likePost}><span class="iconify liked" data-icon="mdi:arrow-up-bold-outline"></span></button> : <span id = 'like-fill' class="iconify animate__animated animate__jackInTheBox animate__faster" data-icon="mdi:arrow-up-bold"></span>}
@@ -102,6 +102,7 @@ const Post = ({post}) => {
             
             
           </div>
+        </div>
         </div>
         {showComments && comments &&  <CommentSection toggle = {getComments} post = {post} comments = {comments} /> }
         {loading && <CommentLoader/>}

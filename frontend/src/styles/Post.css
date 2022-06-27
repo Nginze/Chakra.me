@@ -11,9 +11,15 @@
     margin-bottom: 0.5rem;
     border-style: solid;
     border-width: 1px;
-    padding: 1rem;
+    padding: 0rem;
     border-color: #dee0e1!important;
     overflow: visible;
+}
+
+.post-container-inner
+{
+    margin: 1rem;
+    width: 94%;
 }
 .post-profile-info-container{
     display: flex;
@@ -154,6 +160,7 @@
     height: 100%;
     margin-bottom: 1rem;
     position: relative;
+    border-radius: 15px;
     
     
 }

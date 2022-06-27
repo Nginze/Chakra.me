@@ -11,7 +11,7 @@ passport.use(new GoogleStrategy({
   },
   (request, accessToken, refreshToken, profile, done) => {
        
-        User.findOne({thirdPartyId: profile.id}).populate('posts')
+        User.findOne({thirdPartyId: profile.id}).populate(['posts', 'storyInbox']).populate({path: 'storyInbox', populate: {path: 'userId'}})
             .then((currentUser) => {
                 if(currentUser){
                     done(null, currentUser)

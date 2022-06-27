@@ -12,8 +12,8 @@ import '../styles/Home.css'
 
 const Home = () => {
   const [type, setType] = useState('recent')
-  const [show, setShow ] = useState(false)
-
+  const [stories, setStories] = useState([])
+  const [showStory, setShowStory ] = useState(false)
   const getPosts = async (type, pageParam) => {
     const posts =  await axios({method: 'get',url: `http://localhost:5000/post/?sort=${type}&page=${pageParam}`,withCredentials: true})
     return posts
@@ -29,19 +29,18 @@ const Home = () => {
             keepPreviousData: true,
             getNextPageParam: (lastPage) => {
     
-              console.log(lastPage.data.posts.length >= 10)
               if (lastPage.data.posts.length >= 10) return lastPage?.data.cursor;
               return undefined;
             },
   })
 
-
+  console.log('stories are', stories)
   return (
     <>
-      <StoryModal show={show} toggle = {setShow}/>
+      <StoryModal show={showStory} stories ={stories} toggle = {setShowStory}/>
       <main className='home'>
           <Sidebar/>
-          <Feed toggle = {setShow} posts = {data?.pages} isLoading = {isLoading} refetch = {refetch} setType = {setType} type = {type} hasNextPage = {hasNextPage} fetchNextPage = {fetchNextPage}/>
+          <Feed toggle={setShowStory} setStories = {setStories}  posts = {data?.pages} isLoading = {isLoading} refetch = {refetch} setType = {setType} type = {type} hasNextPage = {hasNextPage} fetchNextPage = {fetchNextPage}/>
           <R_Sidebar/>
           
 

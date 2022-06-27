@@ -7,23 +7,30 @@ import InfiniteScroll from "react-infinite-scroller";
 import Story from './Story'
 
 
-const Feed = ({isLoading, posts, refetch, setType, type,hasNextPage, fetchNextPage, toggle}) => {
+const Feed = ({isLoading, posts, refetch, setType, type,hasNextPage, fetchNextPage, toggle, setStories}) => {
+  console.log(posts)
   return (
     <div className='feed-container'>
-        <Story toggle={toggle}/>
-        {posts && <Sorter refetch = {refetch} setType= {setType} type = {type} />}
-        {!isLoading ? 
+        {!window.location.pathname.includes('profile') && <Story toggle={toggle} setStories = {setStories} />}
+        {posts && !window.location.pathname.includes('profile') && <Sorter refetch = {refetch} setType= {setType} type = {type} />}
+        {!isLoading && window.location.pathname.includes('profile') && posts?.map((post) =>
+              <Post post = {post}/>
+              )}
+        {!isLoading && fetchNextPage &&
         <InfiniteScroll style={{width: '100%'}}  hasMore={hasNextPage} useWindow = {false} loadMore={fetchNextPage} loader = {<div class="loadingio-spinner-spinner-2gw7yb8gxej" ><div class="ldio-h3evnyucb7">
         <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
         </div></div>}>
-            {posts.map((page) =>
+           
+            {posts?.map((page) =>
               page.data.posts.map((post) => <Post post = {post}/>)
             )}
             {!hasNextPage && <p style={{paddingBottom: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center'}}> <i style={{color: '#b3b4b4', marginRight: '0.5rem'}} class="fa-solid fa-flag"></i> There are no more posts to show right now</p>}
         </InfiniteScroll>
-
+}
         
-        :[1,2,3,4,5].map((n) => 
+        
+   
+        {isLoading && [1,2,3,4,5].map((n) => 
         <ContentLoader 
         speed={2}
         width={520}

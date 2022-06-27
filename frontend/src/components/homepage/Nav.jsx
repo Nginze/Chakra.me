@@ -75,11 +75,11 @@ const Nav = () => {
               <div onClick={() => setCOpen(true)}><i class="fi fi-rs-add"></i></div>
               <div><i class="fi fi-rs-navigation"></i></div>
               {!user ? <div onClick={() => setLOpen(true)}><i class="fi fi-rs-user"></i></div> : <div className='nav-profile'>
-                                                                                                      <img class = 'post-profile-img' src= {user.imgUrl}/>
-                                                                                                      <img onClick={() => setPOpen(!pMenuOpen)} className='drop-btn' src="https://img.icons8.com/external-those-icons-lineal-those-icons/24/000000/external-down-arrows-those-icons-lineal-those-icons-1.png"/>
-                                                                                                      { pMenuOpen && <div className='profile-menu'>
-                                                                                                        <Link to = '/profile'><button onClick={() => setPOpen(false)}>Account</button></Link>
-                                                                                                        <Link to = '/logout' onClick={() => setPOpen(false)}><button className='logout'>Logout</button></Link>
+                                                                                                      <img onClick={() => setPOpen(!pMenuOpen)} class = 'post-profile-img' src= {user.imgUrl}/>
+                                                                                                      {/* <img  className='drop-btn' src="https://img.icons8.com/external-those-icons-lineal-those-icons/24/000000/external-down-arrows-those-icons-lineal-those-icons-1.png"/> */}
+                                                                                                      { pMenuOpen && <div onFo className='profile-menu'>
+                                                                                                        <Link  onClick={() => setPOpen(false)} to = '/profile'>Account</Link>
+                                                                                                        <Link  onClick={() => setPOpen(false)} to = '/logout' >Logout</Link>
                                                                                                       </div>}
                                                                                                  </div>}
           </div>

@@ -8,9 +8,9 @@ const StorySchema = new Schema({
         required: true,
         ref: 'Users'
     },
-    imageUrl: {
+    imageUrls:[ {
         type: String
-    },
+    }],
     timeStamp: {
         type: Date,
         default: Date.now

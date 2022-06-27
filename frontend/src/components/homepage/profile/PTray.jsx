@@ -16,8 +16,6 @@ const PTray = () => {
   return (
     <div id = 'p-tray'>
         <div className='p-tray-head'>
-            
-           
             <button onClick={() => setPostActive(true)} className={!postActive ? 'p-btn' : 'p-btn t-active'}>
               <i class="fi fi-rs-apps"></i><span>Posts</span>
               {postActive && <div className='p-underline'></div>}
@@ -29,7 +27,6 @@ const PTray = () => {
             
         </div>
         <div className='p-tray-content'>
-           
             <Feed isLoading={isLoading} posts = {user?.posts}/>
 
         </div>
