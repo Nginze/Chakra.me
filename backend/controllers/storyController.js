@@ -18,20 +18,6 @@ const createStory = async (req, res) => {
             result3 = await cloudinary.uploader.upload(req.body.imgbase64[2])
        }
        
-
-       console.log(result1)
-       console.log(result2)
-       console.log(result3)
-
-        
-        
-        // if(result.width < 520)
-        // {
-        //     result.secure_url = `http://res.cloudinary.com/chakra-me/image/upload/w_1000,h_400,c_pad,b_auto/v${result.version}/${result.public_id}.${result.format}`
-        // }
-        // else{
-        //     result.secure_url = `http://res.cloudinary.com/chakra-me/image/upload/w_520,c_fill/v${result.version}/${result.public_id}.${result.format}`
-        // }
     const newStory = new Story({
         userId: req.body.userId,
         imageUrls: [result1?.secure_url, result2?.secure_url, result3?.secure_url]

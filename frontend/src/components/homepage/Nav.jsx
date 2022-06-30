@@ -77,9 +77,9 @@ const Nav = () => {
               {!user ? <div onClick={() => setLOpen(true)}><i class="fi fi-rs-user"></i></div> : <div className='nav-profile'>
                                                                                                       <img onClick={() => setPOpen(!pMenuOpen)} class = 'post-profile-img' src= {user.imgUrl}/>
                                                                                                       {/* <img  className='drop-btn' src="https://img.icons8.com/external-those-icons-lineal-those-icons/24/000000/external-down-arrows-those-icons-lineal-those-icons-1.png"/> */}
-                                                                                                      { pMenuOpen && <div onFo className='profile-menu'>
-                                                                                                        <Link  onClick={() => setPOpen(false)} to = '/profile'>Account</Link>
-                                                                                                        <Link  onClick={() => setPOpen(false)} to = '/logout' >Logout</Link>
+                                                                                                      { pMenuOpen && <div onFo className='profile-menu animate__animated animate__zoomIn animate__faster'>
+                                                                                                        <Link  onClick={() => setPOpen(false)} to = '/profile'><img style={{marginRight: '0.3rem'}} src="https://img.icons8.com/material-outlined/18/000000/home--v2.png"/>Account</Link>
+                                                                                                        <Link  onClick={() => setPOpen(false)} to = '/logout' ><img style={{marginRight: '0.3rem'}} src="https://img.icons8.com/material-outlined/18/000000/exit.png"/>Logout</Link>
                                                                                                       </div>}
                                                                                                  </div>}
           </div>
