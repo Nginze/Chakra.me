@@ -22,7 +22,7 @@ const Sidebar = () => {
   const {data: t_communities, isLoading} = useQuery('topCommunities', getTopCommunities)
   return (
     <div className='sidebar'>
-        {user ? <div className='profile-section'>
+        {user ? <div className='profile-section-home'>
           <div className='profile-elements'>
             <img className='profile-section-img' src={user.imgUrl}/>
             <div className='profile-section-content'>

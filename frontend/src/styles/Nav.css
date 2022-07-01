@@ -9,9 +9,11 @@
     font-family: jura;
     cursor: pointer;
     font-size: 1.5rem;
+    display: flex;
+    align-items: center;
 }
 .main-container
-{   z-index: 5;
+{   z-index: 20000;
     position: fixed;
     top: 0;
     width: 100vw;
@@ -143,11 +145,13 @@
 .search-results-container
 {
     background-color: rgb(255, 255, 255);
-    height: 15rem;
+    height: auto;
+    max-height: 15rem;
     position: fixed;
     width: 268px;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
     overflow-y: auto;
+    margin-top: 0.2rem;
 }
 
 .search-results-container .post-info

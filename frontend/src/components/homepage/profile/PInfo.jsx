@@ -1,9 +1,12 @@
 import {React, useState} from 'react'
 import '../../../styles/PInfo.css'
 import EModal from './EModal'
+import FModal from './FModal'
 
 const PInfo = ({user}) => {
   const [EModalOpen, setEModalOpen] = useState(false)
+  const [showFollowers, setFollowers] = useState(false)
+  const [showFollowing, setFollowing] = useState(false)
   return (
     <div id = 'p-info'>
         { user && <div className='p-meta-container'>
@@ -14,8 +17,8 @@ const PInfo = ({user}) => {
                 
                 <div className='p-meta-stats'>
                     <span> {user.posts.length} posts </span>
-                    <span> {user.followers.length} followers </span>
-                    <span> {user.following.length} following </span>
+                    <span onClick={() => setFollowers(true)}> {user.followers.length} followers </span>
+                    <span onClick={() => setFollowing(true)}> {user.following.length} following </span>
                 </div>
                 <p className='p-bio'>TRACY❤️✨
                   God first❤🙏
@@ -26,6 +29,8 @@ const PInfo = ({user}) => {
         </div>}
         <div className='rule'></div>
         <EModal show ={EModalOpen} toggle ={setEModalOpen}/>
+        <FModal show = {showFollowers} data={user} toggle={setFollowers} type= 'followers'/>
+        <FModal show={showFollowing} data={user} toggle= {setFollowing} type='following' />
     </div>
   )
 }

@@ -11,6 +11,8 @@ import '@brainhubeu/react-carousel/lib/style.css';
 const Story = ({toggle, setStories}) => {
     const [show, setShow] = useState(false)
     const {data:user} = useContext(userContext)
+    const [showPrev, setPrev] = useState(false)
+    const [showNext, setNext] = useState(true)
 
     const scrollNext = () => {
         document.getElementById('next').addEventListener('click', () => {
@@ -24,16 +26,22 @@ const Story = ({toggle, setStories}) => {
         });
     }
 
+    const setBtn = () => {
+        setPrev(document.getElementById('str')?.scrollLeft != 0 )
+    }
+
+    console.log(document.getElementById('str')?.scrollLeft == 0 )
+
   return (
 
        
     <>
          
          <main class="main">
-                <span style={{cursor: 'pointer'}} id = 'next' onClick={scrollNext}><i class="fa-solid fa-circle-chevron-right"></i></span>
-                <span style={{cursor: 'pointer'}} id = 'prev' onClick={scrollPrev}><i class="fa-solid fa-circle-chevron-left"></i></span>
-                <section id='str' class="stories">
-                    <div class="stories__item stories__item--active">
+                <span  style={{cursor: 'pointer', display: 'flex'}} id = 'next' onClick={scrollNext}><i class="fa-solid fa-chevron-right"></i></span>
+                <span className={`${ showPrev ? 'b-active':'not-active'}`} style={{cursor: 'pointer'}} id = 'prev' onClick={scrollPrev}><i class="fa-solid fa-chevron-left"></i></span>
+                <section onScroll={setBtn} id='str' class="stories">
+                    <div class="stories__item ">
                     <button>
                         <div class="stories__item-picture">
                         <img src={user?.imgUrl} alt="gail_pena's profile picture"/>
@@ -42,13 +50,14 @@ const Story = ({toggle, setStories}) => {
                         <span class="stories__item-username">Your Story</span>
                     </button>
                     </div>
+                   
                   
 
                 {    
                                 user?.storyInbox.map((story) => {
                                     return (
 
-                                    <div className='stories__item'>
+                                    <div className='stories__item stories__item--active'>
                                         <button  onClick={() => {setStories(story.imageUrls);toggle(true)}}>
                                             <div class="stories__item-picture">
                                                 <img src={story.userId.imgUrl} alt="gail_pena's profile picture"/>

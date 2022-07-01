@@ -15,15 +15,19 @@ const Section = ({title, type, data, isLoading}) => {
             <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
             </div></div>}
 
-            {type == 'activity' && 
+            {/* {type == 'activity' && 
             
                 <div className='story-mentions-container'>
                     <span>Stories About You</span>
                     <A_Profile/>
                 </div>
-            }
+            } */}
 
             {type == 'activity' && <span className='opt-heading'>New</span> }
+
+            {
+                data?.length == 0 && <span  style={{display: 'flex',justifyContent: 'center', alignItems: 'center', fontSize: '0.8rem'}}><i style={{marginRight: '0.5rem'}} className="fa-solid fa-bell"></i>No recent notifications</span>
+            }
 
             {type == 'activity' ? data?.map((activity) => {
 
@@ -34,6 +38,8 @@ const Section = ({title, type, data, isLoading}) => {
                 return  <S_Profile data = {suggestion}/>
 
             }) : null}
+
+
            
         </div>
     </div>

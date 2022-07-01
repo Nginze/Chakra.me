@@ -8,10 +8,41 @@
 }
 .follow-btn
 {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: 350;
-  color: #2e69ff;  
   align-self: center;
   margin-left: 2rem;
+  border-radius: 22px;
+  border: none;
+  text-align: center;
+  width: 7rem;
+  background-color: #2e69ff;
+  color: white;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.unfollow
+{
+  position: absolute;
+  width: 6rem;
+  bottom: -2.2rem;
+  right: -3rem;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: rgb(0 0 0 / 10%) 0px 1px 3px 0px, rgb(0 0 0 / 6%) 0px 1px 2px 0px;
+  padding: 0.5rem;
+  --animate-duration: 0.3s;
+  display: flex;
+  justify-content: center;
+}
+
+.unfollow button
+{
+  color: red;
+  width: 100%;
+  background: none;
+  border: none;
   cursor: pointer;
 }

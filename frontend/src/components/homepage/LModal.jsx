@@ -27,7 +27,7 @@ const LModal = ({show, toggle}) => {
         <span onClick={() => toggle(false)} class="close">&times;</span>
         <div className='hd'>
             <h3 className='line1'>Sign in to</h3>
-            <h3 className='logo'>Chakra.me</h3>
+            <h3 className='logo' style={{display: 'flex', justifyContent: 'center'}}><img src="https://img.icons8.com/color/30/000000/naruto-sign.png"/>Chakra.me</h3>
             <p>Log in to save your progress. We won't post anything anywhere.</p>
         </div>
         <div className='ct'>

@@ -7,6 +7,8 @@ import { userContext } from '../../contexts/UserContext';
 const StoryPreview = ({showBanner, toggle}) => {
     const {data: user} = useContext(userContext)
     const [fileInput, setFileInput] = useState('')
+    const [postActive, setPostActive] = useState(true)
+    const [message, setMessage] = useState('')
     const [previewSourceOne, setPreviewSourceOne] = useState(null)
     const [previewSourceTwo, setPreviewSourceTwo] = useState(null)
     const [previewSourceThree, setPreviewSourceThree] = useState(null)
@@ -73,9 +75,17 @@ const StoryPreview = ({showBanner, toggle}) => {
     showBanner && <>
         <div className='modal-background'></div>
         <div  id='e-modal' className='animate__animated animate__fadeIn animate__faster'>
-            <span onClick={() => toggle(false)} class="close">&times;</span>
-            <div style={{width: '100%', height: '75%', marginLeft: 'auto', padding: '1rem'}} className='profile-section'>
-           
+            <div style={{width: '100%'}} className='modal-head'>
+                <span onClick={() => toggle(false)} class="close">&times;</span>
+                <div class="modal-toggles">
+                    <button onClick={() => setPostActive(false)} id = {!postActive ? 'active' : ''}  className='create-space-btn'>Upload Media</button>
+                    <button onClick={() => setPostActive(true)}  id = {postActive ? 'active' : ''} className='create-post-btn'>Text Story</button>
+                    {!postActive ? <div style={{width: '40%'}} className='underline-space'></div> : <div style={{width: '40%'}} className='underline-post'></div>}
+                    
+                </div>
+            </div>
+            { !postActive ? <div style={{width: '100%', height: '75%', marginLeft: 'auto', padding: '1rem'}} className='profile-section'>
+
                <div style={{width: '100%', height: '80%', display: 'flex', alignItems:'flex-start', flexDirection: 'column', overflowY: 'auto'}}>
                     <span style={{color: 'black', textAlign: 'left', marginBottom: '0.7rem', fontWeight: '600'}}> Preview</span>
                     {!previewSourceOne && <div style={{color: 'black', 
@@ -94,15 +104,29 @@ const StoryPreview = ({showBanner, toggle}) => {
                         </label>
                     </div>}
                     {previewSourceOne && <label style={{color: 'black', display: 'flex', alignItems: 'center'}} for = 'img-up' className='img-upload-btn'><span style={{cursor: 'pointer'}} class="iconify" data-icon="ph:image-thin" data-width="25"></span>   <input multiple type= 'file' value={fileInput} onChange ={handleFileInput}   id='img-up'/></label>  }
-                    {previewSourceOne && <img style={{width: '100%', height: '70%', objectFit: 'cover', marginBottom: '1rem'}} src={previewSourceOne}/>}
-                    {previewSourceTwo && <img style={{width: '100%', height: '70%', objectFit: 'cover', marginBottom: '1rem'}} src={previewSourceTwo}/>}
-                    {previewSourceThree && <img style={{width: '70%', height: '70%', objectFit: 'cover', marginBottom: '1rem'}} src={previewSourceThree}/>}
+                    <div style={{maxHeight: '200px',height: '150px', maxWidth: '100%', display: 'flex', overflowX: 'auto', justifyContent: 'center', alignItems: 'center'}}>
+                            
+                            {previewSourceOne && <img style={{width: '100%', height: '70%', objectFit: 'cover', marginRight: '0.5rem'}} src={previewSourceOne}/>}
+                            {previewSourceTwo && <img style={{width: '100%', height: '70%', objectFit: 'cover', marginRight: '0.5rem'}} src={previewSourceTwo}/>}
+                            {previewSourceThree && <img style={{width: '70%', height: '70%', objectFit: 'cover', marginRight: '0.5rem'}} src={previewSourceThree}/>}
+                    </div>
                </div>
                <div className='modal-cta'>
                     <button onClick={() => toggle(false)} className='cancel-btn'>Cancel</button>
-                    <button onClick={saveUpdate} style = {{width: '5rem'}} className='post-btn'>{!loading ? <span>Save</span>  :  <ClipLoader color={'white'} loading={loading}  size={10} />}</button>
+                    <button onClick={saveUpdate} style = {{width: '7rem'}} className='post-btn'>{!loading ? <span>Add to Story</span>  :  <ClipLoader color={'white'} loading={loading}  size={10} />}</button>
                 </div> 
-            </div>
+            </div>: 
+            <div style={{width: '100%'}} className='post-content'>
+                    <div style={{display: 'flex', alignItems: 'center'}}>
+                        {user && <img className='prf' src= {user.imgUrl}/>}<span style={{marginLeft: '0.5rem', fontSize: '0.9rem'}}></span>
+                    </div>
+             
+             <textarea  value = {message} onChange={(e) => setMessage(e.target.value)} placeholder='Say something...' className='wrapper-class'/>
+             <div className='modal-cta'>
+                    <button onClick={() => toggle(false)} className='cancel-btn'>Cancel</button>
+                    <button onClick={saveUpdate} style = {{width: '7rem'}} className='post-btn'>{!loading ? <span>Add to Story</span>  :  <ClipLoader color={'white'} loading={loading}  size={10} />}</button>
+            </div> 
+         </div>}
         </div>
         
     </>

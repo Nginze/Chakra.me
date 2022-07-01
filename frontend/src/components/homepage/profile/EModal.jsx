@@ -1,7 +1,9 @@
-import React from 'react'
+import {React, useContext} from 'react'
+import { userContext } from '../../../contexts/UserContext'
 import '../../../styles/EModal.css'
-const EModal = ({show, toggle }) => {
 
+const EModal = ({show, toggle }) => {
+  const {data: user}  = useContext(userContext)
   return (
   show && <>
     <div className='modal-background'></div>
@@ -10,7 +12,7 @@ const EModal = ({show, toggle }) => {
      
       <div className='profile-section'>
           <div className='profile-elements'>
-            <img className='profile-section-img' src='https://avatarfiles.alphacoders.com/310/thumb-31046.jpg'/>
+            <img className='profile-section-img' src={user?.imgUrl}/>
             <div id='e-modal-meta' >
               <span className='profile-section-name'>Rager X</span>
               <button>Change profile picture</button>

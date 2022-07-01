@@ -92,7 +92,7 @@ const Post = ({post}) => {
                 <button><span class="iconify" data-icon="mdi:arrow-down-bold-outline"></span></button>
             </div>
             <div className='commenting'>
-                <span class="iconify" data-icon="et:refresh"></span>
+                <span class="iconify" data-icon="bx:share-alt"></span>
                 <span className = "sharing-stats"> 80 </span>
             </div>
             <div  className = "sharing">

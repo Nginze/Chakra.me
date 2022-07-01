@@ -1,28 +1,20 @@
-import moment from 'moment'
-import {React, useContext, useState} from 'react'
-import '../../styles/A_Profile.css'
-import { useQuery, useQueryClient } from 'react-query'
-import { userContext } from '../../contexts/UserContext'
-import ClipLoader from "react-spinners/ClipLoader";
 import axios from 'axios'
+import {React, useContext, useState} from 'react'
+import { userContext } from '../../../contexts/UserContext'
+import ClipLoader from "react-spinners/ClipLoader";
+import { useQuery, useQueryClient } from 'react-query';
 
 
-const A_Profile = ({data}) => {
-
-  const timeMap = {
-    minutes: 'm',
-    days: 'd'
-  }
+const FProfile = ({data}) => {
     const {data: user} = useContext(userContext)
     const [fState, setFState] = useState(false)
     const [isLoading, setLoading] = useState(false)
     const queryClient = useQueryClient()
-
     const checkIsFollowing = async () => {
        
        const res =  await axios({
             method:'get',
-            url: `http://localhost:5000/user/follow/${data?.causerId?._id}/check/?user=${user?._id}`,
+            url: `http://localhost:5000/user/follow/${data?._id}/check/?user=${user?._id}`,
             withCredentials: true
           })
         setFState(res?.data.isFollowing)
@@ -47,20 +39,19 @@ const A_Profile = ({data}) => {
 
     const {data:followingState} = useQuery(['following-state', data._id], checkIsFollowing)
   return (
-    <div className='s_profile'>
-        <img style={{width: '2.2rem', height: '2.2rem', borderRadius: '50%', objectFit: 'cover'}} src = {data?.causerId?.imgUrl}/>
-        <div style={{display: 'flex', flexDirection: 'row', width: '7rem'}} >
-            <span className='not-content'  style={{fontWeight: 700, textAlign: 'left' }}>
-                { data?.causerId?.userName} 
-                <span style={{fontColor: 'black', fontWeight: 400, marginLeft: '0.2rem'}}>
-                    {data?.message} 
-                    <span style={{marginLeft: '0.2rem', color:'#b8bfcb'}}>
-                      {moment(data?.timeStamp).fromNow(true).replace(' days', 'd').replace(' minutes', 'm')}
-                    </span>
+    <div style={{width: '100%', display: 'flex', justifyContent: 'space-between', paddingRight: '1rem'}} className='s_profile'>
+        <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+            <img style={{width: '3.2rem', height: '3.2rem', borderRadius: '50%', objectFit: 'cover'}} src = {data?.imgUrl}/>
+            <div style={{display: 'flex', flexDirection: 'column', width: '7rem'}} >
+                <span  style={{fontWeight: '500', textAlign: 'left' }}>
+                {data?.userName}
                 </span>
-            </span>
+                <span  style={{ textAlign: 'left' }}>
+                @{data?.userName?.toLowerCase()}
+                </span>
+            </div>
         </div>
-        { !followingState?.isFollowing ?<div onClick={submitFollow} style={{justifySelf: 'flex-end', display: 'flex', justifyContent: 'center', alignItems: 'center'}} className='cta'> 
+       { !followingState?.isFollowing ?<div onClick={submitFollow} style={{justifySelf: 'flex-end', display: 'flex', justifyContent: 'center', alignItems: 'center'}} className='cta'> 
            <div style={{margin: '0'}}>
               {!isLoading ? <i style={{color: '#2e69ff'}} class="fa-solid fa-user-plus"></i> : <ClipLoader color={'white'} loading={isLoading}  size={10} />}
            </div>
@@ -74,4 +65,4 @@ const A_Profile = ({data}) => {
   )
 }
 
-export default A_Profile
+export default FProfile

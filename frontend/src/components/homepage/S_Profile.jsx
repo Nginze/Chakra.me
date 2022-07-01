@@ -1,6 +1,10 @@
-import React from 'react'
+import axios from 'axios'
+import {React, useState, useContext} from 'react'
+import { useQuery, useQueryClient } from 'react-query'
+import { userContext } from '../../contexts/UserContext'
 
 const S_Profile = ({data}) => {
+    
   return (
     <div className='s_profile'>
         <img style={{width: '2rem', height: '2rem', borderRadius: '50%', objectFit: 'cover'}} src = {data?.imgUrl}/>

@@ -18,8 +18,7 @@
 
 .post-container-inner
 {
-    margin: 1rem;
-    width: 94%;
+    width: 100%;
 }
 .post-profile-info-container{
     display: flex;
@@ -31,6 +30,8 @@
 {
     display: flex;
     width: 100%;
+    margin: 0 1rem;
+    margin-top: 1rem;
 }
 
 .post-profile-info
@@ -45,6 +46,7 @@
 {
     display: flex;
     align-items: center;
+    margin: 1rem;
 
 }
 
@@ -147,7 +149,7 @@
 
 .post-content-text
 {
-   
+   margin: 0 1rem;
     padding: 1rem 0px;
     text-align: left;
 
@@ -160,7 +162,6 @@
     height: 100%;
     margin-bottom: 1rem;
     position: relative;
-    border-radius: 15px;
     
     
 }
@@ -230,4 +231,3 @@
 
 /* Show the dropdown menu on hover */
 .post-info:hover .profile-card {display: flex;  --animate-delay: 5s;}
-

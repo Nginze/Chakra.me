@@ -28,11 +28,12 @@ const getPosts = async (req, res) => {
 
 const createPost = async (req, res) => {
 
-  
     if(req.body.imgbase64)
     {
+        console.log('hit')
         const result = await cloudinary.uploader.upload(req.body.imgbase64)
-        
+      
+        console.log(result)
         if(result.width < 520)
         {
             result.secure_url = `http://res.cloudinary.com/chakra-me/image/upload/w_1000,h_400,c_pad,b_auto/v${result.version}/${result.public_id}.${result.format}`

@@ -47,6 +47,9 @@
     align-items: center;
     justify-content: space-between;
 }
+.p-meta-stats span{
+    cursor: pointer
+}
 
 .p-bio
 {   
