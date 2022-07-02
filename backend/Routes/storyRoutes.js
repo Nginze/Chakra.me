@@ -1,8 +1,7 @@
 const {Router} = require('express')
-const { createStory } = require('../controllers/storyController')
+const { createStory, getStoryById } = require('../controllers/storyController')
 const router = Router()
 
-// router.get('/:id', getStoryFeed)
 router.post('/', createStory)
-
+router.get('/:id',getStoryById)
 module.exports = router

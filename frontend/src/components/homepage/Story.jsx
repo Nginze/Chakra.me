@@ -6,6 +6,9 @@ import StoryModal from './StoryModal'
 import StoryPreview from './StoryPreview'
 import Carousel, {slidesToShowPlugin, slidesToScrollPlugin} from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
+import { useQuery } from 'react-query'
+import { getUser } from '../../helpers'
+import axios from 'axios'
 
 
 const Story = ({toggle, setStories}) => {
@@ -30,7 +33,14 @@ const Story = ({toggle, setStories}) => {
         setPrev(document.getElementById('str')?.scrollLeft != 0 )
     }
 
-    console.log(document.getElementById('str')?.scrollLeft == 0 )
+    const getUserStory = async () => {
+        const result = await axios({method: 'get',url: `http://localhost:5000/story/${user._id}`,withCredentials: true})
+        return result.data;
+    }
+
+    const {data: userStory} = useQuery("userStory", getUserStory, {
+        enabled: !!user
+    })
 
   return (
 
@@ -42,7 +52,29 @@ const Story = ({toggle, setStories}) => {
                 <span className={`${ showPrev ? 'b-active':'not-active'}`} style={{cursor: 'pointer'}} id = 'prev' onClick={scrollPrev}><i class="fa-solid fa-chevron-left"></i></span>
                 <section onScroll={setBtn} id='str' class="stories">
                     <div class="stories__item ">
-                    <button>
+                    <button 
+                  
+                  onClick={() => {setStories(userStory.stories.map((section) => {
+		  
+      	
+                    if(!section?.includes('https://'))
+                    {
+                        return {
+                            content: (props) => (
+                                    <div style={{ background: 'pink', padding: 20, width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>		
+                                                        <h3 style={{ marginTop: 5, fontWeight: '600', fontSize: '1.6rem' }}>{section}</h3>
+                                    </div>
+                            )
+                        }
+                    }
+                    return section
+                }));toggle(true)}}
+                    
+                    
+                    
+                    
+                        
+                    >
                         <div class="stories__item-picture">
                         <img src={user?.imgUrl} alt="gail_pena's profile picture"/>
                         </div>
@@ -54,11 +86,26 @@ const Story = ({toggle, setStories}) => {
                   
 
                 {    
-                                user?.storyInbox.map((story) => {
+                                user?.storyInbox
+                                    .map((story) => {
                                     return (
 
                                     <div className='stories__item stories__item--active'>
-                                        <button  onClick={() => {setStories(story.imageUrls);toggle(true)}}>
+                                        <button  onClick={() => {setStories(story.stories.map((section) => {
+		  
+      	
+          if(!section?.includes('https://'))
+          {
+              return {
+                  content: (props) => (
+                          <div style={{ background: 'pink', padding: 20, width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>		
+                                              <h3 style={{ marginTop: 5, fontWeight: '600', fontSize: '1.6rem' }}>{section}</h3>
+                          </div>
+                  )
+              }
+          }
+          return section
+      }));toggle(true)}}>
                                             <div class="stories__item-picture">
                                                 <img src={story.userId.imgUrl} alt="gail_pena's profile picture"/>
                                             </div>

@@ -14,21 +14,32 @@ const StoryPreview = ({showBanner, toggle}) => {
     const [previewSourceThree, setPreviewSourceThree] = useState(null)
     const [loading, setLoading] = useState(false)
     const queryClient = useQueryClient()
-    const saveUpdate = async () => {
+    const saveImageUpdate = async () => {
         setLoading(true)
         await axios({
             method:'post',
             url: `http://localhost:5000/story/`,
             withCredentials: true,
             data:{
-                imgbase64: [previewSourceOne, previewSourceTwo, previewSourceThree],
+                
+                imgbase64: previewSourceOne,
                 userId: user._id
             }
         }).then((response) => { setLoading(false); toggle(false)})
 
-       
+    }
 
-
+    const saveTextUpdate = async () => {
+        setLoading(true)
+        await axios({
+            method:'post',
+            url: `http://localhost:5000/story/`,
+            withCredentials: true,
+            data:{
+                message: message,
+                userId: user._id
+            }
+        }).then((response) => { setLoading(false); toggle(false)})
     }
     const handleFileInput = (e) => {
         
@@ -113,7 +124,7 @@ const StoryPreview = ({showBanner, toggle}) => {
                </div>
                <div className='modal-cta'>
                     <button onClick={() => toggle(false)} className='cancel-btn'>Cancel</button>
-                    <button onClick={saveUpdate} style = {{width: '7rem'}} className='post-btn'>{!loading ? <span>Add to Story</span>  :  <ClipLoader color={'white'} loading={loading}  size={10} />}</button>
+                    <button onClick={saveImageUpdate} style = {{width: '7rem'}} className='post-btn'>{!loading ? <span>Add to Story</span>  :  <ClipLoader color={'white'} loading={loading}  size={10} />}</button>
                 </div> 
             </div>: 
             <div style={{width: '100%'}} className='post-content'>
@@ -124,7 +135,7 @@ const StoryPreview = ({showBanner, toggle}) => {
              <textarea  value = {message} onChange={(e) => setMessage(e.target.value)} placeholder='Say something...' className='wrapper-class'/>
              <div className='modal-cta'>
                     <button onClick={() => toggle(false)} className='cancel-btn'>Cancel</button>
-                    <button onClick={saveUpdate} style = {{width: '7rem'}} className='post-btn'>{!loading ? <span>Add to Story</span>  :  <ClipLoader color={'white'} loading={loading}  size={10} />}</button>
+                    <button onClick={saveTextUpdate} style = {{width: '7rem'}} className='post-btn'>{!loading ? <span>Add to Story</span>  :  <ClipLoader color={'white'} loading={loading}  size={10} />}</button>
             </div> 
          </div>}
         </div>

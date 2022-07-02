@@ -33,8 +33,7 @@ const Home = () => {
               return undefined;
             },
   })
-
-  console.log('stories are', stories)
+  console.log(stories[0])
   return (
     <>
       <StoryModal show={showStory} stories ={stories} toggle = {setShowStory}/>
