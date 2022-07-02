@@ -11,6 +11,9 @@ const StorySchema = new Schema({
     stories:[ {
         type: String
     }],
+    views: [
+        Schema.Types.ObjectId
+    ],
     timeStamp: {
         type: Date,
         default: Date.now,

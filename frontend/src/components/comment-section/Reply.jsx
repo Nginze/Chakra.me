@@ -32,7 +32,7 @@ const Reply = ({toggle, parent, user, reply}) => {
                 <div className='post-profile-info'>
                     <div style={{fontSize: '0.8rem', marginBottom: '0.2rem'}}>
                         <span className='profile-author'>{reply.userName}</span>
-                        {reply.replier ? <span > <i style={{fontSize: '0.6rem'}} className="fa-solid fa-chevron-right"></i> {reply?.replier}</span>: null}
+                        {reply.replier ? <span ><i style={{fontSize: '0.6rem'}} className="fa-solid fa-caret-right"></i> {reply?.replier}</span>: null}
                         <span className='seperator'>·</span>
                         <span className='profile-time'>{moment(reply.timeStamp).fromNow(true)}</span>
                     </div>

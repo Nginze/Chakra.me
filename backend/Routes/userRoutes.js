@@ -3,7 +3,7 @@ const router = Router()
 const User = require('../models/User')
 
 router.get('/',(req,res) =>{
-
+    console.log('getting user data')
     res.status(200).json({
         isAuth:req.isAuthenticated(),
         message:  req.isAuthenticated() ? 'Currently authenicated' : ' Currently unauthenticated',

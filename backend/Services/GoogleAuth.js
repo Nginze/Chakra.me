@@ -33,9 +33,10 @@ passport.use(new GoogleStrategy({
 ));
 
 passport.serializeUser((user,done) =>{
-    done(null, user)
+    done(null, user._id)
 })
 
-passport.deserializeUser((user, done) =>{
+passport.deserializeUser( async (userId, done) =>{
+    const user = await User.findOne({_id:userId }).populate(['posts', 'storyInbox', 'followers', 'following']).populate({path: 'storyInbox', populate: {path: 'userId'}})
     done(null, user)
 })

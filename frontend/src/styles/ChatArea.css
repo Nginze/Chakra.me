@@ -1,0 +1,68 @@
+#chat-area
+{
+    background-color: white;
+    width: 60vw;
+    height: 83vh;
+    margin: auto;
+    box-shadow: 0 1px 1px rgb(0 0 0 / 4%);
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 0.4px;
+    border-color: #dee0e1!important;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+.chat-pane 
+{
+  height: 100%;
+  border-right: 1px solid #dee0e1
+}
+
+.chat-pane .chat-pane-head
+{
+    padding: 1rem;
+    border-bottom:1px solid #dee0e1 ;
+}
+.chat-container-heading
+{
+    padding: 0.57rem;
+    border-bottom:1px solid #dee0e1 ;
+}
+
+.chat-container form{
+    position: relative;
+    padding: 0 1rem;
+    width: 100%;
+}
+.chat-container form button{
+    position: absolute;
+    right: 2rem;
+    top: 0.85rem;
+    color: #2e69ff;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+.chat-container form input{
+    padding: 0.7rem;
+    width: 100%;
+    outline: none;
+    border: 1px solid #dee0e1;
+    border-radius: 15px;
+}
+
+.message-area
+{
+    height: 82%;
+}
+.friends-container
+{
+    height: 48%;
+    overflow-y: scroll;
+}
+.chat-container
+{
+    
+}

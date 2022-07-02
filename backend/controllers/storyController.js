@@ -35,4 +35,9 @@ const getStoryById = async(req, res) => {
     res.status(200).json(story)
 }
 
-module.exports = {createStory, getStoryById}
+const addView = async (req, res) => {
+    await Story.updateOne({_id: req.params.id}, {$addToSet: { views: req.body.userId }})
+    res.send({done: true})
+}
+
+module.exports = {createStory, getStoryById, addView}

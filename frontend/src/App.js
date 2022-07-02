@@ -12,6 +12,8 @@ import UserProvider from './contexts/UserContext';
 import PostProvider from './contexts/PostContext';
 import UsersProvider from './contexts/UsersContext';
 import Spaces from './pages/Spaces';
+import ChatArea from './components/chatpage/ChatArea';
+import Chat from './pages/Chat';
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
           <Route path ='/profile' element = {<Profile/>}/>
           <Route path = '/profiles/:username/:id' element = {<Other/>}/>
           <Route path='/auth/callback' element = {<Callback/>} />
+          <Route path = '/direct' element = {<Chat/>}/>
           <Route path = '/spaces/:id' element = {<Spaces/>} />
         </Routes>
         </UsersProvider>

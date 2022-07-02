@@ -14,6 +14,7 @@ const UserProvider = ({children}) => {
       return user.data.user
        
     }
+
    const {data, isLoading} = useQuery('user', getUser)
   
   return (

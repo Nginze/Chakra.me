@@ -14,7 +14,19 @@ const OInfo = ({user}) => {
   const [isLoading, setLoading] = useState(false)
   const [showUnfollow, setUnfollow] = useState(false)
   const queryClient = useQueryClient()
-
+  const createNotfication = (message) => {
+   
+    axios({
+      method:'post',
+      url: `http://localhost:5000/notification`,
+      withCredentials: true,
+      data:{
+          userId: user._id,
+          causerId: follower._id,
+          message: message
+      }
+     })
+  }
   const checkIsFollowing = async () => {
     const res =  await axios({
          method:'get',
@@ -37,6 +49,8 @@ const OInfo = ({user}) => {
     })
     queryClient.invalidateQueries("other")
     queryClient.invalidateQueries(["following-state", user?._id])
+    queryClient.invalidateQueries("user")
+    createNotfication('followed you')
     setLoading(false)
   }
   const {data:followingState} =  useQuery(['following-state', user?._id], checkIsFollowing, {
