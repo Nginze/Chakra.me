@@ -7,7 +7,8 @@ const addUser = (activeUsers, userId, socketId) => {
 };
 
 const removeUser = (activeUsers, socketId) => {
-    activeUsers.filter((user) => user.socketId != socketId)
+    activeUsers = activeUsers.filter((user) => user.socketId != socketId)
+    console.log(activeUsers)
 };
 
 const getRecipient  = (activeUsers, recipientId) => {

@@ -8,12 +8,14 @@ import { userContext } from '../../contexts/UserContext'
 import ChatButton from './ChatButton'
 import Message from './Message'
 
+
 const ChatArea = ({activeUsers, socket}) => {
   
   const [chatMessages, setChatMessages] = useState(null)
   const [conversationId, setConversationId] = useState(null)
   const [receiverData, setReceiver] = useState(null)
   const [arrivalMessage, setArrivalMessage] = useState(null)
+  const [isLoadingChat, setLoadingChat] = useState(false)
   const [message, setMessage ] = useState('')
   const {data: user} = useContext(userContext)
 
@@ -70,6 +72,7 @@ const ChatArea = ({activeUsers, socket}) => {
   }
 
   const fetchMessages = async (conversationId, notUser) => {
+    setLoadingChat(true)
     setReceiver(notUser)
     setConversationId(conversationId)
     const {data} = await axios({
@@ -78,6 +81,7 @@ const ChatArea = ({activeUsers, socket}) => {
         withCredentials: true
     })
     setChatMessages(data)
+    setLoadingChat(false)
     return data;
   
   }
@@ -123,6 +127,16 @@ const ChatArea = ({activeUsers, socket}) => {
            
             </div>
         </div>
+      {  isLoadingChat &&
+        <div className='message-area-alt'>
+                
+                    <div class="loadingio-spinner-spinner-2gw7yb8gxej"><div class="ldio-h3evnyucb7">
+                    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                    </div></div>
+                
+        </div>
+      }
+     
         { chatMessages ? 
          <div className='chat-container'>
             <div className='chat-container-heading'>
@@ -145,6 +159,7 @@ const ChatArea = ({activeUsers, socket}) => {
             <form>
                 <button onClick={sendMessage}>Send</button>
                 <input value={message} onChange = {(e) => setMessage(e.target.value)}  placeholder='Message...'/>
+               
             </form>
         </div>
         : <div className='message-area-alt'>
