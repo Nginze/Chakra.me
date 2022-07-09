@@ -103,24 +103,9 @@ const ChatArea = ({activeUsers, socket}) => {
                     conversations?.map((conversation) => {
                         const notUser = conversation.members.find((_user) => _user._id != user._id)
                         return (
-                            <>
                             <div onClick={() => fetchMessages(conversation._id, notUser )}>
                                 <ChatButton img={notUser.imgUrl}  userName = {notUser.userName} />
-                            </div>
-                            <div onClick={() => fetchMessages(conversation._id, notUser )}>
-                                <ChatButton img={notUser.imgUrl}  userName = {notUser.userName} />
-                            </div>
-                            <div onClick={() => fetchMessages(conversation._id, notUser )}>
-                                <ChatButton img={notUser.imgUrl}  userName = {notUser.userName} />
-                            </div>
-                            <div onClick={() => fetchMessages(conversation._id, notUser )}>
-                                <ChatButton img={notUser.imgUrl}  userName = {notUser.userName} />
-                            </div>
-                            <div onClick={() => fetchMessages(conversation._id, notUser )}>
-                                <ChatButton img={notUser.imgUrl}  userName = {notUser.userName} />
-                            </div>
-                            </>
-                            
+                            </div> 
                         )
                     })
                 }

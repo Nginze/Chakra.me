@@ -22,7 +22,34 @@ const Sidebar = () => {
   const {data: t_communities, isLoading} = useQuery('topCommunities', getTopCommunities)
   return (
     <div className='sidebar'>
-        {user ? <div className='profile-section-home'>
+
+        <div className='sticky-container'>
+            <button className='create-space-btn'>
+            <span class="iconify" data-icon="carbon:add" data-width="18"></span>
+               Create Space 
+            </button>
+
+            {
+                t_communities?.map((community) => {
+                return (
+
+                    <Link style={{textDecoration: 'none', color: 'black'}}  to = {`/spaces/${community._id}`}>
+                          <div className='space-profile-container'>
+                            <div className='profile-elements'>
+                              <img style={{background: 'white'}} className='space-img' src={community.communityIcon}/>
+                              <span style={{marginBottom: 0, fontSize: '13px', fontWeight: 400, color: '#636466'}} className='space-name'>{community.communityName}</span>
+                            </div>
+                          </div>
+                    </Link>
+
+                )
+              })
+           }
+            
+        </div>
+
+
+        {/* {user ? <div className='profile-section-home'>
           <div className='profile-elements'>
             <img className='profile-section-img' src={user.imgUrl}/>
             <div className='profile-section-content'>
@@ -47,14 +74,17 @@ const Sidebar = () => {
                       <rect x="0" y="71" rx="3" ry="3" width="37" height="11" /> 
                       <rect x="18" y="23" rx="3" ry="3" width="140" height="11" /> 
                       <rect x="166" y="23" rx="3" ry="3" width="173" height="11" />
-                    </ContentLoader>}
-        <div className='suggested-section'>
+                    </ContentLoader>} */}
+        {/* <div className='suggested-section'>
+          <ul>
+
+          </ul>
           <p>Top Spaces</p>
           <button style={{backgroundColor:'#2e69ff', color: 'white', borderRadius: '4px', fontWeight: 'bold'}} onClick={() => setCOpen(true)}><span class="iconify" data-icon="ic:baseline-plus"> </span>Create Space </button>
           {isLoading && <div class="loadingio-spinner-spinner-2gw7yb8gxej"><div class="ldio-h3evnyucb7">
             <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-            </div></div>}
-          {t_communities?.map((community) => {
+            </div></div>} */}
+          {/* {t_communities?.map((community) => {
             return (
 
              <Link style={{textDecoration: 'none', color: 'black'}}  to = {`/spaces/${community._id}`}>
@@ -68,7 +98,7 @@ const Sidebar = () => {
 
             )
           })}
-        </div>
+        </div> */}
         <Pcreate show={cOpen} toggle = {setCOpen} post ={false}/>
     </div>
   )

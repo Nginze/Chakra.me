@@ -36,7 +36,7 @@ const Post = ({post}) => {
     
   }
   const likePost = () => {
-
+    
     setLikes(likes + 1)
     setLiked(true)
     axios({
@@ -82,14 +82,27 @@ const Post = ({post}) => {
                 {/* <Profile_Card userId={post.userId}/> */}
             </div>
             <div className='post-content-text'>{post.message}</div>
-            <img className='post-content-img' src={post.imgUrl}/>
+            {post.imgUrl && <img className='post-content-img' src={post.imgUrl}/>}
             <div className='post-engagement'>
           <div className='interactions'>
             <div className='voting'>
-               { !liked ? <button onClick={likePost}><span class="iconify liked" data-icon="mdi:arrow-up-bold-outline"></span></button> : <span id = 'like-fill' class="iconify animate__animated animate__jackInTheBox animate__faster" data-icon="mdi:arrow-up-bold"></span>}
+               { !liked ? 
+                  <button className='upvote-btn' style={{width: '68.3px'}} onClick={likePost}>
+                    <span class="iconify liked" data-icon="mdi:arrow-up-bold-outline"></span>
+                    <span className={!liked ? 'voting-stats' : 'voting-stats liked animate__animated  animate__flipInY'}>{likes}</span>
+                  </button> 
+                  : 
+                  <button className='upvote-btn' style={{width: '68.3px'}}>
+                     <span id = 'like-fill' class="iconify animate__animated animate__jackInTheBox animate__faster" data-icon="mdi:arrow-up-bold"></span>
+                     <span className={!liked ? 'voting-stats' : 'voting-stats liked animate__animated  animate__flipInY'}>{likes}</span>
+                  </button>
+                 
+              }
+                <div className='right-border'></div>
                 
-                <button><span className={!liked ? 'voting-stats' : 'voting-stats liked animate__animated  animate__flipInY'}>{likes}</span></button>
-                <button><span class="iconify" data-icon="mdi:arrow-down-bold-outline"></span></button>
+                <button className = 'downvote-btn'  style={{width: '40%'}}>
+                  <span class="iconify" data-icon="mdi:arrow-down-bold-outline"></span>
+                </button>
             </div>
             <div className='commenting'>
                 <span class="iconify" data-icon="bx:share-alt"></span>

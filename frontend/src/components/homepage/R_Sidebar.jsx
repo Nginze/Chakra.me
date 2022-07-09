@@ -3,7 +3,7 @@ import Section from './Section'
 import axios from 'axios'
 import { userContext } from '../../contexts/UserContext'
 import {useQuery} from 'react-query'
-
+import '../../styles/BetaMessage.css'
 const R_Sidebar = () => {
 
   const {data:user} = useContext(userContext)
@@ -30,8 +30,12 @@ const R_Sidebar = () => {
 
  
   return (
-    <div style={{width: 'auto',paddingBottom: '3rem', position: 'fixed', right:'11rem', height:'60vh', width: '19%', overflowY: 'scroll', margin: 'auto'}}>
-        <Section title={'Activity'} type = {'activity'} data = {activity} isLoading= {a_loading}/>
+    <div style={{width: 'auto',paddingBottom: '3rem', }}>
+        {/* <Section title={'Activity'} type = {'activity'} data = {activity} isLoading= {a_loading}/> */}
+        <div className='beta-message-container'>
+          <span className='beta-message-title'><span class="iconify" data-icon="file-icons:test-generic" data-width="20"></span> Beta warning!</span>
+          <span className='beta-message-sub'>Chakra is still in its beta phase, things might break, handle us with care</span>
+        </div>
         <Section title={'Suggested People'} type = {'suggestions'} data = {suggestions} isLoading = {s_loading}/>
     </div>
   )
