@@ -14,6 +14,11 @@ import UsersProvider from './contexts/UsersContext';
 import Spaces from './pages/Spaces';
 import ChatArea from './components/chatpage/ChatArea';
 import Chat from './pages/Chat';
+import {io} from 'socket.io-client';
+import { useRef } from 'react';
+
+
+
 
 function App() {
   return (

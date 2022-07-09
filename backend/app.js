@@ -13,6 +13,8 @@ const notificationRoutes = require('./Routes/notificationRoutes')
 const suggestionsRoutes = require('./Routes/suggestionRoutes')
 const communityRoutes = require('./Routes/communityRoutes')
 const storyRoutes = require('./Routes/storyRoutes')
+const messageRoutes = require('./Routes/messageRoutes')
+const conversationRoutes = require('./Routes/conversationRoutes')
 require('dotenv').config()
 require('./config/db.js')
 
@@ -43,9 +45,11 @@ app.use("/notification", notificationRoutes)
 app.use("/suggestion", suggestionsRoutes)
 app.use("/community", communityRoutes)
 app.use("/story", storyRoutes)
+app.use("/message", messageRoutes)
+app.use("/conversation", conversationRoutes )
 app.get('/', (req, res) => {
 
-  res.send(`<p> Welcome to Anonymous</p>` )
+  res.send(`<p> Welcome to Chakra.me api </p>` )
   
 })
 

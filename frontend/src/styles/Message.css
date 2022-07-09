@@ -1,0 +1,38 @@
+#message
+{
+    min-height: 44px;
+    max-width: 42%;
+    padding: 0.7rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    box-shadow: 0 1px 1px rgb(0 0 0 / 4%);
+    border-style: solid;
+    border-width: 0.4px;
+    border-color: #dee0e1!important;
+    margin-bottom: 1rem;
+    text-align: left;
+
+}
+
+.message-container
+{
+    display: flex;
+    align-items:center;
+}
+
+.message-container img
+{
+    margin-top: -2rem;
+    margin-right: 0.4rem;
+}
+
+.own
+{
+    margin-left: 57%;
+    background-color: #eeeeef;
+}
+
+.not-own
+{
+    background-color: white;
+}

@@ -1,39 +1,163 @@
+import axios from 'axios'
 import React from 'react'
+import { useContext } from 'react'
+import { useState, useEffect } from 'react'
+import { useQuery } from 'react-query'
 import '../.././styles/ChatArea.css'
+import { userContext } from '../../contexts/UserContext'
 import ChatButton from './ChatButton'
+import Message from './Message'
 
-const ChatArea = () => {
+const ChatArea = ({activeUsers, socket}) => {
+  
+  const [chatMessages, setChatMessages] = useState(null)
+  const [conversationId, setConversationId] = useState(null)
+  const [receiverData, setReceiver] = useState(null)
+  const [arrivalMessage, setArrivalMessage] = useState(null)
+  const [message, setMessage ] = useState('')
+  const {data: user} = useContext(userContext)
+
+  socket.on("get-message", ({senderId, message, imgUrl}) => {
+        console.log(message)
+        setArrivalMessage({
+            imgUrl,
+            sender: senderId,
+            message: message,
+            createdAt: Date.now(),
+        });
+  })
+
+  useEffect(() => {
+     arrivalMessage && 
+     setChatMessages((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage]);
+
+  const sendMessage = async (e) => {
+    e.preventDefault()
+    setChatMessages([...chatMessages, {
+        imgUrl: user.imgUrl,
+        receiverId: receiverData._id,
+        sender: user._id,
+        message
+    }])
+    const isRecipientOnline = activeUsers.find((user) => user.userId == receiverData._id);
+    console.log(isRecipientOnline)
+    if(isRecipientOnline){
+        console.log("recipient is online")
+        socket.emit("send-message", {receiverId: receiverData._id, imgUrl: receiverData.imgUrl, senderId: user._id, message} )
+    }
+    const newMessage = await axios({
+      method:'post',
+      url: `http://localhost:5000/message/`,
+      withCredentials: true,
+      data:{
+          conversationId: conversationId,
+          senderId: user._id,
+          message: message
+      }
+    })
+    
+  
+    
+  }
+  const getConversations = async () => {
+    const {data} = await axios({
+        method: 'get', 
+        url: `http://localhost:5000/conversation/${user._id}`, 
+        withCredentials: true
+    })
+    return data;
+  }
+
+  const fetchMessages = async (conversationId, notUser) => {
+    setReceiver(notUser)
+    setConversationId(conversationId)
+    const {data} = await axios({
+        method: 'get', 
+        url: `http://localhost:5000/message/${conversationId}`, 
+        withCredentials: true
+    })
+    setChatMessages(data)
+    return data;
+  
+  }
+  
+  const {data: conversations} = useQuery(["conversations", user?._id], getConversations, {
+    enabled: !!user
+  })
+ 
   return (
     <div id = 'chat-area'>
         <div className='chat-pane'>
             <div className='chat-pane-head'>
-                <span>Rager X</span>
+                <span>{user?.userName}'s Messages</span>
             </div>
             <div className='friends-container'>
-                <ChatButton/>
-                <ChatButton/>
-                <ChatButton/>
+                
+                {
+
+                    conversations?.map((conversation) => {
+                        const notUser = conversation.members.find((_user) => _user._id != user._id)
+                        return (
+                            <>
+                            <div onClick={() => fetchMessages(conversation._id, notUser )}>
+                                <ChatButton img={notUser.imgUrl}  userName = {notUser.userName} />
+                            </div>
+                            <div onClick={() => fetchMessages(conversation._id, notUser )}>
+                                <ChatButton img={notUser.imgUrl}  userName = {notUser.userName} />
+                            </div>
+                            <div onClick={() => fetchMessages(conversation._id, notUser )}>
+                                <ChatButton img={notUser.imgUrl}  userName = {notUser.userName} />
+                            </div>
+                            <div onClick={() => fetchMessages(conversation._id, notUser )}>
+                                <ChatButton img={notUser.imgUrl}  userName = {notUser.userName} />
+                            </div>
+                            <div onClick={() => fetchMessages(conversation._id, notUser )}>
+                                <ChatButton img={notUser.imgUrl}  userName = {notUser.userName} />
+                            </div>
+                            </>
+                            
+                        )
+                    })
+                }
            
             </div>
         </div>
-        <div className='chat-container'>
+        { chatMessages ? 
+         <div className='chat-container'>
             <div className='chat-container-heading'>
                 <div id='chat-heading'>
-                    <img style={{width: '1.7rem', height: '1.7rem'}} src='https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80'/>
+                    <img style={{width: '1.7rem', height: '1.7rem'}} src={receiverData?.imgUrl}/>
                     <div className='user-meta'>
-                        <span >MaNie</span>
+                        <span >{receiverData?.userName}</span>
                         <span>Active 4h ago</span>
                     </div>
                 </div>
             </div>
             <div className='message-area'>
+               {
+                    chatMessages.map((message) => {
+                        return  <Message imgUrl = {message?.imgUrl} messageInfo={message} own={message.sender?._id === user._id || message.sender === user._id}/>
+                    }) 
 
+               } 
             </div>
             <form>
-                <button>Send</button>
-                <input placeholder='Message...'/>
+                <button onClick={sendMessage}>Send</button>
+                <input value={message} onChange = {(e) => setMessage(e.target.value)}  placeholder='Message...'/>
             </form>
         </div>
+        : <div className='message-area-alt'>
+                <div style={{fontWeight: '300'}}>
+                    <img style={{marginBottom: '0.4rem'}} src="https://img.icons8.com/ios/80/000000/paper-plane.png"/>
+                    <span style={{marginBottom: '0.5rem', fontSize: '22px', lineHeight: '26px'}}>
+                        Your Messages
+                    </span>
+                    <span>Send private messages to your followers and friends</span>
+                </div>
+
+            </div>
+        }
     </div>
   )
 }

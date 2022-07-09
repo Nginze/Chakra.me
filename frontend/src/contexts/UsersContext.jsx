@@ -16,9 +16,9 @@ const UsersProvider = ({children}) => {
         .catch(err => {console.log(err)})
   }
 
-  useEffect(() => {
-      getUsers()
-  }, [])
+  // useEffect(() => {
+  //     getUsers()
+  // }, [])
   return (
     <usersContext.Provider value = {{users, setUsers, progress, setProgress}}>
             {children}

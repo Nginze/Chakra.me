@@ -55,21 +55,6 @@ const Nav = () => {
                             </Link>
                           )
                         })
-                        // :users && users.filter((user) => {
-                        //     return user.userName.toLowerCase().includes(searchTerm.toLowerCase())
-                        // }).map((user) => {
-          
-                        //   return (
-                        //     <Link  onClick={queryClient.refetchQueries(['other'])}  style={{textDecoration:'none', color: 'black'}}  to = {`/profiles/${user.userName}/${user._id}`}>
-                        //       <div  className='post-info'>
-                        //             <img className='post-profile-img' src={user.imgUrl}/>
-                        //             <div className='post-profile-info'>
-                        //               <span className='profile-author'>{user.userName}</span>
-                        //             </div>
-                        //       </div>
-                        //     </Link>
-                        //   )
-                        // })
                     
                     }
                     
@@ -79,7 +64,7 @@ const Nav = () => {
           
           <div className='nav-links'>
               <Link style={{textDecoration:'none', color: 'black'}} to="/"><div><i class="fi fi-rs-home"></i></div></Link>
-              <div><i class="fi fi-rs-paper-plane"></i></div>
+              <div><span class="iconify" data-icon="cil:home"></span></div>
               <div onClick={() => setCOpen(true)}><i class="fi fi-rs-add"></i></div>
               <div><i class="fi fi-rs-navigation"></i></div>
               {!user ? <div onClick={() => setLOpen(true)}><i class="fi fi-rs-user"></i></div> : <div className='nav-profile'>

@@ -27,6 +27,7 @@
     "react-tooltip": "^4.2.21",
     "react-top-loading-bar": "^2.1.0",
     "rsuite": "^5.13.1",
+    "socket.io-client": "^4.5.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

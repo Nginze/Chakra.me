@@ -6,6 +6,7 @@ import { useQuery, useQueryClient } from 'react-query'
 import ClipLoader from "react-spinners/ClipLoader";
 import FModal from '../profile/FModal'
 
+
 const OInfo = ({user}) => {
 
   const {data:follower} = useQuery('user', getUser)
@@ -47,6 +48,8 @@ const OInfo = ({user}) => {
           followerId: follower._id
       }
     })
+
+  
     queryClient.invalidateQueries("other")
     queryClient.invalidateQueries(["following-state", user?._id])
     queryClient.invalidateQueries("user")
@@ -70,7 +73,7 @@ const OInfo = ({user}) => {
                                               {!isLoading ? <span>Follow</span>  :  <ClipLoader color={'white'} loading={isLoading}  size={10} />}
                   </button>
                   :<div style={{display: 'flex', marginLeft: '1rem',position: 'relative'}}>
-                        <button style={{  marginRight: '1rem', padding: '0.3rem', cursor: 'pointer'}}>Message</button>
+                        <button  style={{  marginRight: '1rem', padding: '0.3rem', cursor: 'pointer'}}>Message</button>
                         <button onClick={() => setUnfollow(!showUnfollow)} style={{display: 'flex', justifyContent: 'center',alignItems: 'center', width: '3rem', cursor: 'pointer'}}>
                           <i style={{margin: 0, fontSize: '1rem'}} class="fa-solid fa-user-check"></i>
                         </button>

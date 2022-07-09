@@ -1,7 +1,9 @@
 #chat-button
 {
+    height: 72px;
+    box-sizing: border-box;
     display: flex;
-    padding: 1rem;
+    padding: 2px 20px;
     cursor: pointer;
     align-items: center;
 }
@@ -21,6 +23,8 @@
 
 #chat-button .user-meta 
 {
+    line-height: 18px;
+    font-size: 16px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;

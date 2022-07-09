@@ -14,7 +14,7 @@ code {
     monospace;
 }
 
-
+/* 
 *::-webkit-scrollbar {
   width: 16px;
 }
@@ -33,4 +33,4 @@ code {
 
 *::-webkit-scrollbar-thumb:hover {
   background-color: #555;
-}
+} */
