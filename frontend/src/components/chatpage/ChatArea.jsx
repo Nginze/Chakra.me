@@ -7,7 +7,7 @@ import '../.././styles/ChatArea.css'
 import { userContext } from '../../contexts/UserContext'
 import ChatButton from './ChatButton'
 import Message from './Message'
-
+import ContentShimmer, {ProfileShimmer} from 'react-content-shimmer'
 
 const ChatArea = ({activeUsers, socket}) => {
   
@@ -94,10 +94,27 @@ const ChatArea = ({activeUsers, socket}) => {
     <div id = 'chat-area'>
         <div className='chat-pane'>
             <div className='chat-pane-head'>
-                <span>{user?.userName}'s Messages</span>
+                <span style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}><img src="https://img.icons8.com/color/20/000000/naruto-sign.png"/>Chakra Messenger</span>
             </div>
             <div className='friends-container'>
+                {
+                    !conversations &&
+                    [1,2,3,4,5,6,].map((shimmer) => {
+                        return (
+                            <div style={{display: 'flex', alignItems: 'center', padding: '18px 20px'}}>
+                                <ProfileShimmer style={{width: '56px', height: '56px'}}/>
+                                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
+                                    <ContentShimmer style={{height: '15px', marginBottom: '0.5rem', width: '180px'}}/>
+                                    <ContentShimmer style={{height: '15px', width: '120px'}}/>
+                                </div>
+                            </div>
+
+                        )
+                    })
                 
+                    
+
+                }
                 {
 
                     conversations?.map((conversation) => {

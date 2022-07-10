@@ -17,7 +17,7 @@ const Feed = ({isLoading, posts, refetch, setType, type,hasNextPage, fetchNextPa
               <Post post = {post}/>
               )}
         {!isLoading && fetchNextPage &&
-        <InfiniteScroll style={{width: '100%'}}  hasMore={hasNextPage} useWindow = {false} loadMore={fetchNextPage} loader = {<div class="loadingio-spinner-spinner-2gw7yb8gxej" ><div class="ldio-h3evnyucb7">
+        <InfiniteScroll style={{width: '100%'}}  hasMore={hasNextPage} loadMore={fetchNextPage} loader = {<div class="loadingio-spinner-spinner-2gw7yb8gxej" ><div class="ldio-h3evnyucb7">
         <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
         </div></div>}>
            

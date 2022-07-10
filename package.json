@@ -11,6 +11,8 @@
     "nodemon": "^2.0.19",
     "passport": "^0.6.0",
     "passport-google-oauth2": "^0.2.0",
+    "react-content-shimmer": "^2.2.6",
+    "react-power-tooltip": "^1.0.2",
     "react-slick": "^0.29.0",
     "slick-carousel": "^1.8.1",
     "socket.io": "^4.5.1"

@@ -16,6 +16,7 @@ import ChatArea from './components/chatpage/ChatArea';
 import Chat from './pages/Chat';
 import {io} from 'socket.io-client';
 import { useRef } from 'react';
+import Login from './pages/Login';
 
 
 
@@ -27,6 +28,7 @@ function App() {
         <UsersProvider>
         <Nav/>
         <Routes>
+          <Route path = '/login' element = {<Login/>}/>
           <Route path='/' element ={<Home/>}/>
           <Route path ='/profile' element = {<Profile/>}/>
           <Route path = '/profiles/:username/:id' element = {<Other/>}/>
