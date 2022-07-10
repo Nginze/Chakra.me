@@ -88,7 +88,7 @@ const Nav = () => {
                   <div onClick={() => setShowProfileMenu(!showProfileMenu)} className='nav-profile'>
                     <Tooltip 
                       show = {showProfileMenu}
-                      arrowAlign="center"
+                      arrowAlign= "end"
                       position="bottom center"
                       lineSeparated
                       textBoxWidth = '200px'
