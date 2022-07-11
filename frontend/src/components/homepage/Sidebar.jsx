@@ -24,7 +24,7 @@ const Sidebar = () => {
     <div className='sidebar'>
 
         <div className='sticky-container'>
-            <button className='create-space-btn'>
+            <button onClick={() => setCOpen(true)} className='create-space-btn-two'>
             <span class="iconify" data-icon="carbon:add" data-width="18"></span>
                Create Space 
             </button>

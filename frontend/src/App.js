@@ -1,4 +1,3 @@
-
 import './App.css';
 import {Routes, Route} from 'react-router-dom'
 import Feed from './components/homepage/Feed';
@@ -17,6 +16,7 @@ import Chat from './pages/Chat';
 import {io} from 'socket.io-client';
 import { useRef } from 'react';
 import Login from './pages/Login';
+import NewProfile from './pages/NewProfile';
 
 
 
@@ -28,8 +28,9 @@ function App() {
         <UsersProvider>
         <Nav/>
         <Routes>
-          <Route path = '/login' element = {<Login/>}/>
-          <Route path='/' element ={<Home/>}/>
+          <Route path = '/test' element = {<NewProfile/>}/>
+          <Route path = '/' element = {<Login/>}/>
+          <Route path='/home' element ={<Home/>}/>
           <Route path ='/profile' element = {<Profile/>}/>
           <Route path = '/profiles/:username/:id' element = {<Other/>}/>
           <Route path='/auth/callback' element = {<Callback/>} />

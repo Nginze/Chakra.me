@@ -5,13 +5,15 @@ import ContentLoader from "react-content-loader"
 import Sorter from './Sorter'
 import InfiniteScroll from "react-infinite-scroller";
 import Story from './Story'
+import FeedForm from './FeedForm'
 
 
 const Feed = ({isLoading, posts, refetch, setType, type,hasNextPage, fetchNextPage, toggle, setStories}) => {
   console.log(posts)
   return (
     <div className='feed-container'>
-        {!window.location.pathname.includes('profile') && <Story toggle={toggle} setStories = {setStories} />}
+        {(!window.location.pathname.includes('profile') && !window.location.pathname.includes('spaces')) && <Story toggle={toggle} setStories = {setStories} />}
+        <FeedForm/>
         {posts && !window.location.pathname.includes('profile') && <Sorter refetch = {refetch} setType= {setType} type = {type} />}
         {!isLoading && window.location.pathname.includes('profile') && posts?.map((post) =>
               <Post post = {post}/>

@@ -1,8 +1,10 @@
 
 #comment
 {
+    box-sizing: border-box;
     width: 100%;
-    margin: 1rem;
+    padding: 1rem;
+    padding-top: 0;
 }
 #comment .post-info
 {

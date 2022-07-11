@@ -9,7 +9,8 @@ import { usersContext } from '../../contexts/UsersContext'
 import { useQuery, useQueryClient } from 'react-query'
 import axios from 'axios'
 import Tooltip from 'react-power-tooltip'
-
+import A_Profile from './A_Profile'
+import Notification from './Notification'
 
 
 
@@ -23,16 +24,26 @@ const Nav = () => {
   const [searchResults, setSearchResults] = useState([])
   const [showSearhContainer, setSearchContainer] = useState(false)
   const [showProfileMenu, setShowProfileMenu] = useState(false)
+  const [showNotifications, setShowNotifications] = useState(false)
   const {data:user, getUser} = useContext(userContext)
   const {users, setUsers, progress, setProgress} = useContext(usersContext)
-  const isLoginScreen = window.location.pathname.includes('/login');
+  const isLoginScreen = window.location.pathname === ('/');
   const queryClient = useQueryClient()
 
+  const getActivity = async () => {
+      const activities = await axios({method: 'get',url: `http://localhost:5000/notification/${user._id}`,withCredentials: true})  
+      return activities.data
+  }
+  
   const Search = async() => {
     console.log(searchResults)
     const res =  await axios({method: 'get',url: `http://localhost:5000/user/search/users?q=${searchTerm}`,withCredentials: true})
     setSearchResults(res.data)
   }
+
+  const {data: activity, isLoading: a_loading} = useQuery('activity', getActivity, {
+    enabled: !!user
+  })
 
   return (
   !isLoginScreen &&
@@ -72,9 +83,31 @@ const Nav = () => {
               <Link to = '/direct'>
                   <span class="iconify" data-icon="bi:chat-dots" data-width="20"></span>
               </Link>
-              <Link to = '/'>
+              <div className='notification' onClick={() => {setShowNotifications(!showNotifications);setShowProfileMenu(false)}} style={{position: 'relative'}} >
                   <span class="iconify" data-icon="ic:outline-notifications" data-width="20"></span>
-              </Link>
+                   <Tooltip
+                     show = {showNotifications}
+                     arrowAlign= "end"
+                     position="bottom center"
+                     lineSeparated
+                     textBoxWidth = '250px'
+                     fontWeight='400'
+                     moveDown='10px'
+                  
+                  >
+                    <div style={{width: '100%'}}>
+                      <span className='notification-header'>Notifications</span>
+                      {
+                        activity?.map((activity) => {
+                          return(
+                            <Notification data={activity}/>
+
+                          )
+                        })
+                      }
+                    </div>
+                  </Tooltip>
+              </div>
               {/* <Link style={{textDecoration:'none', color: 'black'}} to="/"><div><i class="fi fi-rs-home"></i></div></Link> */}
               {/* <div><span class="iconify" data-icon="cil:home"></span></div>
               <div onClick={() => setCOpen(true)}><i class="fi fi-rs-add"></i></div>
@@ -85,7 +118,7 @@ const Nav = () => {
           
                    </div> 
                   : 
-                  <div onClick={() => setShowProfileMenu(!showProfileMenu)} className='nav-profile'>
+                  <div onClick={() => {setShowProfileMenu(!showProfileMenu); setShowNotifications(false)}} className='nav-profile'>
                     <Tooltip 
                       show = {showProfileMenu}
                       arrowAlign= "end"
@@ -94,7 +127,7 @@ const Nav = () => {
                       textBoxWidth = '200px'
                       fontWeight='400'
                       moveDown='10px'
-                      animation='bounce'
+     
                       >
                      <div onClick={() => navigate('/profile')}>
                       <div className='account-btn'>

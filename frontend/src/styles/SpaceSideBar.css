@@ -27,9 +27,50 @@
     border-bottom: 0.5px solid rgba(64, 64, 64, 0.158);
 }
 
+.d-desc{
+    margin-bottom: 1rem;
+}
+
+.d-stats{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+.d-stat{
+    display: flex;
+    flex-direction: column;
+    margin-right: 2rem;
+    padding-bottom: 1rem;
+}
+
+.d-cta{
+    display: flex;
+    flex-direction: column;
+    width:100% ;
+}
+.d-cta span{
+    margin-bottom: 1rem;
+}
+.d-cta button{
+    padding: 10px;
+    border-radius: 1000px;
+    border:none;
+    color: white;
+    background-color: #2276ff;
+    cursor: pointer;
+}
+
+.m-header{
+    background-color: #2276ff;
+    color: white;
+}
+
 .m-header button
 {
     border: none;
     background: none;
+  
 
 }

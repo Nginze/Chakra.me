@@ -76,8 +76,9 @@ const Comment = ({user, comment, toggle}) => {
            {replies && replies.map((reply) => {
               return <Reply toggle = {getReplies}   parent={comment}  user = {user} reply = {reply}/>
            })}
-          {loading && <div id='reply-loader'><CommentLoader/></div>}
+         
         </div>}
+        {loading && <div id='reply-loader'><CommentLoader/></div>}
        
     </div>
   )

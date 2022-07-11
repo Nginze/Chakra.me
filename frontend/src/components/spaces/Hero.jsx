@@ -84,7 +84,7 @@ const Hero = ({community, isAdmin}) => {
                 </div>
                 {!joined && <button onClick={joinCommunity} style={{display: 'flex', alignItems: 'center', justifyContent: 'space-around',  width: '11rem', height: '56px'}} className = 'h_follow'>
                      
-                     {!j_loading ? <span style={{display: 'flex', alignItems: 'center'}}><span style={{marginRight: '0.4rem'}}  class="iconify" data-icon="tabler:layout-grid-add" data-width="20"></span><span>Follow Space</span></span>  :  <ClipLoader color={'white'} loading={j_loading}  size={10} />}
+                     {!j_loading ? <span style={{display: 'flex', alignItems: 'center', width: '11rem'}}><span style={{marginRight: '0.4rem'}}  class="iconify" data-icon="tabler:layout-grid-add" data-width="20"></span><span>Follow Space</span></span>  :  <ClipLoader color={'white'} loading={j_loading}  size={10} />}
                     </button>}
                 {joined && <div>
                                 <button style={{display: 'flex', alignItems: 'center', justifyContent: 'space-around'}} className='h_followed'>Subscribed <i style={{marginLeft: '0.4rem' , color: 'white', fontSize: '1.3rem'}} class="fa-solid fa-circle-check"></i>

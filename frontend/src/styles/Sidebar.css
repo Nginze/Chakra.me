@@ -6,12 +6,9 @@
     align-items: flex-end;
     justify-content: flex-start;
     flex-direction: column;
-    z-index: 0;
+    z-index: 2;
     width: 100%;
     
-  
-
-
 
 }
 
@@ -148,7 +145,7 @@
     align-items: flex-start;
 }
 
-.create-space-btn{
+.create-space-btn-two{
     display: flex;
     align-items: center;
     border: none;
