@@ -161,10 +161,22 @@
     font-weight: 400;
     cursor: pointer;
     color: #636466;
+    transition:  0.15s all ease;
+}
+
+.create-space-btn-two:hover{
+    background-color:#e5e1e1cf;
+
 }
 
 .sticky-container{
     width: 80%;
     position: sticky;
     top: 6rem;
+}
+
+.r-button:hover{
+
+    background-color: #3b85fd;
+
 }

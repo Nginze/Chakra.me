@@ -11,7 +11,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { useQueryClient,  useQuery } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-
+import toast, { Toaster } from 'react-hot-toast';
 
 const PCreate = ({show, toggle , post, reduceIndex}) => {
   const [postActive, setPostActive] = useState(post)
@@ -24,7 +24,7 @@ const PCreate = ({show, toggle , post, reduceIndex}) => {
   const queryClient = useQueryClient()
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
-  
+
 
   useEffect(() => setSpaceName(`${user?.userName}'s space`),[user])
 
@@ -49,7 +49,14 @@ const PCreate = ({show, toggle , post, reduceIndex}) => {
           communityId: community?._id,
           imgbase64: previewSource
       }
-    }).then((response) => {setLoading(false); toggle(false); queryClient.invalidateQueries("communityPosts");queryClient.invalidateQueries("posts")})
+    }).then((response) => {
+            toast.success("Post Created")
+            setLoading(false);  
+            queryClient.invalidateQueries("communityPosts");
+            queryClient.invalidateQueries("posts");
+            reduceIndex(false)
+            toggle(false);
+          })
     
       
 
@@ -78,7 +85,9 @@ const PCreate = ({show, toggle , post, reduceIndex}) => {
 
         }
       })
+     
       navigate(`/spaces/${data._id}`)
+      toast.success(`Space created successfully`)
   }
 
 
@@ -93,6 +102,7 @@ const PCreate = ({show, toggle , post, reduceIndex}) => {
   })
   return (
     show && <>
+   
       <div className='modal-background'></div>
       <div className='create-modal-container animate__animated animate__fadeIn animate__faster'>
         <div className='modal-head'>

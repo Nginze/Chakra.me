@@ -39,3 +39,7 @@
     width: 5rem;
     cursor: pointer;
 }
+
+#feed-form button:hover{
+    background-color: #3b85fd;
+}

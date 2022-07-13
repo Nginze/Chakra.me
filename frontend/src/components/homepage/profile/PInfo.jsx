@@ -13,7 +13,10 @@ const PInfo = ({user}) => {
             <img id = 'p-img' src={user.imgUrl}/>
             <div className='p-meta'>
               
-                <h2 className='p-meta-name'>{user.userName} <i onClick={() => setEModalOpen(true)} class="fi fi-rs-settings"></i></h2>
+                
+                <h2 style={{display: 'flex', alignItems: 'center'}} className='p-meta-name'>{user.userName} <div onClick={() => setEModalOpen(true)} style={{marginLeft: '1rem', cursor: 'pointer'}}><span class="iconify" data-icon="ph:gear" data-width="22"></span></div> </h2>
+                
+                
                 
                 <div className='p-meta-stats'>
                     <span> {user.posts.length} posts </span>

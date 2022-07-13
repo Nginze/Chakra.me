@@ -28,9 +28,11 @@
 }
 .post-info
 {
+    box-sizing: border-box;
     display: flex;
     width: 100%;
-    margin: 0 1rem;
+    margin: 0 auto; 
+    padding: 0 1rem;
     margin-top: 1rem;
 }
 

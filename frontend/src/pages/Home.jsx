@@ -9,6 +9,7 @@ import Sorter from '../components/homepage/Sorter'
 import StoryModal from '../components/homepage/StoryModal'
 import { postContext } from '../contexts/PostContext'
 import '../styles/Home.css'
+import toast, { Toaster } from 'react-hot-toast';
 
 const Home = () => {
   const [type, setType] = useState('recent')
@@ -36,6 +37,7 @@ const Home = () => {
   console.log(stories[0])
   return (
     <>
+       <Toaster/>
       <StoryModal show={showStory} stories ={stories} toggle = {setShowStory}/>
       <main className='home'>
           <Sidebar/>

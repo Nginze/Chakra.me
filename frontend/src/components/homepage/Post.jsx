@@ -8,6 +8,8 @@ import { userContext } from '../../contexts/UserContext';
 import CommentLoader from '../comment-section/CommentLoader';
 import PInfo from './profile/PInfo';
 import Profile_Card from './Profile_Card';
+import Tooltip from 'react-power-tooltip'
+
 
 
 
@@ -18,7 +20,7 @@ const Post = ({post}) => {
   const {data:user} = useContext(userContext)
   const [liked, setLiked] = useState( user ? post?.upvotes?.includes(user._id): false);
   const [comments, setComments] = useState(null)
-
+  const [showSaveTooltip, setSaveTooltip] = useState(false)
   const getComments = () => {
 
     if(!comments)
@@ -75,7 +77,24 @@ const Post = ({post}) => {
                       <span className='profile-author'>{post.userName}</span>
                       <span className='profile-time'>{moment(post.timeStamp).fromNow().replace(' days', 'd').replace(' minutes', 'm')}</span>
                     </div>
-                    <div>
+                    <div onClick={() => setSaveTooltip(!showSaveTooltip)} style={{position: 'relative'}} >
+                      <Tooltip
+                      show = {showSaveTooltip}
+                      arrowAlign= "end"
+                      position="right center"
+                      lineSeparated
+                      textBoxWidth = '80px'
+                      fontWeight='400'
+                      moveRight='10px'
+                      moveUp='10px'
+                      >
+                        <div>
+                          <div style={{display: 'flex', alignItems: 'center', flexDirection: 'row', justifyContent: 'center', width: '100%'}}>
+                            <span style={{marginRight: '0.2rem'}} class="iconify" data-icon="bytesize:bookmark" data-width="15"></span>
+                            <span style={{fontSize: '12px', display: 'inline'}}>Save</span>
+                          </div>
+                        </div>
+                      </Tooltip>
                       <i class="fa-solid fa-ellipsis"></i>
                     </div>
                   </div>
@@ -105,11 +124,11 @@ const Post = ({post}) => {
                 </button>
             </div>
             <div className='commenting'>
-                <span class="iconify" data-icon="bx:share-alt"></span>
+                <span className="iconify icons" data-icon="bx:share-alt"></span>
                 <span className = "sharing-stats"> 80 </span>
             </div>
             <div  className = "sharing">
-                <div  onClick={() => {setShowComments(!showComments);getComments()}}><span class="iconify" data-icon="ic:outline-mode-comment"></span></div>
+                <div  onClick={() => {setShowComments(!showComments);getComments()}}><span className="iconify icons" data-icon="ic:outline-mode-comment"></span></div>
                 <span className='commenting-stats'> {comments?.length} </span>
             </div>
             

@@ -52,6 +52,7 @@ const R_Sidebar = () => {
                   Your personal Chakra frontpage. Come here to check in with your favorite communities.
               </span>
               <button
+                className='r-button'
               onClick={
                 () =>{ setIsForPost(true);setShowPostModal(true); setIndex(true)}
               }
@@ -66,6 +67,7 @@ const R_Sidebar = () => {
               }}
               >Create Post</button>
               <button
+              className='r-button'
               onClick={
                 () => {setIsForPost(false);setShowPostModal(true); setIndex(true); console.log(isForPost) }
               }

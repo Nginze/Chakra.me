@@ -25,7 +25,7 @@ const Sidebar = () => {
     <div id={increaseZIndex ? 'increaseIndex' : ''} className='sidebar'>
 
         <div className='sticky-container'>
-            <button onClick={() => {setCOpen(true);setZIndex(true)}} className='create-space-btn-two'>
+            <button  onClick={() => {setCOpen(true);setZIndex(true)}} className='create-space-btn-two'>
             <span class="iconify" data-icon="carbon:add" data-width="18"></span>
                Create Space 
             </button>

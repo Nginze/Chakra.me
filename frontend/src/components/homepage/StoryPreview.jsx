@@ -3,6 +3,7 @@ import {React, useState, useContext} from 'react'
 import { useQueryClient } from 'react-query';
 import ClipLoader from "react-spinners/ClipLoader";
 import { userContext } from '../../contexts/UserContext';
+import toast, { Toaster } from 'react-hot-toast';
 
 const StoryPreview = ({showBanner, toggle, reduceIndex}) => {
     const {data: user} = useContext(userContext)
@@ -14,6 +15,7 @@ const StoryPreview = ({showBanner, toggle, reduceIndex}) => {
     const [previewSourceThree, setPreviewSourceThree] = useState(null)
     const [loading, setLoading] = useState(false)
     const queryClient = useQueryClient()
+    
     const saveImageUpdate = async () => {
         setLoading(true)
         await axios({
@@ -25,7 +27,7 @@ const StoryPreview = ({showBanner, toggle, reduceIndex}) => {
                 imgbase64: previewSourceOne,
                 userId: user._id
             }
-        }).then((response) => { setLoading(false); toggle(false)})
+        }).then((response) => { setLoading(false);reduceIndex() ;toggle(false); toast.success(`Added to Story`)})
 
     }
 
@@ -39,7 +41,7 @@ const StoryPreview = ({showBanner, toggle, reduceIndex}) => {
                 message: message,
                 userId: user._id
             }
-        }).then((response) => { setLoading(false); toggle(false)})
+        }).then((response) => { setLoading(false);reduceIndex(false); toggle(false);  toast.success(`Added to Story`)})
     }
     const handleFileInput = (e) => {
         

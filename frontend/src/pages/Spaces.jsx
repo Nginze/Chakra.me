@@ -6,7 +6,7 @@ import Feed from '../components/homepage/Feed'
 import Hero from '../components/spaces/Hero'
 import SpaceSideBar from '../components/spaces/SpaceSideBar'
 import { userContext } from '../contexts/UserContext'
-
+import toast, { Toaster } from 'react-hot-toast';
 
 const Spaces = () => {
     const {data: user } = useContext(userContext)
@@ -67,6 +67,7 @@ const Spaces = () => {
     
   return (
     <div>
+        <Toaster/>
         <Hero isAdmin = {isAdmin} community = {community}/>
         <div style={{display: 'flex', alignItems: 'flex-start', justifyContent: 'center', width: '60vw', margin: 'auto',  marginTop: '3rem'}} className='space-content'>
             <div>
