@@ -14,7 +14,7 @@ const Feed = ({isLoading, posts, refetch, setType, type,hasNextPage, fetchNextPa
   return (
     <div id= {increaseIndex? 'increaseIndex': ''} className='feed-container'>
         {(!window.location.pathname.includes('profile') && !window.location.pathname.includes('spaces')) && <Story increaseIndex = {setIndex} toggle={toggle} setStories = {setStories} />}
-        <FeedForm increaseIndex = {setIndex}/>
+        {!window.location.pathname.includes('profile') && <FeedForm increaseIndex = {setIndex}/>}
         {posts && !window.location.pathname.includes('profile') && <Sorter refetch = {refetch} setType= {setType} type = {type} />}
         {!isLoading && window.location.pathname.includes('profile') && posts?.map((post) =>
               <Post post = {post}/>
@@ -27,11 +27,12 @@ const Feed = ({isLoading, posts, refetch, setType, type,hasNextPage, fetchNextPa
             {posts?.map((page) =>
               page.data.posts.map((post) => <Post post = {post}/>)
             )}
-            {!hasNextPage && <p style={{paddingBottom: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center'}}> <i style={{color: '#b3b4b4', marginRight: '0.5rem'}} class="fa-solid fa-flag"></i> There are no more posts to show right now</p>}
+           
         </InfiniteScroll>
-}
+  
+        }
         
-        
+    
    
         {isLoading && [1,2,3,4,5].map((n) => 
         <ContentLoader 

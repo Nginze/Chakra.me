@@ -6,11 +6,23 @@ import PCreate from '../homepage/Pcreate'
 import AdminEdit from './AdminEdit'
 import Rule from './Rule'
 import RuleModal from './RuleModal'
+import { socket } from '../chatpage/SocketManager'
 
 const SpaceSideBar = ({admins, members, isAdmin, community}) => {
     const [show, setShow] = useState(false)
     const [showPostModal, setShowPostModal] = useState(false)
     const [showRulesModal, setShowRulesModal] = useState(false)
+    const [activeUsers, setActiveUsers] = useState([])
+
+    const onlineMembers = (activeUsers) =>{
+        const userIds = activeUsers?.map((user) => {
+            return user.userId
+        })
+        const onlineUsers = members?.filter((member) => {
+            return userIds.includes(member._id)
+        })
+        return onlineUsers?.length
+    }
   return (
     <div id='space-side-bar'>
         <div id = 'd-section'>
@@ -23,12 +35,12 @@ const SpaceSideBar = ({admins, members, isAdmin, community}) => {
                 </div>
                 <div className='d-stats'>
                     <span className='d-stat'>
-                        <span>{community?.members?.length}</span>
-                        <span>Members</span>
+                        <span style={{fontSize: '16px', lineHeight: '20px', fontWeight: '500'}}>{community?.members?.length}</span>
+                        <span style={{fontSize: '12px'}}>Members</span>
                     </span>
                      <span className='d-stat'>
-                        <span>0</span>
-                        <span>Members Online</span>
+                        <span style={{fontSize: '16px', lineHeight: '20px', fontWeight: '500'}}>{onlineMembers(activeUsers)}</span>
+                        <span style={{fontSize: '12px'}} >Members Online</span>
                     </span>
                 </div>
                 <div className='d-cta'>
@@ -73,7 +85,7 @@ const SpaceSideBar = ({admins, members, isAdmin, community}) => {
                 </div>
                     )
                 })}
-                {
+                {/* {
                     members?.slice(1, 4).map((member) => {
                         return (
                             <div className='s_profile'>
@@ -85,7 +97,7 @@ const SpaceSideBar = ({admins, members, isAdmin, community}) => {
                              </div>
                         )
                     })
-                }
+                } */}
                 
             </div>
         </div>

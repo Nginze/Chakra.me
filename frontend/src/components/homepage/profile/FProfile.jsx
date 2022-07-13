@@ -3,6 +3,7 @@ import {React, useContext, useState} from 'react'
 import { userContext } from '../../../contexts/UserContext'
 import ClipLoader from "react-spinners/ClipLoader";
 import { useQuery, useQueryClient } from 'react-query';
+import ContentShimmer, { ProfileShimmer } from 'react-content-shimmer';
 
 
 const FProfile = ({data}) => {
@@ -39,6 +40,7 @@ const FProfile = ({data}) => {
 
     const {data:followingState} = useQuery(['following-state', data._id], checkIsFollowing)
   return (
+    followingState ? 
     <div style={{width: '100%', display: 'flex', justifyContent: 'space-between', paddingRight: '1rem'}} className='s_profile'>
         <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
             <img style={{width: '3.2rem', height: '3.2rem', borderRadius: '50%', objectFit: 'cover'}} src = {data?.imgUrl}/>
@@ -61,7 +63,14 @@ const FProfile = ({data}) => {
                 <i style={{color: '#f7f7f8'}} class="fa-solid fa-user-check"></i>
            </div>
         </div> }
-    </div>
+    </div> 
+    :<div style={{display: 'flex', alignItems: 'center', padding: '5px 10px'}}>
+          <ProfileShimmer style={{width: '56px', height: '56px'}}/>
+          <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
+              <ContentShimmer style={{height: '15px', marginBottom: '0.5rem', width: '180px'}}/>
+              <ContentShimmer style={{height: '15px', width: '120px'}}/>
+          </div>
+      </div>
   )
 }
 

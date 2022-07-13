@@ -51,7 +51,9 @@ const Nav = () => {
     <div className='main-container'>
         <nav className='nav-container'>
           
-          <div className='logo'><img src="https://img.icons8.com/color/30/000000/naruto-sign.png"/>Chakra.me</div>
+        <Link style={{textDecoration: 'none', color: 'black'}} to = '/home'>
+           <div className='logo'><img src="https://img.icons8.com/color/30/000000/naruto-sign.png"/>Chakra.me</div>
+        </Link> 
           <div className='search-container'>
               <span id="search-icon" class="iconify" data-icon="ic:baseline-search"></span>
               <input onClick={() => setSearchContainer(true)} className='search' value = {searchTerm} onChange = {(e) => {setSearchTerm(e.target.value);Search()}} placeholder='Search users on chakra...'/>

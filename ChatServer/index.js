@@ -23,8 +23,10 @@ io.on("connection", (socket) => {
     })
 
     socket.on("disconnect", () => {
+        console.log(socket.id, "disconnected")
         removeUser(activeUsers, socket.id);
         io.emit("send-active-users", activeUsers);
+        console.log(activeUsers)
     })
 
     socket.on("send-message", ({senderId, receiverId,imgUrl, message}) => {

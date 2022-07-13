@@ -7,8 +7,8 @@ const addUser = (activeUsers, userId, socketId) => {
 };
 
 const removeUser = (activeUsers, socketId) => {
+    console.log("removed", socketId)
     activeUsers = activeUsers.filter((user) => user.socketId != socketId)
-    console.log(activeUsers)
 };
 
 const getRecipient  = (activeUsers, recipientId) => {
@@ -16,8 +16,6 @@ const getRecipient  = (activeUsers, recipientId) => {
 };
 
 
-module.exports = {
-    addUser,
-    removeUser, 
+module.exports = { addUser, removeUser, 
     getRecipient
 }
