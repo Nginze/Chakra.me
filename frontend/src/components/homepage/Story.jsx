@@ -7,7 +7,7 @@ import { useQuery, useQueryClient } from 'react-query'
 import axios from 'axios'
 
 
-const Story = ({toggle, setStories}) => {
+const Story = ({toggle, setStories, increaseIndex}) => {
     const [show, setShow] = useState(false)
     const {data:user} = useContext(userContext)
     const [showPrev, setPrev] = useState(false)
@@ -92,7 +92,7 @@ const Story = ({toggle, setStories}) => {
                         class="stories__item-picture">
                         <img src={user?.imgUrl} alt="gail_pena's profile picture"/>
                         </div>
-                        <i onClick={() => setShow(true)} style={{color: 'rgb(33, 118, 255)', backgroundColor: 'white'}} className="fa-solid fa-circle-plus"></i>
+                        <i onClick={() => {setShow(true);increaseIndex(true)}} style={{color: 'rgb(33, 118, 255)', backgroundColor: 'white'}} className="fa-solid fa-circle-plus"></i>
                         <span class="stories__item-username">Your Story</span>
                     </button>
                     </div>
@@ -135,7 +135,7 @@ const Story = ({toggle, setStories}) => {
                 </section>
         </main>
         
-        <StoryPreview showBanner={show} toggle = {setShow}/>
+        <StoryPreview showBanner={show} toggle = {setShow} reduceIndex = {increaseIndex}/>
     </>
   )
 }

@@ -23,6 +23,18 @@ const CommunitySchema = new Schema({
     communityGuidelines: {
         type: String
     },
+    communityRules: [
+        {
+           rule: {
+            type: String, 
+            required: true
+           },
+           description: {
+            type: String, 
+            required: true,
+           }
+        }
+    ],
     admins: [{
         type: Schema.Types.ObjectId,
         required: true,

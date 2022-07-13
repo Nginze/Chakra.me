@@ -4,7 +4,7 @@ import { useQueryClient } from 'react-query';
 import ClipLoader from "react-spinners/ClipLoader";
 import { userContext } from '../../contexts/UserContext';
 
-const StoryPreview = ({showBanner, toggle}) => {
+const StoryPreview = ({showBanner, toggle, reduceIndex}) => {
     const {data: user} = useContext(userContext)
     const [fileInput, setFileInput] = useState('')
     const [postActive, setPostActive] = useState(true)
@@ -87,7 +87,7 @@ const StoryPreview = ({showBanner, toggle}) => {
         <div className='modal-background'></div>
         <div  id='e-modal' className='animate__animated animate__fadeIn animate__faster'>
             <div style={{width: '100%'}} className='modal-head'>
-                <span onClick={() => toggle(false)} class="close">&times;</span>
+                <span onClick={() => {toggle(false);reduceIndex(false)}} class="close">&times;</span>
                 <div class="modal-toggles">
                     <button onClick={() => setPostActive(false)} id = {!postActive ? 'active' : ''}  className='create-space-btn'>Upload Media</button>
                     <button onClick={() => setPostActive(true)}  id = {postActive ? 'active' : ''} className='create-post-btn'>Text Story</button>

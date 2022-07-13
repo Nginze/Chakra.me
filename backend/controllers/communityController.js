@@ -120,6 +120,14 @@ const changeBanner = async (req, res) => {
     res.json(null)
 }
 
+const addRule = async (req, res) => {
+   try{ 
+    await Community.updateOne({_id: req.params.id}, {$push: {communityRules: req.body}})
+    res.status(200).json({success: true})
+   }catch(err){
+     res.status(500).json(err)
+   }
+}
 module.exports = {createCommunity,
                  getTopCommunities, 
                  getAllCommunities, 
@@ -128,5 +136,7 @@ module.exports = {createCommunity,
                  joinCommunityById, 
                  validateMember, 
                  removeMember, 
-                updateCommunityById,
-                changeBanner}
+                 updateCommunityById,
+                 changeBanner,
+                 addRule
+                }

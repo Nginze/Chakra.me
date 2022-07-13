@@ -1,4 +1,5 @@
 import React from 'react'
+import ContentShimmer, { ProfileShimmer } from 'react-content-shimmer'
 import '../../styles/Section.css'
 import A_Profile from './A_Profile'
 import S_Profile from './S_Profile'
@@ -8,12 +9,29 @@ const Section = ({title, type, data, isLoading}) => {
     <div id = 'section'>
         <div className='s_header'>
             <h2>{title}</h2>
-            <button>See All</button>
+            {/* <button>See All</button> */}
         </div>
         <div className='s_container'>
-            {isLoading && <div class="loadingio-spinner-spinner-2gw7yb8gxej"><div class="ldio-h3evnyucb7">
-            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-            </div></div>}
+           
+
+             { 
+               
+                               !data &&
+                    [1,2,3,4,].map((shimmer) => {
+                        return (
+                            <div style={{display: 'flex', alignItems: 'center', padding: '10px 10px'}}>
+                                <ProfileShimmer style={{width: '56px', height: '56px'}}/>
+                                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
+                                    <ContentShimmer style={{height: '15px', marginBottom: '0.5rem', width: '180px'}}/>
+                                    <ContentShimmer style={{height: '15px', width: '120px'}}/>
+                                </div>
+                            </div>
+
+                        )
+                    })
+
+                
+            }
 
             {/* {type == 'activity' && 
             

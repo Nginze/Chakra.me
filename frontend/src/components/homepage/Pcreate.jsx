@@ -10,9 +10,10 @@ import { postContext } from '../../contexts/PostContext';
 import ClipLoader from "react-spinners/ClipLoader";
 import { useQueryClient,  useQuery } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 
-const PCreate = ({show, toggle , post}) => {
+const PCreate = ({show, toggle , post, reduceIndex}) => {
   const [postActive, setPostActive] = useState(post)
   const [fileInput, setFileInput] = useState('')
   const [previewSource, setPreviewSource] = useState(null)
@@ -25,7 +26,7 @@ const PCreate = ({show, toggle , post}) => {
   const navigate = useNavigate()
   
 
-  
+  useEffect(() => setSpaceName(`${user?.userName}'s space`),[user])
 
   const handleFileInput = (e) => {
 
@@ -95,7 +96,7 @@ const PCreate = ({show, toggle , post}) => {
       <div className='modal-background'></div>
       <div className='create-modal-container animate__animated animate__fadeIn animate__faster'>
         <div className='modal-head'>
-          <span onClick={() => toggle(false)} class="close">&times;</span>
+          <span onClick={() => {toggle(false); reduceIndex(false)}} class="close">&times;</span>
           <div class="modal-toggles">
             <button onClick={() => setPostActive(false)} id = {!postActive ? 'active' : ''} className='create-space-btn'> Create Space</button>
             <button onClick={() => setPostActive(true)} id = {postActive ? 'active' : ''} className='create-post-btn'> Create Post</button>

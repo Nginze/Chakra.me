@@ -6,14 +6,15 @@ import Sorter from './Sorter'
 import InfiniteScroll from "react-infinite-scroller";
 import Story from './Story'
 import FeedForm from './FeedForm'
+import { useState } from 'react'
 
 
 const Feed = ({isLoading, posts, refetch, setType, type,hasNextPage, fetchNextPage, toggle, setStories}) => {
-  console.log(posts)
+  const [increaseIndex, setIndex] = useState(false)
   return (
-    <div className='feed-container'>
-        {(!window.location.pathname.includes('profile') && !window.location.pathname.includes('spaces')) && <Story toggle={toggle} setStories = {setStories} />}
-        <FeedForm/>
+    <div id= {increaseIndex? 'increaseIndex': ''} className='feed-container'>
+        {(!window.location.pathname.includes('profile') && !window.location.pathname.includes('spaces')) && <Story increaseIndex = {setIndex} toggle={toggle} setStories = {setStories} />}
+        <FeedForm increaseIndex = {setIndex}/>
         {posts && !window.location.pathname.includes('profile') && <Sorter refetch = {refetch} setType= {setType} type = {type} />}
         {!isLoading && window.location.pathname.includes('profile') && posts?.map((post) =>
               <Post post = {post}/>
@@ -35,7 +36,7 @@ const Feed = ({isLoading, posts, refetch, setType, type,hasNextPage, fetchNextPa
         {isLoading && [1,2,3,4,5].map((n) => 
         <ContentLoader 
         speed={2}
-        width={520}
+        width={'100%'}
         height={300}
         style = {{
           backgroundColor: 'white',

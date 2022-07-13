@@ -20,11 +20,12 @@ const Sidebar = () => {
   }
 
   const {data: t_communities, isLoading} = useQuery('topCommunities', getTopCommunities)
+  const [increaseZIndex, setZIndex] = useState(false);
   return (
-    <div className='sidebar'>
+    <div id={increaseZIndex ? 'increaseIndex' : ''} className='sidebar'>
 
         <div className='sticky-container'>
-            <button onClick={() => setCOpen(true)} className='create-space-btn-two'>
+            <button onClick={() => {setCOpen(true);setZIndex(true)}} className='create-space-btn-two'>
             <span class="iconify" data-icon="carbon:add" data-width="18"></span>
                Create Space 
             </button>
@@ -99,7 +100,7 @@ const Sidebar = () => {
             )
           })}
         </div> */}
-        <Pcreate show={cOpen} toggle = {setCOpen} post ={false}/>
+        <Pcreate show={cOpen} toggle = {setCOpen} post ={false} reduceIndex = {setZIndex}/>
     </div>
   )
 }

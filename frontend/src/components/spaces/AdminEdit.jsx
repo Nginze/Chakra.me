@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useEffect } from 'react';
 import {React, useState} from 'react'
 import { useQueryClient } from 'react-query';
 import ClipLoader from "react-spinners/ClipLoader";
@@ -14,6 +15,12 @@ const AdminEdit = ({show, toggle, community}) => {
     const [loading, setLoading] = useState(false)
     const queryClient = useQueryClient()
 
+
+    useEffect(() =>{
+      setSpaceName(community?.communityName);
+      setSpaceDesc(community?.communityDesc);
+      setSpaceGuidelines(community?.communityGuidelines);
+    } ,[community])
     const saveUpdate = async () => {
         setLoading(true)
 
