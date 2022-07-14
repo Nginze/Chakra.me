@@ -1,60 +1,58 @@
-require('dotenv').config()
-const express = require('express')
-const app = express()
-const cors = require('cors')
-const passport = require('passport')
-const session = require('express-session')
-const MongoStore = require('connect-mongo')
-const authRoutes = require('./Routes/authRoutes')
-const postRoutes = require('./Routes/postRoutes')
-const commentRoutes = require('./Routes/commentRoutes')
-const userRoutes = require('./Routes/userRoutes')
-const notificationRoutes = require('./Routes/notificationRoutes')
-const suggestionsRoutes = require('./Routes/suggestionRoutes')
-const communityRoutes = require('./Routes/communityRoutes')
-const storyRoutes = require('./Routes/storyRoutes')
-const messageRoutes = require('./Routes/messageRoutes')
-const conversationRoutes = require('./Routes/conversationRoutes')
-require('dotenv').config()
-require('./config/db.js')
+require("dotenv").config();
+const express = require("express");
+const app = express();
+const cors = require("cors");
+const passport = require("passport");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
+const authRoutes = require("./Routes/authRoutes");
+const postRoutes = require("./Routes/postRoutes");
+const commentRoutes = require("./Routes/commentRoutes");
+const userRoutes = require("./Routes/userRoutes");
+const notificationRoutes = require("./Routes/notificationRoutes");
+const suggestionsRoutes = require("./Routes/suggestionRoutes");
+const communityRoutes = require("./Routes/communityRoutes");
+const storyRoutes = require("./Routes/storyRoutes");
+const messageRoutes = require("./Routes/messageRoutes");
+const conversationRoutes = require("./Routes/conversationRoutes");
+require("dotenv").config();
+require("./config/db.js");
 
-app.use(session({
-
-    secret: 'secret',
+app.use(
+  session({
+    secret: "secret",
     resave: false,
     saveUninitialized: true,
-    store: MongoStore.create({mongoUrl:process.env.DATABASE_URI}),
-    cookie: {maxAge: 180 * 60 * 1000}
-  
-}))
+    store: MongoStore.create({ mongoUrl: process.env.DATABASE_URI }),
+    cookie: { maxAge: 180 * 60 * 1000 },
+  })
+);
 
-app.use(cors({
-  origin:'http://localhost:3000',
-  credentials: true
-}))
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
-app.use(passport.initialize())
-app.use(passport.session())
-app.use(express.json({limit: '50mb'}))
-app.use(express.urlencoded({extended: true, limit: '50mb'}))
-app.use("/auth", authRoutes)
-app.use("/comment", commentRoutes)
-app.use("/post", postRoutes)
-app.use("/user", userRoutes)
-app.use("/notification", notificationRoutes)
-app.use("/suggestion", suggestionsRoutes)
-app.use("/community", communityRoutes)
-app.use("/story", storyRoutes)
-app.use("/message", messageRoutes)
-app.use("/conversation", conversationRoutes )
-app.get('/', (req, res) => {
-
-  res.send(`<p> Welcome to Chakra.me api </p>` )
-  
-})
-
-
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ extended: true, limit: "50mb" }));
+app.use("/auth", authRoutes);
+app.use("/comment", commentRoutes);
+app.use("/post", postRoutes);
+app.use("/user", userRoutes);
+app.use("/notification", notificationRoutes);
+app.use("/suggestion", suggestionsRoutes);
+app.use("/community", communityRoutes);
+app.use("/story", storyRoutes);
+app.use("/message", messageRoutes);
+app.use("/conversation", conversationRoutes);
+app.get("/", (req, res) => {
+  res.send(`<p> Welcome to Chakra.me api </p>`);
+});
 
 app.listen(process.env.PORT, () => {
-  console.log(`App listening on port ${process.env.PORT}`)
-})
+  console.log(`App listening on port ${process.env.PORT}`);
+});

@@ -1,12 +1,10 @@
-.home
-{
-    width: 75vw;
-    height: 100%;
-    margin: auto;
-    margin-top: 6rem;
-    display: grid;
-    grid-template-columns: 0.4fr 1fr 0.5fr;
-    gap: 1.5rem;
-    position: relative;
+.home {
+  width: 75vw;
+  height: 100%;
+  margin: auto;
+  margin-top: 6rem;
+  display: grid;
+  grid-template-columns: 0.4fr 1fr 0.5fr;
+  gap: 1.5rem;
+  position: relative;
 }
-

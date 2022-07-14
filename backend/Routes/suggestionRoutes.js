@@ -1,7 +1,7 @@
-const {Router} = require('express')
-const router = Router()
-const {getSuggestions} = require('../controllers/suggestionController')
+const { Router } = require("express");
+const router = Router();
+const { getSuggestions } = require("../controllers/suggestionController");
 
-router.get('/', getSuggestions)
+router.get("/", getSuggestions);
 
-module.exports = router
+module.exports = router;

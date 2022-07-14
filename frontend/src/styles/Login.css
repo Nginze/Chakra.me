@@ -1,49 +1,48 @@
-#login{
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+#login {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.login-wrapper{
-    box-sizing: border-box;
-    background-color: white;
-    width: 425px;
-    height: 450px;
-    border-radius: 8px;
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: left;
+.login-wrapper {
+  box-sizing: border-box;
+  background-color: white;
+  width: 425px;
+  height: 450px;
+  border-radius: 8px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
 }
-.login-header{
-    font-size: 1.875rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-}
-
-.legal-policy{
-    margin-bottom: 1.5rem;
-    font-size: 14px;
+.login-header {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
 }
 
-#github-btn{
-    background-color: #242425;
+.legal-policy {
+  margin-bottom: 1.5rem;
+  font-size: 14px;
 }
 
-#discord-btn{
-    background-color: #5665f3;
+#github-btn {
+  background-color: #242425;
 }
 
-.login-footer 
-{
-    width: 100vw;
-    display: flex;
-    justify-content: space-between;
-    padding:0 100px;
-    bottom: 20px;
-    position: absolute;
-    display: flex;
+#discord-btn {
+  background-color: #5665f3;
+}
+
+.login-footer {
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 100px;
+  bottom: 20px;
+  position: absolute;
+  display: flex;
 }

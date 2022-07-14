@@ -1,16 +1,15 @@
-#rule{
-    cursor: pointer;
-    width: 100%;
-    
+#rule {
+  cursor: pointer;
+  width: 100%;
 }
-.rule-statement{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 0.5rem;
-    font-weight: 500;
+.rule-statement {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0.5rem;
+  font-weight: 500;
 }
 
-.explanation{
-    padding: 0 0.5rem
+.explanation {
+  padding: 0 0.5rem;
 }

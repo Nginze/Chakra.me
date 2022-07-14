@@ -1,27 +1,25 @@
-const mongoose = require('mongoose')
-const {Schema} = mongoose;
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
 const StorySchema = new Schema({
-
-    userId: {
-        type: Schema.Types.ObjectId,
-        required: true,
-        ref: 'Users'
+  userId: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: "Users",
+  },
+  stories: [
+    {
+      type: String,
     },
-    stories:[ {
-        type: String
-    }],
-    views: [
-        Schema.Types.ObjectId
-    ],
-    timeStamp: {
-        type: Date,
-        default: Date.now,
-        expires: 86400
-    }
-   
-})
+  ],
+  views: [Schema.Types.ObjectId],
+  timeStamp: {
+    type: Date,
+    default: Date.now,
+    expires: 86400,
+  },
+});
 
-const Story = mongoose.model("Story", StorySchema)
+const Story = mongoose.model("Story", StorySchema);
 
-module.exports = Story
+module.exports = Story;

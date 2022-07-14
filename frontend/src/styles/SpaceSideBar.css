@@ -1,81 +1,76 @@
-#space-side-bar
-{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-left: 2rem;
+#space-side-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 2rem;
 }
 
-#m-section, #d-section
-{
-    width: 20vw;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
-    margin-bottom: 1.5rem;
-    background-color: white;
-    border-radius: 6px;
+#m-section,
+#d-section {
+  width: 20vw;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+  margin-bottom: 1.5rem;
+  background-color: white;
+  border-radius: 6px;
 }
 
-.m-container, .d-container
-{
-    padding: 1rem
+.m-container,
+.d-container {
+  padding: 1rem;
 }
 
-.m-header, .d-header
-{
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem;
-    border-bottom: 0.5px solid rgba(64, 64, 64, 0.158);
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
+.m-header,
+.d-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 0.5px solid rgba(64, 64, 64, 0.158);
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
 }
 
-.d-desc{
-    margin-bottom: 1rem;
+.d-desc {
+  margin-bottom: 1rem;
 }
 
-.d-stats{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
+.d-stats {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
 }
 
-.d-stat{
-    display: flex;
-    flex-direction: column;
-    margin-right: 2rem;
-    padding-bottom: 1rem;
+.d-stat {
+  display: flex;
+  flex-direction: column;
+  margin-right: 2rem;
+  padding-bottom: 1rem;
 }
 
-.d-cta{
-    display: flex;
-    flex-direction: column;
-    width:100% ;
+.d-cta {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
-.d-cta span{
-    margin-bottom: 1rem;
+.d-cta span {
+  margin-bottom: 1rem;
 }
-.d-cta button{
-    padding: 10px;
-    border-radius: 1000px;
-    border:none;
-    color: white;
-    background-color: #0278d2;
-    cursor: pointer;
-    font-weight: 600;
-}
-
-.m-header{
-    background-color: #0278d2;
-    color: white;
-   
+.d-cta button {
+  padding: 10px;
+  border-radius: 1000px;
+  border: none;
+  color: white;
+  background-color: #0278d2;
+  cursor: pointer;
+  font-weight: 600;
 }
 
-.m-header button
-{
-    border: none;
-    background: none;
-  
+.m-header {
+  background-color: #0278d2;
+  color: white;
+}
 
+.m-header button {
+  border: none;
+  background: none;
 }

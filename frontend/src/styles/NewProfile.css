@@ -1,9 +1,9 @@
-#new-profile{
-    display: grid;
-    grid-template-columns: 1fr 0.5fr;
-    width: 60vw;
-    align-items: start;
-    margin:  auto;
-    margin-top: 6rem;
-    gap: 1rem;
+#new-profile {
+  display: grid;
+  grid-template-columns: 1fr 0.5fr;
+  width: 60vw;
+  align-items: start;
+  margin: auto;
+  margin-top: 6rem;
+  gap: 1rem;
 }

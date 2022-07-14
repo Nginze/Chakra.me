@@ -1,10 +1,10 @@
-const {Router} = require('express');
+const { Router } = require("express");
 const router = Router();
-const
- {getOneConversation, 
-  getUserConversations, 
-  createConversation
- } = require('../controllers/conversationController')
+const {
+  getOneConversation,
+  getUserConversations,
+  createConversation,
+} = require("../controllers/conversationController");
 
 router.post("/", createConversation);
 router.get("/:userId", getUserConversations);

@@ -1,85 +1,71 @@
-
-#comment
-{
-    box-sizing: border-box;
-    width: 100%;
-    padding: 1rem;
-    padding-top: 0;
+#comment {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 1rem;
+  padding-top: 0;
 }
-#comment .post-info
-{
-    align-items: flex-start;
+#comment .post-info {
+  align-items: flex-start;
 }
 
-#comment .post-profile-info
-{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
+#comment .post-profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
 }
 
-.comment-content
-{
-    width: 100%;
+.comment-content {
+  width: 100%;
 }
 
-.comment-text
-{
-    text-align: left;
-    width: 95%;
-    margin-bottom: 0.5rem;
+.comment-text {
+  text-align: left;
+  width: 95%;
+  margin-bottom: 0.5rem;
 }
 
-#comment .seperator, .profile-author
-{
-    font-weight: 500;
-    
+#comment .seperator,
+.profile-author {
+  font-weight: 500;
 }
 
-.comment-engagement button
-{
-    border: none;
-    background: none;
-    font-size: 1.4rem;
-    cursor: pointer;
+.comment-engagement button {
+  border: none;
+  background: none;
+  font-size: 1.4rem;
+  cursor: pointer;
 }
 
-.comment-engagement{
-    display: flex;
-    text-align: left;
-    align-items: center;
+.comment-engagement {
+  display: flex;
+  text-align: left;
+  align-items: center;
 }
 
-#reply
-{
-    margin-left: 1rem;
-    display: flex;
-    flex-direction: column;
+#reply {
+  margin-left: 1rem;
+  display: flex;
+  flex-direction: column;
 }
 
-.comment-stats
-{
-    font-size: 0.7rem;
-    align-self: center;
-   
+.comment-stats {
+  font-size: 0.7rem;
+  align-self: center;
 }
 
-.replies-container
-{
-   margin-left: 2rem;
+.replies-container {
+  margin-left: 2rem;
 }
 
-.view-replies
-{
-    padding: 0.8rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: rgba(0, 0, 0, 0.689);
+.view-replies {
+  padding: 0.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.689);
 }
 
-.disable
-{
-    display: none;
+.disable {
+  display: none;
 }

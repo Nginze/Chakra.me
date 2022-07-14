@@ -1,11 +1,10 @@
-.f-content
-{
-    width: 100%;
-    padding-left: 1rem;
-    padding: auto;
+.f-content {
+  width: 100%;
+  padding-left: 1rem;
+  padding: auto;
 }
 
-.f-content{
- height: auto;
- overflow-y: auto;
+.f-content {
+  height: auto;
+  overflow-y: auto;
 }

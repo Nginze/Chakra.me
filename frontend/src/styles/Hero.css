@@ -1,155 +1,136 @@
-#hero
-{
-    height: 65vh;
-    color: white;
-    position: relative;
-    width: 100vw;
-    background-repeat: no-repeat;
-    
-   
-    
-}   
-
-#hero::before
-{
-    background-color: red;
-    height: 64vh;
-    width: 100vw;
-    left: 0;
-    position: absolute;
-    z-index: 100;
+#hero {
+  height: 65vh;
+  color: white;
+  position: relative;
+  width: 100vw;
+  background-repeat: no-repeat;
 }
 
-.unblured-img
-{
-    backdrop-filter: blur(8px);
-    width: 70vw;
-    height: 60%;
-    margin: auto;
-    position: relative;
-    border-radius: 15px 15px;
-   
-
+#hero::before {
+  background-color: red;
+  height: 64vh;
+  width: 100vw;
+  left: 0;
+  position: absolute;
+  z-index: 100;
 }
 
-.unblured-img img{
-    width: 120px;
-    height: 120px;
-    position: absolute;
-    left: 0;
-    border-radius: 35px;
-    /* top: 180px;
+.unblured-img {
+  backdrop-filter: blur(8px);
+  width: 70vw;
+  height: 60%;
+  margin: auto;
+  position: relative;
+  border-radius: 15px 15px;
+}
+
+.unblured-img img {
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  left: 0;
+  border-radius: 35px;
+  /* top: 180px;
    */
 }
 
-.h_container
-{
-   display: flex;
-   justify-content: space-between;
-   align-items:baseline;
-   width: 70vw;
-   margin: auto;
-   margin-top: 2.3rem;
-   padding-left:  1rem;
-   padding-right: 7rem;
-   
-
+.h_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  width: 70vw;
+  margin: auto;
+  margin-top: 2.3rem;
+  padding-left: 1rem;
+  padding-right: 7rem;
 }
 
-.h_desc
-{
-    text-align: left;
-
+.h_desc {
+  text-align: left;
 }
 
-.h_cta{
-    display: flex;
+.h_cta {
+  display: flex;
 }
 
-.h_follow
-{
-    padding: 1rem 2rem;
-    border: none;
-    border-radius: 25px;
-    color: white;
-    font-weight: 700;
-    background-color: #2e69ff;
-    cursor: pointer;
+.h_follow {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 25px;
+  color: white;
+  font-weight: 700;
+  background-color: #2e69ff;
+  cursor: pointer;
 }
 
-.h_followed
-{
-    cursor: pointer;
-    padding: 1rem 2rem;
-    border: 2px solid #ffffff;
-    border-radius: 25px;
-    color: rgb(255, 255, 255);
-    font-weight: 700;
-    background-color: rgba(255, 255, 255, 0.248);
+.h_followed {
+  cursor: pointer;
+  padding: 1rem 2rem;
+  border: 2px solid #ffffff;
+  border-radius: 25px;
+  color: rgb(255, 255, 255);
+  font-weight: 700;
+  background-color: rgba(255, 255, 255, 0.248);
 }
 
-.h_settings
-{
-    margin-right: 1rem;
-    background: none;
-    border: none;
-    color: white;
-    
+.h_settings {
+  margin-right: 1rem;
+  background: none;
+  border: none;
+  color: white;
 }
 
-#leave
-{
-    right: 10px;
-    margin-top: 0.8rem; 
+#leave {
+  right: 10px;
+  margin-top: 0.8rem;
 }
 
-#leave button{
-    margin-bottom: 0;
+#leave button {
+  margin-bottom: 0;
 }
-
 
 .container {
-    position: relative;
-    width: 120px;
-    height: 120px;
-    top: 180px;
-    left: 15px;
-    border-radius: 35px;
-  }
-  
-  .image {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-  
-  .overlay {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
-    width: 100%;
-    opacity: 0;
-    transition: .5s ease;
-    background-color: #11111187;
-    border-radius: 35px;
-  }
-  
-  .container:hover .overlay {
-    opacity: 1;
-  }
-  
-  .text {
-    color: white;
-    font-size: 30px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    text-align: center;
-    cursor: pointer;
-  }
+  position: relative;
+  width: 120px;
+  height: 120px;
+  top: 180px;
+  left: 15px;
+  border-radius: 35px;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: 0.5s ease;
+  background-color: #11111187;
+  border-radius: 35px;
+}
+
+.container:hover .overlay {
+  opacity: 1;
+}
+
+.text {
+  color: white;
+  font-size: 30px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+  cursor: pointer;
+}

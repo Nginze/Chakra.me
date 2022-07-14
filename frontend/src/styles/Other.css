@@ -1,13 +1,11 @@
-#other
-{
-    margin-top: 6rem;
+#other {
+  margin-top: 6rem;
 }
-#other .p-btn, #other .s-btn    
-{
-    margin-top: 1.25rem;
+#other .p-btn,
+#other .s-btn {
+  margin-top: 1.25rem;
 }
-.follow-btn
-{
+.follow-btn {
   font-size: 1.1rem;
   font-weight: 350;
   align-self: center;
@@ -23,8 +21,7 @@
   cursor: pointer;
 }
 
-.unfollow
-{
+.unfollow {
   position: absolute;
   width: 6rem;
   bottom: -2.2rem;
@@ -38,8 +35,7 @@
   justify-content: center;
 }
 
-.unfollow button
-{
+.unfollow button {
   color: red;
   width: 100%;
   background: none;

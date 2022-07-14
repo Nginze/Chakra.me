@@ -1,238 +1,213 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Jura:wght@300;400;500;600&family=Koulen&family=Lato:wght@300;400&family=League+Spartan:wght@100;300;400;500&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;1,100;1,200&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap');
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Jura:wght@300;400;500;600&family=Koulen&family=Lato:wght@300;400&family=League+Spartan:wght@100;300;400;500&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;1,100;1,200&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
-.logo
-{
-    font-family: jura;
-    cursor: pointer;
-    font-size: 1.5rem;
-    display: flex;
-    align-items: center;
+.logo {
+  font-family: jura;
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
 }
-.main-container
-{   z-index: 4;
-    position: fixed;
-    top: 0;
-    width: 100vw;
-    height: 4rem;
-    background-color: rgb(255, 255, 255);
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-    display: flex;
-    justify-content: center;
-   
-}
-
-.nav-container{
-    display: flex;
-    align-items: center;
-    width: 80%;
-    justify-content: space-between;
+.main-container {
+  z-index: 4;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 4rem;
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  display: flex;
+  justify-content: center;
 }
 
-.search-container
-{
-    width: 25%;
+.nav-container {
+  display: flex;
+  align-items: center;
+  width: 80%;
+  justify-content: space-between;
 }
 
-.search{
-    width: 100%;
-    height: 2.3rem;
-    color: rgb(119, 119, 119);
-    background-color:#eeeeef;
-    border-radius: 5px;
-    border: none;
-    padding: 0.5rem;
-    padding-left: 2rem
-   
+.search-container {
+  width: 25%;
+}
+
+.search {
+  width: 100%;
+  height: 2.3rem;
+  color: rgb(119, 119, 119);
+  background-color: #eeeeef;
+  border-radius: 5px;
+  border: none;
+  padding: 0.5rem;
+  padding-left: 2rem;
 }
 
 .material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 48
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
 }
 
-.nav-links
-{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 2.5rem;
+.nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 2.5rem;
 }
 
 .nav-links a {
-    background-color: #f2f4f7;
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    margin-left: 1rem;
-    color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-color: #f2f4f7;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  margin-left: 1rem;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.nav-links .iconify
-{
-    font-size: 1.5rem;
-    cursor: pointer;
-    font-weight: 100;
+.nav-links .iconify {
+  font-size: 1.5rem;
+  cursor: pointer;
+  font-weight: 100;
 }
 
-#search-icon
-{
-    position: absolute;
-    top: 1.5rem;
-    margin-left: 0.6rem;
+#search-icon {
+  position: absolute;
+  top: 1.5rem;
+  margin-left: 0.6rem;
 }
 
-.nav-profile
-{
-    margin-left: 1rem;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    align-self: center;
-    position: relative;
-   
+.nav-profile {
+  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  align-self: center;
+  position: relative;
 }
 
-.nav-profile .post-profile-img
-{
-    width: 30px;
-    height: 30px;
+.nav-profile .post-profile-img {
+  width: 30px;
+  height: 30px;
 }
 
-
-
-.drop-btn
-{
-    width: 15px;
-    height: 15px;
-    cursor: pointer;
-    margin-left: 0.5rem;
-   
+.drop-btn {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  margin-left: 0.5rem;
 }
 
-.profile-menu
-{
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    background-color: white;
-    width: 10rem;
-    top: 2rem;
-    box-shadow: rgb(0 0 0 / 10%) 0px 1px 3px 0px, rgb(0 0 0 / 6%) 0px 1px 2px 0px;
-    align-items: center;
-    border-radius: 8px;
-    --animate-duration: 0.3s;
+.profile-menu {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  background-color: white;
+  width: 10rem;
+  top: 2rem;
+  box-shadow: rgb(0 0 0 / 10%) 0px 1px 3px 0px, rgb(0 0 0 / 6%) 0px 1px 2px 0px;
+  align-items: center;
+  border-radius: 8px;
+  --animate-duration: 0.3s;
 }
 
-
-
-.profile-menu a
-{
-    border: none;
-    background: none;
-    padding: 0.5rem;
-    cursor: pointer;
-    width: 90%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    font-size: 0.8rem;
-    text-decoration: none;
-    color: black;
-    text-align: left;
-    border-bottom: 0.5px solid rgba(106, 106, 106, 0.308);
-
+.profile-menu a {
+  border: none;
+  background: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 0.8rem;
+  text-decoration: none;
+  color: black;
+  text-align: left;
+  border-bottom: 0.5px solid rgba(106, 106, 106, 0.308);
 }
 
-.search-results-container
-{
-    background-color: rgb(255, 255, 255);
-    height: auto;
-    max-height: 15rem;
-    position: fixed;
-    width: 268px;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
-    overflow-y: auto;
-    margin-top: 0.2rem;
+.search-results-container {
+  background-color: rgb(255, 255, 255);
+  height: auto;
+  max-height: 15rem;
+  position: fixed;
+  width: 268px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
+    rgb(209, 213, 219) 0px 0px 0px 1px inset;
+  overflow-y: auto;
+  margin-top: 0.2rem;
 }
 
-.search-results-container .post-info
-{
-    cursor: pointer;
-    margin-left: 0;
-    padding: 0.5rem 1rem;
+.search-results-container .post-info {
+  cursor: pointer;
+  margin-left: 0;
+  padding: 0.5rem 1rem;
 }
 
-.search-results-container .post-info:hover
-{
-    background-color: rgba(0, 0, 0, 0.093);
-    
+.search-results-container .post-info:hover {
+  background-color: rgba(0, 0, 0, 0.093);
 }
 
-.tool-tip-img{
-    width: 40px;
-    height: 40px;
-    border-radius: 100%;
+.tool-tip-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
 }
 
 .account-name {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 13px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
 }
 
-.empty-user-state{
-    background-color: #f2f4f7;
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    margin-left: 1rem;
-    color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+.empty-user-state {
+  background-color: #f2f4f7;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  margin-left: 1rem;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
-.logout-btn{
-    font-size: 13px;
+.logout-btn {
+  font-size: 13px;
 }
 
-.logout-btn div{
-    display: flex;
-    align-items: center;
+.logout-btn div {
+  display: flex;
+  align-items: center;
 }
 
-.logout-btn .iconify{
-    margin-right: 0.5rem;
+.logout-btn .iconify {
+  margin-right: 0.5rem;
 }
 
-.notification{
-    background-color: #f2f4f7;
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    margin-left: 1rem;
-    color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+.notification {
+  background-color: #f2f4f7;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  margin-left: 1rem;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
-.notification-header{
-    margin-bottom:1rem ;
-    font-weight: 600;
-    font-size: 14px;
+.notification-header {
+  margin-bottom: 1rem;
+  font-weight: 600;
+  font-size: 14px;
 }
