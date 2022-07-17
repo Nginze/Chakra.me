@@ -82,7 +82,7 @@ const Nav = () => {
     setHasNewNotifications(hasNew);
   }, [activity]);
   return (
-    !isLoginScreen && (
+    !isLoginScreen && user && (
       <>
         <div className="main-container">
           <nav className="nav-container">

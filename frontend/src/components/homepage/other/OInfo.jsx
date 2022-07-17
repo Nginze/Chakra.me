@@ -2,11 +2,13 @@ import axios from "axios";
 import { React, useState } from "react";
 import ContentLoader from "react-content-loader";
 import { useQuery, useQueryClient } from "react-query";
+import { useNavigate } from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
 import { getUser } from "../../../helpers";
 import FModal from "../profile/FModal";
 
 const OInfo = ({ user }) => {
+  const navigate = useNavigate();
   const { data: follower } = useQuery("user", getUser);
   const [showFollowers, setFollowers] = useState(false);
   const [showFollowing, setFollowing] = useState(false);
@@ -32,6 +34,32 @@ const OInfo = ({ user }) => {
       withCredentials: true,
     });
     return res.data;
+  };
+  const createConversation = async () => {
+    const { data: conversation } = await axios({
+      method: "get",
+      url: `http://localhost:5000/conversation/find/${user._id}/${follower._id}`,
+      withCredentials: true,
+      data: {
+        userId: user._id,
+        followerId: follower._id,
+      },
+    });
+    if (conversation) {
+      navigate("/direct");
+    } else {
+      const res = await axios({
+        method: "post",
+        url: "http://localhost:5000/conversation",
+        withCredentials: true,
+        data: {
+          senderId: follower._id,
+          receiverId: user._id,
+        },
+      });
+      console.log(res)
+      navigate("/direct");
+    }
   };
   const submitFollow = async () => {
     setLoading(true);
@@ -83,6 +111,7 @@ const OInfo = ({ user }) => {
                 }}
               >
                 <button
+                  onClick={createConversation}
                   style={{
                     marginRight: "1rem",
                     padding: "0.3rem",

@@ -127,7 +127,7 @@ const Story = ({ toggle, setStories, increaseIndex }) => {
                 }}
                 class="stories__item-picture"
               >
-                <img src={user?.imgUrl} alt="gail_pena's profile picture" />
+                <img src={user?.imgUrl}  />
               </div>
               <i
                 onClick={() => {
@@ -140,7 +140,7 @@ const Story = ({ toggle, setStories, increaseIndex }) => {
               <span class="stories__item-username">Your Story</span>
             </button>
           </div>
-
+          
           {user?.storyInbox.map(story => {
             return (
               <div
