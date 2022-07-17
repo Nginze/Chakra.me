@@ -1,5 +1,5 @@
 import axios from "axios";
-import { React, useContext, useState } from "react";
+import { React, useContext, useState, useEffect } from "react";
 import Tooltip from "react-power-tooltip";
 import { useQuery, useQueryClient } from "react-query";
 import { Link, useNavigate } from "react-router-dom";
@@ -21,6 +21,7 @@ const Nav = () => {
   const [showSearhContainer, setSearchContainer] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [hasNewNotifications, setHasNewNotifications] = useState(false);
   const { data: user, getUser } = useContext(userContext);
   const { users, setUsers, progress, setProgress } = useContext(usersContext);
   const isLoginScreen = window.location.pathname === "/";
@@ -50,11 +51,18 @@ const Nav = () => {
       url: `http://localhost:5000/user/logout`,
       withCredentials: true,
     });
-    navigate("/")
-    queryClient.invalidateQueries("user")
-    console.log(res)
+    navigate("/");
+    queryClient.invalidateQueries("user");
+    console.log(res);
+  };
+  const markNotification = async notificationId => {
+    const res = await axios({
+      method: "put",
+      url: `http://localhost:5000/notification/${notificationId}/markAsRead`,
+      withCredentials: true,
+    });
+  };
 
-  }
   const { data: activity, isLoading: a_loading } = useQuery(
     "activity",
     getActivity,
@@ -62,7 +70,17 @@ const Nav = () => {
       enabled: !!user,
     }
   );
-
+  const markAllNotification = () => {
+    activity.forEach(notification => {
+      markNotification(notification._id);
+    });
+  };
+  useEffect(() => {
+    const hasNew = activity?.some(notification => {
+      return notification.hasRead === false;
+    });
+    setHasNewNotifications(hasNew);
+  }, [activity]);
   return (
     !isLoginScreen && (
       <>
@@ -143,6 +161,9 @@ const Nav = () => {
               <div
                 className="notification"
                 onClick={() => {
+                  setHasNewNotifications(false);
+                  markAllNotification();
+                  queryClient.invalidateQueries("activity");
                   setShowNotifications(!showNotifications);
                   setShowProfileMenu(false);
                 }}
@@ -153,6 +174,19 @@ const Nav = () => {
                   data-icon="ic:outline-notifications"
                   data-width="20"
                 ></span>
+                {hasNewNotifications && (
+                  <span
+                    style={{
+                      backgroundColor: "#2276ff",
+                      position: "absolute",
+                      width: "10px",
+                      height: "10px",
+                      right: "0",
+                      top: "0",
+                      borderRadius: "50%",
+                    }}
+                  ></span>
+                )}
                 <Tooltip
                   show={showNotifications}
                   arrowAlign="end"
@@ -210,7 +244,7 @@ const Nav = () => {
                       </div>
                     </div>
                     <div className="logout-btn">
-                      <div onClick={Logout}>
+                      <div style={{ width: "100%" }} onClick={Logout}>
                         <span
                           class="iconify"
                           data-icon="carbon:logout"

@@ -19,5 +19,19 @@ const createNotification = (req, res) => {
   });
   newNotfication.save().then(res.status(200).json({ success: true }));
 };
-
-module.exports = { getNotificationsById, createNotification };
+const markAsRead = async (req, res) => {
+  try{
+    await Notification.updateOne(
+    { _id: req.params.id },
+    {
+      $set: {
+        hasRead: true
+      },
+    }
+  );
+  res.status(200).json({succesful: true})
+  }catch(err){
+    res.status(500).json(err)
+  }
+};
+module.exports = { getNotificationsById, createNotification, markAsRead };
