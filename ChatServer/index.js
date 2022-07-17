@@ -1,8 +1,8 @@
 const { addUser, getRecipient, removeUser } = require("./helpers");
 
-const io = require("socket.io")(8900, {
+const io = require("socket.io")(8900 || process.env.PORT, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "*"],
   },
 });
 
