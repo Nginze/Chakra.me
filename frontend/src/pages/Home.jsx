@@ -9,6 +9,7 @@ import StoryModal from "../components/homepage/StoryModal";
 import "../styles/Home.css";
 
 const Home = () => {
+  // localStorage.removeItem('isAuth')
   const [type, setType] = useState("recent");
   const [stories, setStories] = useState([]);
   const [showStory, setShowStory] = useState(false);

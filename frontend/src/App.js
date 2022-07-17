@@ -14,6 +14,7 @@ import Spaces from "./pages/Spaces";
 import { PrivateRoutes } from "./Utils/PrivateRoutes";
 
 function App() {
+  
   return (
     <div className="App">
       <UserProvider>

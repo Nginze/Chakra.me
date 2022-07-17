@@ -3,6 +3,9 @@ import { Navigate, Outlet } from "react-router-dom";
 import { userContext } from "../contexts/UserContext";
 
 export const PrivateRoutes = () => {
-  const { data:user, isAuth } = useContext(userContext);
-  return <>{ isAuth || user ? <Outlet /> : <Navigate to="/" />}</>;
+  const { isLoading, data:user } = useContext(userContext);
+  if(isLoading){
+    return <h1 style={{marginBottom: '6rem'}}>Please wait...</h1>
+  }
+  return <>{user ? <Outlet /> : <Navigate to="/" />}</>;
 };

@@ -44,7 +44,16 @@ const Nav = () => {
     });
     setSearchResults(res.data);
   };
+  const Logout = async () => {
+    const res = await axios({
+      method: "get",
+      url: `http://localhost:5000/user/logout`,
+      withCredentials: true,
+    });
+    queryClient.invalidateQueries("user")
+    console.log(res)
 
+  }
   const { data: activity, isLoading: a_loading } = useQuery(
     "activity",
     getActivity,
@@ -200,7 +209,7 @@ const Nav = () => {
                       </div>
                     </div>
                     <div className="logout-btn">
-                      <div>
+                      <div onClick={Logout}>
                         <span
                           class="iconify"
                           data-icon="carbon:logout"

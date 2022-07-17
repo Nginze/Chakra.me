@@ -21,8 +21,7 @@ router.get("/all", (req, res) => {
 });
 
 router.get("/logout", (req, res) => {
-  req.logout();
-  req.session.destroy();
+  req.logOut(() => req.session.destroy());
 
   res.status(200).json({
     isAuth: req.isAuthenticated(),
