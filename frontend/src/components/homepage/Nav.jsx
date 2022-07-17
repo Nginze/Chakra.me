@@ -50,6 +50,7 @@ const Nav = () => {
       url: `http://localhost:5000/user/logout`,
       withCredentials: true,
     });
+    navigate("/")
     queryClient.invalidateQueries("user")
     console.log(res)
 

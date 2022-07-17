@@ -70,4 +70,36 @@ router.get("/search/users", async (req, res) => {
   });
   res.status(200).json(docs);
 });
+
+router.put("/:id/changeDetails", async (req, res) => {
+  try {
+    if (req.body.imgbase64) {
+      const result = await cloudinary.uploader.upload(req.body.imgbase64);
+      console.log(result);
+      await User.updateOne(
+        { _id: req.params.id },
+        {
+          $set: {
+            userName: req.body.userName,
+            bio: req.body.bio,
+            imgUrl: result.secure_url,
+          },
+        }
+      );
+    } else {
+      await User.updateOne(
+        { _id: req.params.id },
+        {
+          $set: {
+            userName: req.body.userName,
+            bio: req.body.bio,
+          },
+        }
+      );
+    }
+    res.status(200).json({ sucessful: true });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 module.exports = router;
