@@ -11,6 +11,7 @@ import NewProfile from "./pages/NewProfile";
 import Other from "./pages/Other";
 import Profile from "./pages/Profile";
 import Spaces from "./pages/Spaces";
+import { PrivateRoutes } from "./Utils/PrivateRoutes";
 
 function App() {
   return (
@@ -19,14 +20,16 @@ function App() {
         <UsersProvider>
           <Nav />
           <Routes>
-            <Route path="/test" element={<NewProfile />} />
             <Route path="/" element={<Login />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/profiles/:username/:id" element={<Other />} />
             <Route path="/auth/callback" element={<Callback />} />
-            <Route path="/direct" element={<Chat />} />
-            <Route path="/spaces/:id" element={<Spaces />} />
+            <Route element={<PrivateRoutes />}>
+              <Route path="/test" element={<NewProfile />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/profiles/:username/:id" element={<Other />} />
+              <Route path="/direct" element={<Chat />} />
+              <Route path="/spaces/:id" element={<Spaces />} />
+            </Route>
           </Routes>
         </UsersProvider>
       </UserProvider>

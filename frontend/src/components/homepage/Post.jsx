@@ -203,7 +203,7 @@ const Post = ({ post }) => {
               </div>
             </div>
           </div>
-          <ShareModal show={true} toggle={setShareModal} />
+          <ShareModal show={false} toggle={setShareModal} />
           {showComments && comments && (
             <CommentSection
               toggle={getComments}

@@ -1,14 +1,14 @@
-import { React, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { React, useContext, useEffect } from "react";
+import { userContext } from "../contexts/UserContext";
 
 const Callback = () => {
-  const navigate = useNavigate();
+  const {data: user} = useContext(userContext)
   useEffect(() => {
     if (window.opener.location.pathname === "/") {
-      window.opener.location.replace("/home");
+      user && window.opener.location.replace("/home");
     }
     if (window.opener) {
-      window.close();
+      user && window.close();
     }
   });
   return <div style={{ marginTop: "6rem" }}>Please Wait ... </div>;
