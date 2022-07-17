@@ -42,8 +42,7 @@ const PInfo = ({ user }) => {
               </span>
             </div>
             <p className="p-bio">
-              TRACY❤️✨ God first❤🙏 ❣music lover💃♫ 💙blue is the colour 😘
-              bestie @koffee.jnr 🤗❤
+             {user.bio} 
             </p>
           </div>
         </div>

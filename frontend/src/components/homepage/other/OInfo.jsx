@@ -126,7 +126,7 @@ const OInfo = ({ user }) => {
               {user.following.length} following{" "}
             </span>
           </div>
-          <p className="p-bio">I'm just a guy man bro!!</p>
+          <p className="p-bio">{user.bio}</p>
         </div>
       </div>
       <div className="rule"></div>

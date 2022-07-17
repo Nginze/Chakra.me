@@ -1,6 +1,7 @@
 .s_profile {
   align-items: center;
   width: 100%;
+  cursor: pointer;
 }
 .s_profile .cta {
   background-color: #2e69ff44;

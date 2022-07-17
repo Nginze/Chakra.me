@@ -1,8 +1,12 @@
 import { React } from "react";
+import { useQueryClient } from "react-query";
+import { useNavigate } from "react-router-dom";
 
 const S_Profile = ({ data }) => {
+  const queryClient = useQueryClient()
+  const navigate = useNavigate()
   return (
-    <div className="s_profile">
+    <div onClick={() => {queryClient.invalidateQueries("other");navigate(`/profiles/${data.userName}/${data._id}`)} } className="s_profile">
       <img
         style={{
           width: "2rem",

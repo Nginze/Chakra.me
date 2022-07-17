@@ -16,6 +16,9 @@ var UserSchema = new Schema({
     type: String,
     required: true,
   },
+  bio: {
+    type: String, 
+  },
 
   followers: [{ type: Schema.Types.ObjectId, ref: "Users" }],
 
