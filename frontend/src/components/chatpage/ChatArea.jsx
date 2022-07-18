@@ -2,12 +2,14 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import ContentShimmer, { ProfileShimmer } from "react-content-shimmer";
 import { useQuery } from "react-query";
+import { useSearchParams } from "react-router-dom";
 import "../.././styles/ChatArea.css";
 import { userContext } from "../../contexts/UserContext";
 import ChatButton from "./ChatButton";
 import Message from "./Message";
 
 const ChatArea = ({ activeUsers, socket }) => {
+  const [searchParams] = useSearchParams();
   const [chatMessages, setChatMessages] = useState(null);
   const [conversationId, setConversationId] = useState(null);
   const [receiverData, setReceiver] = useState(null);
@@ -17,7 +19,7 @@ const ChatArea = ({ activeUsers, socket }) => {
   const { data: user } = useContext(userContext);
 
   socket.on("get-message", ({ senderId, message, imgUrl }) => {
-    console.log(message);
+    console.log(imgUrl);
     setArrivalMessage({
       imgUrl,
       sender: senderId,
@@ -30,6 +32,13 @@ const ChatArea = ({ activeUsers, socket }) => {
     arrivalMessage && setChatMessages(prev => [...prev, arrivalMessage]);
   }, [arrivalMessage]);
 
+  const fetchNewConversation = async () => {
+    return await axios({
+      method: "get",
+      url: `http://localhost:5000/conversation/${searchParams.get("cid")}/byId`,
+      withCredentials: true,
+    });
+  };
   const sendMessage = async e => {
     e.preventDefault();
     setChatMessages([
@@ -49,7 +58,7 @@ const ChatArea = ({ activeUsers, socket }) => {
       console.log("recipient is online");
       socket.emit("send-message", {
         receiverId: receiverData._id,
-        imgUrl: receiverData.imgUrl,
+        imgUrl: user.imgUrl,
         senderId: user._id,
         message,
       });
@@ -95,6 +104,26 @@ const ChatArea = ({ activeUsers, socket }) => {
       enabled: !!user,
     }
   );
+  const { data: newConversation } = useQuery(
+    "newConversation",
+    fetchNewConversation,
+    {
+      enabled: !!searchParams.get("cid"),
+    }
+  );
+
+  const notUser = newConversation?.data.members.find(
+    _user => _user._id != user._id
+  );
+  useEffect(() => {
+    if (searchParams.get("cid")) {
+      axios({
+        method: "get",
+        url: `http://localhost:5000/user/${searchParams.get("rcv")}`,
+        withCredentials: true,
+      }).then(res => fetchMessages(searchParams.get("cid"), res.data));
+    }
+  }, []);
 
   return (
     <div id="chat-area">
@@ -144,6 +173,16 @@ const ChatArea = ({ activeUsers, socket }) => {
                 </div>
               );
             })}
+          {newConversation && (
+            <>
+              <div>
+                <ChatButton
+                  img={notUser?.imgUrl}
+                  userName={notUser?.userName}
+                />
+              </div>
+            </>
+          )}
           {conversations?.map(conversation => {
             const notUser = conversation.members.find(
               _user => _user._id != user._id

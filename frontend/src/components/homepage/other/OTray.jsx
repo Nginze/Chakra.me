@@ -5,8 +5,16 @@ const OTray = ({ isLoading, posts }) => {
   return (
     <div id="p-tray">
       <div className="p-tray-head">
-        <button className={"p-btn t-active"}>
-          <i class="fi fi-rs-apps"></i>
+        <button 
+        style={{
+          background: 'none',
+          border: 'none',
+          display: 'flex',
+          alignItems: 'center',
+          cursor: 'pointer'
+        }}
+        className={"t-active"}>
+          <i style={{marginRight: '0.3rem'}} class="fi fi-rs-apps"></i>
           <span>Posts</span>
           {<div className="p-underline"></div>}
         </button>

@@ -29,6 +29,7 @@ io.on("connection", socket => {
   });
 
   socket.on("send-message", ({ senderId, receiverId, imgUrl, message }) => {
+    console.log(imgUrl)
     const recipient = getRecipient(activeUsers, receiverId);
     io.to(recipient.socketId).emit("get-message", {
       senderId,

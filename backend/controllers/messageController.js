@@ -1,5 +1,5 @@
 const Message = require("../models/Message");
-
+const Conversation = require("../models/Converstation")
 const createMessage = async (req, res) => {
   console.log("hit");
   console.log(req.body);
@@ -9,6 +9,14 @@ const createMessage = async (req, res) => {
     message: req.body.message,
   });
   const savedMessage = await newMessage.save();
+  await Conversation.updateOne(
+    { _id: req.body.conversationId },
+    {
+      $set: {
+        hasMessages: true
+      },
+    }
+  );
   try {
     res.status(200).json(savedMessage);
   } catch (err) {

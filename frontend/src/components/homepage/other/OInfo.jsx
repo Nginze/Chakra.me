@@ -1,6 +1,7 @@
 import axios from "axios";
 import { React, useState } from "react";
 import ContentLoader from "react-content-loader";
+import ContentShimmer, { ProfileShimmer } from "react-content-shimmer";
 import { useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
@@ -46,9 +47,9 @@ const OInfo = ({ user }) => {
       },
     });
     if (conversation) {
-      navigate("/direct");
+      navigate(`/direct?cid=${conversation._id}&rcv=${user._id}`);
     } else {
-      const res = await axios({
+      const {data: newConversation} = await axios({
         method: "post",
         url: "http://localhost:5000/conversation",
         withCredentials: true,
@@ -57,8 +58,8 @@ const OInfo = ({ user }) => {
           receiverId: user._id,
         },
       });
-      console.log(res)
-      navigate("/direct");
+      console.log(newConversation);
+      navigate(`/direct?cid=${newConversation._id}&rcv=${user._id}`);
     }
   };
   const submitFollow = async () => {
@@ -87,7 +88,7 @@ const OInfo = ({ user }) => {
     }
   );
 
-  return user ? (
+  return user && followingState ? (
     <div id="p-info">
       <div className="p-meta-container">
         <img id="p-img" src={user.imgUrl} />
@@ -158,7 +159,7 @@ const OInfo = ({ user }) => {
           <p className="p-bio">{user.bio}</p>
         </div>
       </div>
-      <div className="rule"></div>
+
       <FModal
         show={showFollowers}
         data={user}
@@ -173,16 +174,34 @@ const OInfo = ({ user }) => {
       />
     </div>
   ) : (
-    <ContentLoader
-      viewBox="0 0 400 160"
-      height={160}
-      width={200}
-      backgroundColor="transparent"
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "18px 20px",
+      }}
     >
-      <circle cx="150" cy="86" r="8" />
-      <circle cx="194" cy="86" r="8" />
-      <circle cx="238" cy="86" r="8" />
-    </ContentLoader>
+      <ContentShimmer
+        style={{ width: "150px", height: "150px", marginRight: '2rem' }}
+        size={{ height: 150, width: 150 }}
+        rounded="100%"
+      />
+      <div>
+        <ContentShimmer
+          style={{ height: 20, width: "300px" , marginBottom: '1rem'}}
+          size={{ height: 50 }}
+        />
+         <ContentShimmer
+          style={{ height: 20, width: "200px" , marginBottom: '1rem'}}
+          size={{ height: 50 }}
+        />
+          <ContentShimmer
+          style={{ height: 20, width: "250px"  }}
+          size={{ height: 50 }}
+        />
+      </div>
+    </div>
   );
 };
 

@@ -3,6 +3,10 @@ const { Schema } = mongoose;
 const ConversationSchema = new Schema(
   {
     members: [{ type: Schema.Types.ObjectId, ref: "Users" }],
+    hasMessages: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

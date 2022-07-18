@@ -41,13 +41,10 @@ const PInfo = ({ user }) => {
                 {user.following.length} following{" "}
               </span>
             </div>
-            <p className="p-bio">
-             {user.bio} 
-            </p>
+            <p className="p-bio">{user.bio}</p>
           </div>
         </div>
       )}
-      <div className="rule"></div>
       <EModal show={EModalOpen} toggle={setEModalOpen} />
       <FModal
         show={showFollowers}
