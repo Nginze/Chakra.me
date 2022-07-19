@@ -1,4 +1,4 @@
-const { addUser, getRecipient, removeUser } = require("./helpers");
+const { addUser, getRecipient, removeUser, removeFromCommunity } = require("./helpers");
 
 const io = require("socket.io")(8900 || process.env.PORT, {
   cors: {
@@ -22,14 +22,21 @@ io.on("connection", socket => {
     io.emit("last-active", lastActive)
     io.emit("send-active-users", activeUsers);
   });
+    socket.on("disconnect", () => {
+    removeFromCommunity(activeUsers, activeCommunityMembers, socket.id)
+  })
 
   socket.on("disconnect", () => {
     console.log(socket.id, "disconnected");
-    removeUser(activeUsers, socket.id);
+    // removeFromCommunity(activeCommunityMembers, activeUsers, socket.id)
+    removeUser(activeUsers,socket.id);
     io.emit("last-active", lastActive)
     io.emit("send-active-users", activeUsers);
+    io.emit("activeCommunities", activeCommunityMembers)
     console.log(activeUsers);
   });
+
+
 
   socket.on("send-message", ({ senderId, receiverId, imgUrl, message }) => {
     console.log(imgUrl)
@@ -42,4 +49,16 @@ io.on("connection", socket => {
     });
     io.emit("last-active", lastActive)
   });
+  socket.on("community-join", ({communityId, userId}) => {
+    const hasStaleConnection = activeUsers.some(user => user.userId == userId);
+    if(!activeCommunityMembers[communityId]){
+      activeCommunityMembers[communityId] = [];
+    }
+    if(communityId && !activeCommunityMembers[communityId].includes(userId)){
+      activeCommunityMembers[communityId].push(userId)
+    }
+
+    io.emit("activeCommunities", activeCommunityMembers)
+
+  })
 });

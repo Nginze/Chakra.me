@@ -6,7 +6,7 @@ import AdminEdit from "./AdminEdit";
 import Rule from "./Rule";
 import RuleModal from "./RuleModal";
 
-const SpaceSideBar = ({ admins, members, isAdmin, community }) => {
+const SpaceSideBar = ({ admins, members, isAdmin, community, activeMembers }) => {
   const [show, setShow] = useState(false);
   const [showPostModal, setShowPostModal] = useState(false);
   const [showRulesModal, setShowRulesModal] = useState(false);
@@ -63,7 +63,8 @@ const SpaceSideBar = ({ admins, members, isAdmin, community }) => {
                   fontWeight: "500",
                 }}
               >
-                {onlineMembers(activeUsers)}
+             
+                {activeMembers?.length}
               </span>
               <span style={{ fontSize: "12px" }}>Members Online</span>
             </span>

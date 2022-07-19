@@ -7,12 +7,13 @@ import Feed from "../components/homepage/Feed";
 import Hero from "../components/spaces/Hero";
 import SpaceSideBar from "../components/spaces/SpaceSideBar";
 import { userContext } from "../contexts/UserContext";
-
+import { socket } from "../components/chatpage/SocketManager";
 const Spaces = () => {
   const { data: user } = useContext(userContext);
   const { id } = useParams();
   const [type, setType] = useState("recent");
   const [isAdmin, setIsAdmin] = useState(false);
+  const [activeMembers, setActiveMembers] = useState([]);
 
   const getCommunity = async () => {
     const community = await axios({
@@ -70,6 +71,21 @@ const Spaces = () => {
       },
     }
   );
+   useEffect(() => {
+    socket.emit("check-in", user?._id);
+  }, [user]);
+
+  useEffect(() => {
+    socket.on("activeCommunities", activeCommunities => {
+      const activeMembers = activeCommunities[community?._id];
+      console.log(activeCommunities);
+      setActiveMembers(activeMembers);
+    });
+    socket.emit("community-join", {
+      communityId: community?._id,
+      userId: user._id,
+    });
+  }, [community]);
 
   return (
     <div>
@@ -121,6 +137,7 @@ const Spaces = () => {
           isAdmin={isAdmin}
           admins={community?.admins}
           members={community?.members}
+          activeMembers={activeMembers}
         />
       </div>
     </div>

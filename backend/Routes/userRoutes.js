@@ -102,4 +102,12 @@ router.put("/:id/changeDetails", async (req, res) => {
     res.status(500).json(err);
   }
 });
+router.put('/:id/save', async (req,res) => {
+  try{
+    await User.updateOne({_id: req.params._id}, {$addToSet: {saved: req.body.postId}})
+    res.status(200).json({succesful: true})
+  }catch(err){
+    res.status(500).json(err)
+  }
+})
 module.exports = router;

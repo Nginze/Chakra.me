@@ -14,6 +14,7 @@ const OInfo = ({ user }) => {
   const [showFollowers, setFollowers] = useState(false);
   const [showFollowing, setFollowing] = useState(false);
   const [isLoading, setLoading] = useState(false);
+  const [chatLoading, setChatLoading] = useState(false);
   const [showUnfollow, setUnfollow] = useState(false);
   const queryClient = useQueryClient();
   const createNotfication = message => {
@@ -37,6 +38,7 @@ const OInfo = ({ user }) => {
     return res.data;
   };
   const createConversation = async () => {
+    setChatLoading(true);
     const { data: conversation } = await axios({
       method: "get",
       url: `http://localhost:5000/conversation/find/${user._id}/${follower._id}`,
@@ -47,9 +49,10 @@ const OInfo = ({ user }) => {
       },
     });
     if (conversation) {
-      navigate(`/direct?cid=${conversation._id}&rcv=${user._id}`);
+      navigate(`/direct?cid=${conversation._id}&rcv=${user._id}&existing=true`);
+      setChatLoading(false);
     } else {
-      const {data: newConversation} = await axios({
+      const { data: newConversation } = await axios({
         method: "post",
         url: "http://localhost:5000/conversation",
         withCredentials: true,
@@ -60,6 +63,7 @@ const OInfo = ({ user }) => {
       });
       console.log(newConversation);
       navigate(`/direct?cid=${newConversation._id}&rcv=${user._id}`);
+      setChatLoading(false);
     }
   };
   const submitFollow = async () => {
@@ -87,7 +91,22 @@ const OInfo = ({ user }) => {
       enabled: !!user && !!follower,
     }
   );
-
+  if (chatLoading) {
+    return (
+      <div
+        style={{
+          width: "100vw",
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <img src="https://img.icons8.com/color/80/000000/naruto-sign.png" />
+        <h1></h1>
+      </div>
+    );
+  }
   return user && followingState ? (
     <div id="p-info">
       <div className="p-meta-container">
@@ -183,21 +202,21 @@ const OInfo = ({ user }) => {
       }}
     >
       <ContentShimmer
-        style={{ width: "150px", height: "150px", marginRight: '2rem' }}
+        style={{ width: "150px", height: "150px", marginRight: "2rem" }}
         size={{ height: 150, width: 150 }}
         rounded="100%"
       />
       <div>
         <ContentShimmer
-          style={{ height: 20, width: "300px" , marginBottom: '1rem'}}
+          style={{ height: 20, width: "300px", marginBottom: "1rem" }}
           size={{ height: 50 }}
         />
-         <ContentShimmer
-          style={{ height: 20, width: "200px" , marginBottom: '1rem'}}
+        <ContentShimmer
+          style={{ height: 20, width: "200px", marginBottom: "1rem" }}
           size={{ height: 50 }}
         />
-          <ContentShimmer
-          style={{ height: 20, width: "250px"  }}
+        <ContentShimmer
+          style={{ height: 20, width: "250px" }}
           size={{ height: 50 }}
         />
       </div>

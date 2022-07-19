@@ -2,6 +2,7 @@ import "animate.css";
 import axios from "axios";
 import moment from "moment";
 import { React, useContext, useState } from "react";
+import toast from "react-hot-toast";
 import Tooltip from "react-power-tooltip";
 import { userContext } from "../../contexts/UserContext";
 import "../../styles/Post.css";
@@ -38,6 +39,18 @@ const Post = ({ post }) => {
       .catch(err => {
         console.log(err);
       });
+  };
+  const savePost = async () => {
+    const res = await axios({
+      method: "put",
+      url: `http://localhost:5000/user/${user._id}/save`,
+      withCredentials: true,
+      data: {
+        postId: post._id,
+      },
+    });
+    toast.success("Saved Post")
+    console.log(res)
   };
   const likePost = () => {
     setLikes(likes + 1);
@@ -100,6 +113,7 @@ const Post = ({ post }) => {
                   >
                     <div>
                       <div
+                        onClick={savePost}
                         style={{
                           display: "flex",
                           alignItems: "center",

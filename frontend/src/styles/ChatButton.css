@@ -6,6 +6,9 @@
   cursor: pointer;
   align-items: center;
 }
+#chat-button:active{
+    background-color: #0fcc45;
+}
 
 #chat-button:hover {
   background-color: #eeefee4e;

@@ -17,7 +17,7 @@ var UserSchema = new Schema({
     required: true,
   },
   bio: {
-    type: String, 
+    type: String,
   },
 
   followers: [{ type: Schema.Types.ObjectId, ref: "Users" }],
@@ -25,6 +25,8 @@ var UserSchema = new Schema({
   following: [{ type: Schema.Types.ObjectId, ref: "Users" }],
 
   posts: [{ type: Schema.Types.ObjectId, ref: "Posts" }],
+
+  saved: [{ type: Schema.Types.ObjectId, ref: "Posts" }],
 
   storyInbox: [{ type: Schema.Types.ObjectId, ref: "Story" }],
 });

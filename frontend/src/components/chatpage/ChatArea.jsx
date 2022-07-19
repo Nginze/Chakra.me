@@ -1,6 +1,6 @@
 import axios from "axios";
 import moment from "moment";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import ContentShimmer, { ProfileShimmer } from "react-content-shimmer";
 import { useQuery } from "react-query";
 import { useSearchParams } from "react-router-dom";
@@ -8,16 +8,17 @@ import "../.././styles/ChatArea.css";
 import { userContext } from "../../contexts/UserContext";
 import ChatButton from "./ChatButton";
 import Message from "./Message";
-
+import InputEmoji from "react-input-emoji";
 const ChatArea = ({ activeUsers, socket }) => {
   const [searchParams] = useSearchParams();
-  const [lastActive, setLastActive] = useState();
+  const [lastActive, setLastActive] = useState({});
   const [chatMessages, setChatMessages] = useState(null);
   const [conversationId, setConversationId] = useState(null);
   const [receiverData, setReceiver] = useState(null);
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const [isLoadingChat, setLoadingChat] = useState(false);
   const [message, setMessage] = useState("");
+  const scrollRef = useRef();
   const { data: user } = useContext(userContext);
 
   socket.on("get-message", ({ senderId, message, imgUrl }) => {
@@ -31,7 +32,7 @@ const ChatArea = ({ activeUsers, socket }) => {
   });
 
   socket.on("last-active", lastActive => setLastActive(lastActive));
-
+  useEffect(() => scrollRef.current?.scrollIntoView({behavior: "smooth"}) , [chatMessages])
   useEffect(() => {
     arrivalMessage && setChatMessages(prev => [...prev, arrivalMessage]);
   }, [arrivalMessage]);
@@ -44,7 +45,7 @@ const ChatArea = ({ activeUsers, socket }) => {
     });
   };
   const sendMessage = async e => {
-    e.preventDefault();
+    // e.preventDefault();
     setChatMessages([
       ...chatMessages,
       {
@@ -112,12 +113,14 @@ const ChatArea = ({ activeUsers, socket }) => {
     "newConversation",
     fetchNewConversation,
     {
-      enabled: !!searchParams.get("cid"),
+      enabled: !!(searchParams.get("cid") && !searchParams.get("existing")),
     }
   );
-  const timeState = Math.abs(
-    moment(lastActive[receiverData._id]).diff(moment(Date.now()), "seconds")
-  );
+  const timeState =
+    lastActive &&
+    Math.abs(
+      moment(lastActive[receiverData?._id]).diff(moment(Date.now()), "seconds")
+    );
 
   const notUser = newConversation?.data.members.find(
     _user => _user._id != user._id
@@ -240,7 +243,7 @@ const ChatArea = ({ activeUsers, socket }) => {
                 {timeState > 0 && timeState < 180 ? (
                   <span>Online</span>
                 ) : (
-                  <span>{moment(lastActive[receiverData._id]).fromNow()}</span>
+                  <span>{moment(lastActive[receiverData?._id]).fromNow()}</span>
                 )}
               </div>
             </div>
@@ -248,6 +251,7 @@ const ChatArea = ({ activeUsers, socket }) => {
           <div className="message-area">
             {chatMessages.map(message => {
               return (
+                <div ref={scrollRef}>
                 <Message
                   imgUrl={message?.imgUrl}
                   messageInfo={message}
@@ -256,17 +260,21 @@ const ChatArea = ({ activeUsers, socket }) => {
                     message.sender === user._id
                   }
                 />
+                </div>
               );
             })}
           </div>
-          <form>
-            <button onClick={sendMessage}>Send</button>
-            <input
+           <InputEmoji
               value={message}
-              onChange={e => setMessage(e.target.value)}
+              onChange={setMessage}
+              onEnter={sendMessage}
+              cleanOnEnter
               placeholder="Message..."
             />
-          </form>
+          {/* <form>
+            <button onClick={sendMessage}>Send</button>
+           
+          </form> */}
         </div>
       ) : (
         <div className="message-area-alt">
