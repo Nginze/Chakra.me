@@ -1,4 +1,5 @@
 import axios from "axios";
+import moment from "moment";
 import React, { useContext, useEffect, useState } from "react";
 import ContentShimmer, { ProfileShimmer } from "react-content-shimmer";
 import { useQuery } from "react-query";
@@ -10,6 +11,7 @@ import Message from "./Message";
 
 const ChatArea = ({ activeUsers, socket }) => {
   const [searchParams] = useSearchParams();
+  const [lastActive, setLastActive] = useState();
   const [chatMessages, setChatMessages] = useState(null);
   const [conversationId, setConversationId] = useState(null);
   const [receiverData, setReceiver] = useState(null);
@@ -27,6 +29,8 @@ const ChatArea = ({ activeUsers, socket }) => {
       createdAt: Date.now(),
     });
   });
+
+  socket.on("last-active", lastActive => setLastActive(lastActive));
 
   useEffect(() => {
     arrivalMessage && setChatMessages(prev => [...prev, arrivalMessage]);
@@ -111,6 +115,9 @@ const ChatArea = ({ activeUsers, socket }) => {
       enabled: !!searchParams.get("cid"),
     }
   );
+  const timeState = Math.abs(
+    moment(lastActive[receiverData._id]).diff(moment(Date.now()), "seconds")
+  );
 
   const notUser = newConversation?.data.members.find(
     _user => _user._id != user._id
@@ -189,7 +196,11 @@ const ChatArea = ({ activeUsers, socket }) => {
             );
             return (
               <div onClick={() => fetchMessages(conversation._id, notUser)}>
-                <ChatButton img={notUser.imgUrl} userName={notUser.userName} />
+                <ChatButton
+                  img={notUser.imgUrl}
+                  userName={notUser.userName}
+                  lastActive={lastActive[notUser._id]}
+                />
               </div>
             );
           })}
@@ -226,7 +237,11 @@ const ChatArea = ({ activeUsers, socket }) => {
               />
               <div className="user-meta">
                 <span>{receiverData?.userName}</span>
-                <span>Active 4h ago</span>
+                {timeState > 0 && timeState < 180 ? (
+                  <span>Online</span>
+                ) : (
+                  <span>{moment(lastActive[receiverData._id]).fromNow()}</span>
+                )}
               </div>
             </div>
           </div>
