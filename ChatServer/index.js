@@ -2,7 +2,7 @@ const { addUser, getRecipient, removeUser, removeFromCommunity } = require("./he
 
 const io = require("socket.io")(process.env.PORT || 8900 , {
   cors: {
-    origin: ["http://localhost:3000", "*"],
+    origin: ["https://chakrame.herokuapp.com", "*"],
   },
 });
 
