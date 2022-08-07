@@ -1,9 +1,12 @@
 const Comment = require("../models/Comment");
 
-const getComments = (req, res) => {
-  Comment.find({ postId: req.params.postId }).then(comments => {
+const getComments = async (req, res) => {
+  try {
+    const comments = await Comment.find({ postId: req.params.postId });
     res.status(200).json(comments);
-  });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
 const createComment = (req, res) => {
