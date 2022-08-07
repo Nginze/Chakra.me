@@ -14,7 +14,7 @@ Built on the infamous MERN stack, chakra pulls the best of the very best from re
 
 ## Demo
 
-Insert gif or link to demo
+![Alt Text](https://res.cloudinary.com/chakra-me/image/upload/v1658248049/chakrardme_r1rhmx.gif)
 
 
 ## Features
