@@ -9,7 +9,7 @@ const getComments = async (req, res) => {
   }
 };
 
-const createComment = (req, res) => {
+const createComment = async (req, res) => {
   const newComment = new Comment({
     message: req.body.message,
     userId: req.body.userId,
@@ -19,13 +19,21 @@ const createComment = (req, res) => {
     postId: req.body.postId,
     replier: req.body.replier,
   });
-  newComment.save().then(res.status(200).json({ success: true }));
+  try {
+    await newComment.save();
+    res.status(200).json({ success: true });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
-const getReplies = (req, res) => {
-  Comment.find({ parentId: req.params.parentId }).then(comment => {
+const getReplies = async (req, res) => {
+  try {
+    const comment = await Comment.find({ parentId: req.params.parentId });
     res.status(200).json(comment);
-  });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
 const postLike = (req, res) => {
