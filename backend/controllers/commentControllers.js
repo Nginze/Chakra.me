@@ -36,10 +36,15 @@ const getReplies = async (req, res) => {
   }
 };
 
-const postLike = (req, res) => {
-  Comment.updateOne(
-    { _id: req.params.commentId },
-    { $addToSet: { upvotes: req.body.userId } }
-  ).then(console.log("done"));
+const postLike = async (req, res) => {
+  try {
+    await Comment.updateOne(
+      { _id: req.params.commentId },
+      { $addToSet: { upvotes: req.body.userId } }
+    );
+    res.status(200).json({success: true});
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 module.exports = { getComments, createComment, getReplies, postLike };

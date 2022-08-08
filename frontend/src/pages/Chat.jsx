@@ -2,7 +2,7 @@ import React from "react";
 // import {io} from 'socket.io-client'
 import { useContext, useEffect, useState } from "react";
 import ChatArea from "../components/chatpage/ChatArea";
-import { socket } from "../components/chatpage/SocketManager";
+import { socket } from "../services/SocketManager";
 import { userContext } from "../contexts/UserContext";
 import "../styles/Chat.css";
 

@@ -7,7 +7,7 @@ import Feed from "../components/homepage/Feed";
 import Hero from "../components/spaces/Hero";
 import SpaceSideBar from "../components/spaces/SpaceSideBar";
 import { userContext } from "../contexts/UserContext";
-import { socket } from "../components/chatpage/SocketManager";
+import { socket } from "../services/SocketManager";
 const Spaces = () => {
   const { data: user } = useContext(userContext);
   const { id } = useParams();
