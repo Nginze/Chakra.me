@@ -1,20 +1,16 @@
 const { redisClient } = require("./redisConfig");
 const addUser = (userId, socketId) => {
-  // const userExists = activeUsers.some(user => user.userId === userId);
-  // if (!userExists) {
-  //   activeUsers.push({ userId, socketId });
-  // }
-  redisClient.set(userId, socketId);
   redisClient.sAdd("activeUsers", userId);
+  redisClient.set(userId, socketId);
 };
 
-const removeUser = socketId => {
-  console.log("removed", socketId);
-  redisClient.sRem
+const removeUser = userId => {
+  console.log("removed", userId);
+  redisClient.sRem("activeUsers", userId);
 };
 
-const getRecipient = (activeUsers, recipientId) => {
-  return activeUsers.find(user => user.userId == recipientId);
+const getRecipient = recipientId => {
+  return redisClient.get(recipientId);
 };
 
 const removeFromCommunity = (activeUsers, activeCommunityMembers, socketId) => {
