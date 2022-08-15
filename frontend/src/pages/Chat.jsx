@@ -9,7 +9,6 @@ import "../styles/Chat.css";
 const Chat = () => {
   const [activeUsers, setActiveUsers] = useState(null);
   const { data: user } = useContext(userContext);
-  // const socket = useRef(io("ws://localhost:8900"));
   socket.on("send-active-users", activeUsers => {
     setActiveUsers(activeUsers);
     console.log(activeUsers);
