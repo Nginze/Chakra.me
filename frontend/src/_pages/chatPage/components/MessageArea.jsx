@@ -11,8 +11,9 @@ import React from "react";
 import ChatInput from "./ChatInput";
 import Message from "./Message";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-const MessageArea = () => {
-  return (
+import { isMyself } from "../utils";
+const MessageArea = ({ openChat, setChat, user, currentReceiver, onlineUsers }) => {
+  return openChat ? (
     <>
       <Box
         sx={{
@@ -30,14 +31,15 @@ const MessageArea = () => {
           }}
         >
           <Avatar
-            sx={{ width: "24px", height: "24px", marginRight: '10px' }}
-            alt={"John"}
-            src={
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzHQv_th9wq3ivQ1CVk7UZRxhbPq64oQrg5Q&usqp=CAU"
-            }
+            sx={{ width: "24px", height: "24px", marginRight: "10px" }}
+            alt={currentReceiver.userName}
+            src={currentReceiver.imgUrl}
           />
           <Box>
-            <ListItemText primary={"John"} secondary={"Active Now"} />
+            <ListItemText
+              primary={currentReceiver.userName}
+              secondary={onlineUsers?.includes(currentReceiver._id) ? "Active Now" : "Offline"}
+            />
           </Box>
         </Box>
         {/* <IconButton sx={{width: '24px', height: '24px'}}>
@@ -52,51 +54,24 @@ const MessageArea = () => {
           padding: "20px",
         }}
       >
-        <Message
-          text={"Boy what the hell boy why are you a jon boy"}
-          avatar={
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzHQv_th9wq3ivQ1CVk7UZRxhbPq64oQrg5Q&usqp=CAU"
-          }
-          isMyself={true}
-        />
-        <Message
-          text={"Boy what the hell boy why are you a jon boy"}
-          avatar={
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzHQv_th9wq3ivQ1CVk7UZRxhbPq64oQrg5Q&usqp=CAU"
-          }
-          isMyself={false}
-        />
-        <Message
-          text={"Boy what the hell boy why are you a jon boy"}
-          avatar={
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzHQv_th9wq3ivQ1CVk7UZRxhbPq64oQrg5Q&usqp=CAU"
-          }
-          isMyself={true}
-        />
-        <Message
-          text={"Boy what the hell boy why are you a jon boy"}
-          avatar={
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzHQv_th9wq3ivQ1CVk7UZRxhbPq64oQrg5Q&usqp=CAU"
-          }
-        />
-        <Message
-          text={"Boy what the hell boy why are you a jon boy"}
-          avatar={
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzHQv_th9wq3ivQ1CVk7UZRxhbPq64oQrg5Q&usqp=CAU"
-          }
-        />
-        <Message
-          text={"Boy what the hell boy why are you a jon boy"}
-          avatar={
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzHQv_th9wq3ivQ1CVk7UZRxhbPq64oQrg5Q&usqp=CAU"
-          }
-        />
+        {openChat.map(message => (
+          <Message
+            text={message.message}
+            avatar={message.sender.imgUrl}
+            isMyself={isMyself(message.sender, user?._id)}
+          />
+        ))}
       </Box>
       <Box>
-        <ChatInput />
+        <ChatInput
+          openChat={openChat}
+          setChat={setChat}
+          user={user}
+          conversationId={openChat[0]?.conversationId}
+        />
       </Box>
     </>
-  );
+  ) : null;
 };
 
 export default MessageArea;

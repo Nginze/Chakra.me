@@ -1,9 +1,49 @@
 import { Grid } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useContext } from "react";
+import { useQueryClient } from "react-query";
+import { userContext } from "../../../contexts/UserContext";
+import { socketContext } from "../contexts/SocketContext";
+import useConversations from "../hooks/useConversations";
 import ChatPane from "./ChatPane";
 import MessageArea from "./MessageArea";
 
 const ChatBox = () => {
+  const { data: user } = useContext(userContext);
+  const { conversations } = useConversations(user?._id);
+  const [openChat, setChat] = useState();
+  const [currentReceiver, setReceiver] = useState();
+  const [msgTrigger, setTrigger] = useState(false);
+  const [onlineUsers, setOnlineUsers] = useState(false);
+  const { socket } = useContext(socketContext);
+  const queryClient = useQueryClient();
+
+  socket.off("online_users").on("online_users", list => {
+    setOnlineUsers(list);
+  });
+  socket.off("get_message").on("get_message", async payload => {
+    setTrigger(!msgTrigger);
+    const { conversationId } = payload;
+    await queryClient.cancelQueries(["messages", conversationId]);
+    if (
+      openChat &&
+      openChat[0].conversationId === conversationId &&
+      payload.sender._id !== user._id
+    ) {
+      console.log("hit first if");
+      setChat([...openChat, payload]);
+    }
+    if (payload.sender._id !== user._id) {
+      console.log("hit second if");
+      queryClient.setQueryData(["messages", conversationId], old => [
+        ...old,
+        payload,
+      ]);
+    }
+  });
+  useEffect(() => {
+    socket.emit("join-chats", conversations);
+  }, [conversations, socket]);
   return (
     <div
       style={{
@@ -11,7 +51,7 @@ const ChatBox = () => {
         height: "83vh",
         backgroundColor: "#fefeff",
         margin: "auto",
-        marginTop: "5rem"
+        marginTop: "5rem",
       }}
     >
       <Grid
@@ -26,18 +66,33 @@ const ChatBox = () => {
       >
         <Grid
           item
-          xs={3.5}
+          xs={4.3}
           sx={{
             backgroundColor: "#fefeff",
             height: "100%",
             borderRight: "1px solid #e0e0e0",
           }}
         >
-          <ChatPane />
+          <ChatPane
+            openChat={openChat}
+            msgTrigger={msgTrigger}
+            conversations={conversations}
+            user={user}
+            setChat={setChat}
+            setReceiver={setReceiver}
+            onlineUsers = {onlineUsers}
+            socket={socket}
+          />
         </Grid>
 
-        <Grid item xs={8.5} sx={{ backgroundColor: "#fefeff", height: "100%" }}>
-          <MessageArea />
+        <Grid item xs={7.7} sx={{ backgroundColor: "#fefeff", height: "100%" }}>
+          <MessageArea
+            openChat={openChat}
+            onlineUsers = {onlineUsers}
+            setChat={setChat}
+            user={user}
+            currentReceiver={currentReceiver}
+          />
         </Grid>
       </Grid>
     </div>

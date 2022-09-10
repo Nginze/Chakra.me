@@ -7,7 +7,9 @@ const connectToRedis = async () => {
     console.log(err);
   }
 };
-const redisClient = redis.createClient();
+const redisClient = redis.createClient({
+    url: `redis://default:0z2EOoNqAgl3jGeIcAhJH4xAWSFBeJNV@redis-12325.c250.eu-central-1-1.ec2.cloud.redislabs.com:12325`,
+});
 connectToRedis();
 redisClient.on("connect", err => {
   if (err) {
@@ -17,4 +19,4 @@ redisClient.on("connect", err => {
   }
 });
 
-module.exports = {redisClient};
+module.exports = { redisClient };

@@ -13,9 +13,9 @@ import Profile from "./pages/Profile";
 import Spaces from "./pages/Spaces";
 import Chat from "./_pages/chatPage"
 import { PrivateRoutes } from "./Utils/PrivateRoutes";
+import { socket } from "./services/SocketManager";
 
 function App() {
-  
   return (
     <div className="App">
       <UserProvider>
@@ -29,7 +29,7 @@ function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/profiles/:username/:id" element={<Other />} />
-              <Route path="/direct" element={<Chat />} />
+              <Route path="/direct" element={<Chat socket = {socket} />} />
               <Route path="/spaces/:id" element={<Spaces />} />
             </Route>
           </Routes>

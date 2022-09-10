@@ -2,7 +2,7 @@ import axios from "axios";
 import moment from "moment";
 import React, { useContext, useEffect, useState, useRef } from "react";
 import ContentShimmer, { ProfileShimmer } from "react-content-shimmer";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { useSearchParams } from "react-router-dom";
 import "../.././styles/ChatArea.css";
 import { userContext } from "../../contexts/UserContext";
@@ -20,19 +20,28 @@ const ChatArea = ({ activeUsers, socket }) => {
   const [message, setMessage] = useState("");
   const scrollRef = useRef();
   const { data: user } = useContext(userContext);
+  const queryClient = useQueryClient();
 
-  socket.on("get-message", ({ senderId, message, imgUrl }) => {
-    console.log(imgUrl);
-    setArrivalMessage({
-      imgUrl,
-      sender: senderId,
-      message: message,
-      createdAt: Date.now(),
-    });
+  socket.off("get_message").on("get_message", async payload => {
+    const { msg, conversationId } = payload;
+    console.log(payload);
+    await queryClient.cancelQueries(["messages", conversationId]);
+    queryClient.setQueryData(["messages", conversationId], old => [
+      ...old,
+      {
+        imgUrl: "hlkadf",
+        sender: "lkajjdlfkjasldkjf",
+        message: msg,
+        createdAt: Date.now(),
+      },
+    ]);
   });
 
   socket.on("last-active", lastActive => setLastActive(lastActive));
-  useEffect(() => scrollRef.current?.scrollIntoView({behavior: "smooth"}) , [chatMessages])
+  useEffect(
+    () => scrollRef.current?.scrollIntoView({ behavior: "smooth" }),
+    [chatMessages]
+  );
   useEffect(() => {
     arrivalMessage && setChatMessages(prev => [...prev, arrivalMessage]);
   }, [arrivalMessage]);
@@ -46,8 +55,9 @@ const ChatArea = ({ activeUsers, socket }) => {
   };
   const sendMessage = async e => {
     // e.preventDefault();
-    setChatMessages([
-      ...chatMessages,
+    // alert(conversationId)
+    queryClient.setQueryData(["messages", conversationId], old => [
+      ...old,
       {
         imgUrl: user.imgUrl,
         receiverId: receiverData._id,
@@ -87,7 +97,13 @@ const ChatArea = ({ activeUsers, socket }) => {
     });
     return data;
   };
-
+  const updateLastSeen = async (conversationId, userId) => {
+    await axios({
+      method: "put",
+      url: `http://localhost:5000/lastseen/${conversationId}/${userId}`,
+      withCredentials: true,
+    });
+  };
   const fetchMessages = async (conversationId, notUser) => {
     setLoadingChat(true);
     setReceiver(notUser);
@@ -109,6 +125,9 @@ const ChatArea = ({ activeUsers, socket }) => {
       enabled: !!user,
     }
   );
+  useEffect(() => {
+    socket.emit("join-chats", conversations);
+  }, [conversations]);
   const { data: newConversation } = useQuery(
     "newConversation",
     fetchNewConversation,
@@ -125,6 +144,16 @@ const ChatArea = ({ activeUsers, socket }) => {
   const notUser = newConversation?.data.members.find(
     _user => _user._id != user._id
   );
+
+  const getLastSeen = async () => {
+    const { data } = await axios({
+      method: "get",
+      url: `http://localhost:5000/lastseen/${user._id}`,
+      withCredentials: true,
+    });
+    return data;
+  };
+  const { data: lastSeen, isLoading } = useQuery(["lastSeen"], getLastSeen);
   useEffect(() => {
     if (searchParams.get("cid")) {
       axios({
@@ -146,7 +175,10 @@ const ChatArea = ({ activeUsers, socket }) => {
               justifyContent: "center",
             }}
           >
-            <img src="https://img.icons8.com/color/20/000000/naruto-sign.png" />
+            <img
+              alt=""
+              src="https://img.icons8.com/color/20/000000/naruto-sign.png"
+            />
             Chakra Messenger
           </span>
         </div>
@@ -197,12 +229,29 @@ const ChatArea = ({ activeUsers, socket }) => {
             const notUser = conversation.members.find(
               _user => _user._id != user._id
             );
+            const lSeen = lastSeen?.filter(
+              ls => ls.conversationId == conversation._id
+            )[0]?.updatedAt;
             return (
-              <div onClick={() => fetchMessages(conversation._id, notUser)}>
+              <div
+                onClick={() => {
+                  setChatMessages(
+                    queryClient.getQueryData(["messages", conversation?._id])
+                  );
+                  setConversationId(conversation._id)
+                  setReceiver(notUser)
+                  updateLastSeen(conversation._id, user._id);
+                  socket.emit("join_chat", conversation._id);
+                }}    
+              >
                 <ChatButton
                   img={notUser.imgUrl}
                   userName={notUser.userName}
                   lastActive={lastActive[notUser._id]}
+                  lastSeen={lSeen}
+                  notUser={notUser}
+                  conversationId={conversation._id}
+                  fetchMessages={fetchMessages}
                 />
               </div>
             );
@@ -249,28 +298,45 @@ const ChatArea = ({ activeUsers, socket }) => {
             </div>
           </div>
           <div className="message-area">
-            {chatMessages.map(message => {
+            {queryClient.getQueryData(["messages",conversationId])?.map(message => {
+              console.log({message})
               return (
                 <div ref={scrollRef}>
-                <Message
-                  imgUrl={message?.imgUrl}
-                  messageInfo={message}
-                  own={
-                    message.sender?._id === user._id ||
-                    message.sender === user._id
-                  }
-                />
+                  <Message
+                    imgUrl={message?.imgUrl}
+                    messageInfo={message}
+                    own={
+                      message.sender?._id === user._id ||
+                      message.sender === user._id
+                    }
+                  />
                 </div>
               );
             })}
           </div>
-           <InputEmoji
-              value={message}
-              onChange={setMessage}
-              onEnter={sendMessage}
-              cleanOnEnter
-              placeholder="Message..."
-            />
+          <InputEmoji
+            value={message}
+            onChange={setMessage}
+            onEnter={() => {
+              console.log("hit enter")
+              console.log(conversationId)
+              queryClient.setQueryData(["messages", conversationId], old => [
+                ...old,
+                {
+                  imgUrl: user.imgUrl,
+                  receiverId: receiverData._id,
+                  sender: user._id,
+                  message,
+                },
+              ]);
+              socket.emit("send_message", {
+                msg: message,
+                conversationId: conversationId,
+              });
+            }}
+            cleanOnEnter
+            placeholder="Message..."
+          />
           {/* <form>
             <button onClick={sendMessage}>Send</button>
            

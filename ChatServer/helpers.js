@@ -1,12 +1,12 @@
 const { redisClient } = require("./redisConfig");
-const addUser = (userId, socketId) => {
-  redisClient.sAdd("activeUsers", userId);
-  redisClient.set(userId, socketId);
+const addUser = async (userId, socketId) => {
+  userId && await redisClient.sAdd("onlineUsers", userId);
+  userId && await redisClient.set(userId, socketId);
 };
 
-const removeUser = userId => {
+const removeUser = async userId => {
   console.log("removed", userId);
-  redisClient.sRem("activeUsers", userId);
+  userId && await redisClient.sRem("onlineUsers", userId);
 };
 
 const getRecipient = recipientId => {

@@ -1,14 +1,17 @@
-import Chat from "./components/Chat";
+import { useContext } from "react";
+import { userContext } from "../../contexts/UserContext";
 import ChatBox from "./components/ChatBox";
-import ChatInput from "./components/ChatInput";
-import Message from "./components/Message";
-
-const Index = () => {
+import SocketProvider from "./contexts/SocketContext";
+const Index = ({ socket }) => {
+  const {data:user} = useContext(userContext)
+  socket.emit("log_in", user?._id)
   return (
     <>
-      <div style={{ width: "100vw", height: '100vh', overflowX: "hidden" }}>
-        <ChatBox />
-      </div>
+      <SocketProvider socket={socket}>
+        <div style={{ width: "100vw", height: "100vh", overflowX: "hidden" }}>
+          <ChatBox />
+        </div>
+      </SocketProvider>
     </>
   );
 };

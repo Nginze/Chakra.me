@@ -15,6 +15,7 @@ const communityRoutes = require("./Routes/communityRoutes");
 const storyRoutes = require("./Routes/storyRoutes");
 const messageRoutes = require("./Routes/messageRoutes");
 const conversationRoutes = require("./Routes/conversationRoutes");
+const lastSeenRoutes = require("./Routes/lastSeenRoutes");
 require("dotenv").config();
 require("./config/db.js");
 
@@ -49,6 +50,7 @@ app.use("/community", communityRoutes);
 app.use("/story", storyRoutes);
 app.use("/message", messageRoutes);
 app.use("/conversation", conversationRoutes);
+app.use("/lastseen", lastSeenRoutes);
 app.get("/", (req, res) => {
   res.send(`<p> Welcome to Chakra.me api </p>`);
 });
