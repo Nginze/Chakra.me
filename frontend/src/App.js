@@ -9,18 +9,21 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import NewProfile from "./pages/NewProfile";
 import Other from "./pages/Other";
-import Profile from "./pages/Profile";
+import Profile from "./_pages/profilePage"
+// import Profile from "./pages/Profile";
 import Spaces from "./pages/Spaces";
 import Chat from "./_pages/chatPage"
 import { PrivateRoutes } from "./Utils/PrivateRoutes";
 import { socket } from "./services/SocketManager";
+import Navbar from "./containers/navbar/";
 
 function App() {
   return (
     <div className="App">
       <UserProvider>
         <UsersProvider>
-          <Nav />
+          {/* <Nav /> */}
+          <Navbar/>
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/auth/callback" element={<Callback />} />
