@@ -1,43 +1,35 @@
-import * as React from "react";
-import { styled, alpha } from "@mui/material/styles";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
-import Badge from "@mui/material/Badge";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
-import SearchIcon from "@mui/icons-material/Search";
-import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
-import Diversity1OutlinedIcon from "@mui/icons-material/Diversity1Outlined";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import AddIcon from "@mui/icons-material/Add";
+import ChevronRightOutlined from "@mui/icons-material/ChevronRightOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+import ExitToAppOutlined from "@mui/icons-material/ExitToAppOutlined";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import { userContext } from "../../../contexts/UserContext";
+import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+import SearchIcon from "@mui/icons-material/Search";
+import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
+import WhatshotIcon from "@mui/icons-material/Whatshot";
 import {
   Autocomplete,
-  Avatar,
-  Icon,
-  InputAdornment,
-  TextField,
+  Avatar, InputAdornment, TextField
 } from "@mui/material";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import BallotOutlinedIcon from "@mui/icons-material/BallotOutlined";
-import Groups2OutlinedIcon from "@mui/icons-material/Groups2Outlined";
-import Dropdown from "./Dropdown";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import AppBar from "@mui/material/AppBar";
+import Badge from "@mui/material/Badge";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import InputBase from "@mui/material/InputBase";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import { alpha, styled } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
 import { Stack } from "@mui/system";
-import ExitToAppOutlined from "@mui/icons-material/ExitToAppOutlined";
-import ChevronRightOutlined from "@mui/icons-material/ChevronRightOutlined";
-import useNotifications from "../hooks/useNotifications";
 import axios from "axios";
+import * as React from "react";
+import { useState } from "react";
 import { useQueryClient } from "react-query";
+import { useNavigate } from "react-router-dom";
+import { userContext } from "../../../contexts/UserContext";
+import useNotifications from "../hooks/useNotifications";
+import Dropdown from "./Dropdown";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -92,6 +84,11 @@ export default function Navbar() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { notifications } = useNotifications(user?._id);
+  const [value, setValue] = useState("home");
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   const Logout = async () => {
     const res = await axios({
       method: "get",
@@ -163,7 +160,7 @@ export default function Navbar() {
       <MenuItem
         onClick={() => {
           handleMenuClose();
-          Logout()
+          Logout();
         }}
       >
         <ExitToAppOutlined fontSize="small" sx={{ marginRight: "0.5rem" }} />
@@ -230,119 +227,164 @@ export default function Navbar() {
         position="fixed"
         color="inherit"
         sx={{
+          height: "48px",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
           boxShadow:
             "rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;",
         }}
       >
-        <Toolbar
-          sx={{
-            width: "80%",
-            margin: "auto",
-            display: "flex",
-            justifyContent: "space-around",
-          }}
+        <Typography
+          variant="h6"
+          noWrap
+          component="div"
+          sx={{ display: { xs: "none", sm: "block" }, marginRight: "4rem" }}
         >
-          <Box>
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ display: { xs: "none", sm: "block" } }}
-            >
-              <div className="logo">
-                <img src="https://img.icons8.com/color/30/000000/naruto-sign.png" />
-                Chakra
-              </div>
-            </Typography>
-          </Box>
-          <Box sx={{ flexGrow: 0.5 }}>
-            <Autocomplete
-              freeSolo
-              fullWidth
-              size="small"
-              id="free-solo-2-demo"
-              disableClearable
-              options={[1, 2, 3, 4].map(option => option)}
-              renderInput={params => (
-                <TextField
-                  {...params}
-                  fullWidth
-                  placeholder="Search chakra"
-                  InputProps={{
-                    ...params.InputProps,
-                    type: "search",
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <IconButton aria-label="emojis">
-                          <SearchIcon />
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              )}
-            />
-          </Box>
-          {/* <Box sx={{ flexGrow: 1 }} /> */}
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton size="large">
-              <HomeOutlinedIcon fontSize="medium" />
-            </IconButton>
-            <IconButton size="large">
-              <BallotOutlinedIcon fontSize="medium" />
-            </IconButton>
-            {/* <IconButton size="small">
-              <Diversity1OutlinedIcon fontSize="large" />
-            </IconButton> */}
-            <IconButton
-              onClick={() => navigate("/direct")}
-              size="large"
-              aria-label="show 4 new mails"
-            >
-              <Badge badgeContent={0} color="error">
-                <EmailOutlinedIcon fontSize="medium" />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              id="basic-button"
-              aria-controls={isNotificationOpen ? "noti-menu" : undefined}
-              aria-haspopup="true"
-              aria-expanded={isNotificationOpen ? "true" : undefined}
-              onClick={handleNotificationMenuOpen}
-            >
-              <Badge badgeContent={0} color="error">
-                <NotificationsNoneOutlinedIcon fontSize="nedium" />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-            >
-              <Avatar
-                sx={{ width: "24px", height: "24px" }}
-                alt={user?.userName}
-                src={user?.imgUrl}
+          <div className="logo">
+            <img src="https://img.icons8.com/color/30/000000/naruto-sign.png" />
+            Chakra
+          </div>
+        </Typography>
+
+        <Box sx={{ flexGrow: 0.5, marginRight: "4rem" }}>
+          <Autocomplete
+            freeSolo
+            fullWidth
+            size="small"
+            id="free-solo-2-demo"
+            disableClearable
+            options={[1, 2, 3, 4].map(option => option)}
+            renderInput={params => (
+              <TextField
+                {...params}
+                sx={{
+                  width: "80%",
+                }}
+                placeholder="Search chakra"
+                InputProps={{
+                  ...params.InputProps,
+                  type: "search",
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <IconButton aria-label="emojis">
+                        <SearchIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
-            </IconButton>
-          </Box>
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
-        </Toolbar>
+            )}
+          />
+        </Box>
+        <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          <IconButton
+            sx={{
+              height: "32px",
+              width: "32px",
+              marginRight: "1rem",
+            }}
+            size="large"
+            aria-label="show 17 new notifications"
+            id="basic-button"
+            aria-controls={isNotificationOpen ? "noti-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={isNotificationOpen ? "true" : undefined}
+            onClick={handleNotificationMenuOpen}
+          >
+            <AddIcon
+              sx={{
+                fontSize: "26px",
+              }}
+            />
+          </IconButton>
+          <IconButton
+            sx={{
+              height: "32px",
+              width: "32px",
+              marginRight: "1rem",
+            }}
+            size="large"
+            aria-label="show 17 new notifications"
+            id="basic-button"
+            aria-controls={isNotificationOpen ? "noti-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={isNotificationOpen ? "true" : undefined}
+            onClick={handleNotificationMenuOpen}
+          >
+            <WhatshotIcon sx={{ fontSize: "26px" }} />
+          </IconButton>
+          <IconButton
+            sx={{
+              height: "32px",
+              width: "32px",
+              marginRight: "1rem",
+            }}
+            size="large"
+            aria-label="show 17 new notifications"
+            id="basic-button"
+            aria-controls={isNotificationOpen ? "noti-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={isNotificationOpen ? "true" : undefined}
+            onClick={handleNotificationMenuOpen}
+          >
+            <Badge badgeContent={0} color="error">
+              <NotificationsNoneOutlinedIcon sx={{ fontSize: "26px" }} />
+            </Badge>
+          </IconButton>
+
+          <IconButton
+            sx={{
+              height: "32px",
+              width: "32px",
+              marginRight: "1rem",
+            }}
+            size="large"
+            aria-label="show 17 new notifications"
+            id="basic-button"
+            aria-controls={isNotificationOpen ? "noti-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={isNotificationOpen ? "true" : undefined}
+            onClick={handleNotificationMenuOpen}
+          >
+            <TextsmsOutlinedIcon
+              sx={{
+                fontSize: "26px",
+              }}
+            />
+          </IconButton>
+          <IconButton
+            sx={{
+              height: "32px",
+              width: "32px",
+              marginRight: "1rem",
+            }}
+            size="large"
+            edge="end"
+            aria-label="account of current user"
+            aria-controls={menuId}
+            aria-haspopup="true"
+            onClick={handleProfileMenuOpen}
+          >
+            <Avatar
+              sx={{ width: "29px", height: "29px" }}
+              alt={user?.userName}
+              src={user?.imgUrl}
+            />
+          </IconButton>
+        </Box>
+        <Box sx={{ display: { xs: "flex", md: "none" } }}>
+          <IconButton
+            size="large"
+            aria-label="show more"
+            aria-controls={mobileMenuId}
+            aria-haspopup="true"
+            onClick={handleMobileMenuOpen}
+          >
+            <MoreIcon />
+          </IconButton>
+        </Box>
       </AppBar>
       <Dropdown
         anchorEl={notificationAchorEl}

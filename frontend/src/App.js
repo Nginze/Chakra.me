@@ -5,14 +5,15 @@ import UserProvider from "./contexts/UserContext";
 import UsersProvider from "./contexts/UsersContext";
 import Callback from "./pages/Callback";
 // import Chat from "./pages/Chat";
-import Home from "./pages/Home";
+// import Home from "./pages/Home";
 import Login from "./pages/Login";
 import NewProfile from "./pages/NewProfile";
 import Other from "./pages/Other";
 import Profile from "./_pages/profilePage"
 // import Profile from "./pages/Profile";
 import Spaces from "./pages/Spaces";
-import Chat from "./_pages/chatPage"
+import Chat from "./_pages/chatPage";
+import Home from "./_pages/homePage"
 import { PrivateRoutes } from "./Utils/PrivateRoutes";
 import { socket } from "./services/SocketManager";
 import Navbar from "./containers/navbar/";
